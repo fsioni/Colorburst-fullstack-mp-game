@@ -8,7 +8,7 @@
     "format": "npx prettier --write .",
     "lint": "npx eslint ./src",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "cd .. && husky install server/.husky"
+    "prepare": "cd .. && husky install ./server/.husky && chmod +x ./server/.husky/pre-commit"
   },
   "author": "",
   "license": "ISC",
