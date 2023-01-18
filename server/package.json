@@ -33,8 +33,12 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "npx eslint ./src",
-      "npx prettier --write ."
+      "npx prettier --write .",
+      "git add"
     ],
-    "*.{html,css,md,json}": "npx prettier --write ."
+    "*.{html,css,md,json}": [
+      "npx prettier --write .",
+      "git add"
+    ]
   }
 }
