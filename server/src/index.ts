@@ -2,8 +2,6 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 dotenv.config({ path: "config_var.env" });
 
-dotenv.config();
-
 const app: Express = express();
 const port = process.env.PORT;
 
@@ -14,5 +12,3 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
-
-console.log("testint pre-commit hook :)");

@@ -1,0 +1,8 @@
+{
+  "version": "0.0.1",
+  "name": "crawlavers-backend",
+  "dependencies": {
+    "dotenv": { "version": "16.0.3" },
+    "express": { "version": "4.18.2" }
+  }
+}

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "postdev": "cd ../crawlavers-backend && npm run start",
     "build": "tsc && vite build",
     "format": "npx prettier --write .",
     "lint": "npx eslint ./src",
