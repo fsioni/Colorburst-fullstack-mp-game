@@ -5,7 +5,9 @@ import * as socketio from "socket.io";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "config_var.env" });
-const port = process.env.PORT;
+const port: number | undefined = process.env.PORT
+  ? Number(process.env.PORT)
+  : undefined;
 
 const app: Express = express();
 
