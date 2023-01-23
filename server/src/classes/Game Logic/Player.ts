@@ -1,5 +1,5 @@
-import { Direction } from "./enums/Direction";
-import { Stats } from "./enums/Stats";
+import { Direction } from "../../enums/Direction";
+import { Stats } from "../../enums/Stats";
 import PlayerGameStats from "./PlayerGameStats";
 
 export default class Player {

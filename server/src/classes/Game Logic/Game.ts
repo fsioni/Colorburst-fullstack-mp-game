@@ -1,7 +1,7 @@
-import { Stats } from "./enums/Stats";
+import { Stats } from "../../enums/Stats";
 import Board from "./Board";
 import Player from "./Player";
-import Settings from "./Settings";
+import Settings from "../../interfaces/Settings";
 
 export default class Game {
   GameSettings: Settings;
