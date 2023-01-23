@@ -26,6 +26,17 @@ export default class Player {
     this.isAlive = true;
   }
 
+  ChangeDirection(direction: Direction) {
+    if (direction === Direction.Up && this.direction === Direction.Down) return;
+    if (direction === Direction.Down && this.direction === Direction.Up) return;
+    if (direction === Direction.Left && this.direction === Direction.Right)
+      return;
+    if (direction === Direction.Right && this.direction === Direction.Left)
+      return;
+
+    this.direction = direction;
+  }
+
   Move() {
     //Todo: vérifications
 
