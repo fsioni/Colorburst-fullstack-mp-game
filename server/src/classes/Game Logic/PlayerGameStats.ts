@@ -12,7 +12,7 @@ export default class name {
     this.blocksTravelled = 0;
   }
 
-  Add(type: Stats, amount: number) {
+  Add(type: Stats, amount: number): void {
     switch (type) {
       case Stats.KILL:
         this.kills += amount;

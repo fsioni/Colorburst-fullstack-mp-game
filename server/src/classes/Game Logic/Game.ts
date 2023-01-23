@@ -20,15 +20,15 @@ export default class Game {
     this.isJoinable = true;
   }
 
-  Join() {
+  Join(): void {
     throw new Error("not Implemented");
   }
 
-  Quit() {
+  Quit(): void {
     throw new Error("not Implemented");
   }
 
-  Kill(murder: Player, victim: Player) {
+  Kill(murder: Player, victim: Player): void {
     victim.Kill();
     victim.gameStats.Add(Stats.KILLED, 1);
     murder.gameStats.Add(Stats.KILL, 1);

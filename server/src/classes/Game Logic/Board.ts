@@ -20,15 +20,15 @@ export default class Board {
     }
   }
 
-  unionFind() {
+  unionFind(): void {
     throw new Error("not Implemented");
   }
 
-  spawn(player: Player) {
+  spawn(player: Player): void {
     throw new Error("not Implemented");
   }
 
-  clearPlayerTerritory(player: Player) {
+  clearPlayerTerritory(player: Player): void {
     throw new Error("not Implemented");
   }
 }
