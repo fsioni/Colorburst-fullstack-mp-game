@@ -1,4 +1,4 @@
-import * as express from "express";
+import express, { Express } from "express";
 import cors from "cors";
 import * as http from "http";
 import * as socketio from "socket.io";
@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config({ path: "config_var.env" });
 const port = process.env.PORT;
 
-const app = express.default();
+const app: Express = express();
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
@@ -16,8 +16,8 @@ app.get("/", (_req, res) => {
   res.send({ uptime: process.uptime() });
 });
 
-const server = http.createServer(app);
-const io = new socketio.Server(server, {
+const server: http.Server = http.createServer(app);
+const io: socketio.Server = new socketio.Server(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
