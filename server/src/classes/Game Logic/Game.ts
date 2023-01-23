@@ -1,3 +1,4 @@
+import { Stats } from "./enums/Stats";
 import Board from "./Board";
 import Player from "./Player";
 import Settings from "./Settings";
@@ -28,6 +29,9 @@ export default class Game {
   }
 
   Kill(murder: Player, victim: Player) {
+    victim.Kill();
+    victim.gameStats.Add(Stats.KILLED, 1);
+    murder.gameStats.Add(Stats.KILL, 1);
     throw new Error("not Implemented");
   }
 }

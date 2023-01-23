@@ -1,4 +1,6 @@
-import { Direction } from "./Direction";
+import { Direction } from "./enums/Direction";
+import { Stats } from "./enums/Stats";
+import PlayerGameStats from "./PlayerGameStats";
 
 export default class Player {
   id: string;
@@ -8,6 +10,7 @@ export default class Player {
     x: number;
     y: number;
   };
+  gameStats: PlayerGameStats;
   color: string;
   score: number;
   isAlive: boolean;
@@ -17,12 +20,15 @@ export default class Player {
     this.pseudo = "";
     this.direction = Direction.Up;
     this.position = { x: 0, y: 0 };
+    this.gameStats = new PlayerGameStats();
     this.color = "";
     this.score = 0;
     this.isAlive = true;
   }
 
   Move() {
+    //Todo: vérifications
+
     switch (this.direction) {
       case Direction.Up:
         this.position.y -= 1;
@@ -38,7 +44,7 @@ export default class Player {
         break;
     }
 
-    //Todo: vérifications
+    this.gameStats.Add(Stats.BLOCK_TRAVELLED, 1);
   }
 
   Kill() {
