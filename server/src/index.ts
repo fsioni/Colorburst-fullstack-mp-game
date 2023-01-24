@@ -3,6 +3,8 @@ import cors from "cors";
 import * as http from "http";
 import * as socketio from "socket.io";
 import dotenv from "dotenv";
+import Game from "./game";
+import Settings from "./interfaces/Settings";
 
 dotenv.config({ path: "config_var.env" });
 const port: number | undefined = process.env.PORT
@@ -23,14 +25,23 @@ const io: socketio.Server = new socketio.Server(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
+const settings: Settings = {
+  boardSize: 100,
+  nbPlayersMax: 0,
+  isPrivate: false,
+  invitationCode: null,
+};
+const game = new Game(io, settings);
+
 io.on("connection", (socket) => {
   // Get session id
-  console.log("📈 [server] New client connected", socket.id);
+  game.addPlayer(socket);
+  console.log("[Server] 📈 New client connected", socket.id);
   socket.on("disconnect", () => {
-    console.log("📉 [server] Client disconnected", socket.id);
+    console.log("[Server] 📉 Client disconnected", socket.id);
   });
 });
 
 server.listen(port, () => {
-  console.log(`⚡️ [server]: Server is running at http://localhost:${port}`);
+  console.log(`[Server] ⚡️ Server is running at http://localhost:${port}`);
 });
