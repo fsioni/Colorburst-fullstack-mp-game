@@ -4,31 +4,35 @@ import { GameBoard } from "./types";
 import "./Canvas.css";
 
 const Canvas = () => {
-  const canvasRef = useRef(null);
-  const gameBoard: GameBoard = new GameBoard(500);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const lastRenderTimeRef = useRef<number>();
 
-  const maxCells = 20;
+  const gameBoard: GameBoard = new GameBoard(200);
 
-  const [cellSize, setCellSize] = useState(20);
+  const maxCells = 24;
+
+  const [cellSize, setCellSize] = useState(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const context = canvas.getContext("2d");
+    if (!context) return;
     let animationFrameId: number;
 
-    function handleResize(canvas) {
+    function handleResize(canvas: HTMLCanvasElement) {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      const newCellSize = Math.min(canvas.width, canvas.height) / maxCells;
+      const newCellSize = Math.max(canvas.width, canvas.height) / maxCells;
       setCellSize(newCellSize);
-      console.log("resized to: ", window.innerWidth, "x", window.innerHeight);
     }
     handleResize(canvas);
     window.addEventListener("resize", () => handleResize(canvas));
 
     //Our draw came here
     const render = () => {
-      draw(context, gameBoard, cellSize);
+      draw(context, gameBoard, cellSize, lastRenderTimeRef);
+      lastRenderTimeRef.current = Date.now();
       animationFrameId = window.requestAnimationFrame(render);
     };
     render();
@@ -36,16 +40,11 @@ const Canvas = () => {
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [draw, cellSize]);
+  }, [gameBoard, draw, cellSize]);
 
   return (
     <div>
-      <canvas
-        className="game"
-        ref={canvasRef}
-        height="400px"
-        width="400px"
-      ></canvas>
+      <canvas className="game" ref={canvasRef}></canvas>
     </div>
   );
 };

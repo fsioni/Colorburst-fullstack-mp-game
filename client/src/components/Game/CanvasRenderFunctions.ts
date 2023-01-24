@@ -1,18 +1,18 @@
-import fillColors from "./CanvasFillColors";
 import { GameBoard } from "./types";
 
 const draw = (
   ctx: CanvasRenderingContext2D,
   gameBoard: GameBoard,
-  cellSize: number
+  cellSize: number,
+  lastRenderTimeRef: React.MutableRefObject<number | undefined>
 ) => {
+  const timeNow = Date.now();
+  if (!lastRenderTimeRef.current) return;
+  const deltaTime = timeNow - lastRenderTimeRef.current;
+
   clearCanvas(ctx);
-  ctx.fillStyle = fillColors.player;
-  for (let i = 0; i < gameBoard.length; i++) {
-    for (let j = 0; j < gameBoard.length; j++) {
-      gameBoard.getCell(i, j).draw(ctx, i, j, cellSize);
-    }
-  }
+  gameBoard.draw(ctx, cellSize);
+  lastRenderTimeRef.current = timeNow;
 };
 
 const clearCanvas = (ctx: CanvasRenderingContext2D) => {
