@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import Game from "./game";
 import Settings from "./interfaces/Settings";
 
+const log = (...text: string[]) => console.log(`[Server] ${text.join(" ")}`);
+
 dotenv.config({ path: "config_var.env" });
 const port: number | undefined = process.env.PORT
   ? Number(process.env.PORT)
@@ -36,12 +38,12 @@ const game = new Game(io, settings);
 io.on("connection", (socket) => {
   // Get session id
   game.addPlayer(socket);
-  console.log("[Server] 📈 New client connected", socket.id);
+  log("📈 New client connected", socket.id);
   socket.on("disconnect", () => {
-    console.log("[Server] 📉 Client disconnected", socket.id);
+    log("📉 Client disconnected", socket.id);
   });
 });
 
 server.listen(port, () => {
-  console.log(`[Server] ⚡️ Server is running at http://localhost:${port}`);
+  log(`⚡️ Server is running at http://localhost:${port}`);
 });
