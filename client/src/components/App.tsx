@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
 import io from "socket.io-client";
+import Game from "./Game/Game";
 const socket = io("http://localhost:3000");
 
 const keysDirection: string[] = [
@@ -13,7 +14,6 @@ const keysDirection: string[] = [
 let tempoKey = Date.now();
 
 export default function App() {
-  const canvasRef = useRef(null);
   const direction = useRef(Number(0));
 
   useEffect(() => {
@@ -30,5 +30,9 @@ export default function App() {
     document.addEventListener("keydown", KeyHandler);
   });
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <div>
+      <Game />
+    </div>
+  );
 }
