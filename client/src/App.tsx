@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 import io from "socket.io-client";
 const socket = io("http://localhost:3000");
@@ -9,17 +9,26 @@ const keysDirection: string[] = [
   "ArrowLeft",
   "ArrowRight",
 ];
-console.log(keysDirection);
+
+let tempoKey = Date.now();
+
 export default function App() {
+  const canvasRef = useRef(null);
+  const direction = useRef(Number(0));
+
   useEffect(() => {
     // Keyboards events
-    document.addEventListener("keydown", (e) => {
-      console.log(e.key);
-      if (keysDirection.includes(e.key)) {
-        socket.emit("directionChange", keysDirection.indexOf(e.key));
-      }
-    });
+    const KeyHandler = (e: KeyboardEvent) => {
+      // Avoid spaming and only accept the right keys
+      const keyId = keysDirection.indexOf(e.key);
+      if (keyId == -1 || Date.now() - tempoKey < 100) return;
+      tempoKey = Date.now();
+
+      direction.current = keysDirection.indexOf(e.key);
+      socket.emit("directionChange", keysDirection.indexOf(e.key));
+    };
+    document.addEventListener("keydown", KeyHandler);
   });
 
-  return <div>Client</div>;
+  return <canvas ref={canvasRef} />;
 }
