@@ -3,7 +3,7 @@ import cors from "cors";
 import * as http from "http";
 import * as socketio from "socket.io";
 import dotenv from "dotenv";
-import db from "./database/index";
+import { db, getUsers } from "./database/index";
 dotenv.config({ path: "config_var.env" });
 const port = process.env.PORT;
 
@@ -33,7 +33,6 @@ server.listen(port, () => {
   console.log(`⚡️ [server]: Server is running at http://localhost:${port}`);
 });
 
-const database = new db();
-database.getUsers().then((users) => {
+getUsers().then((users) => {
   console.log(users);
 });
