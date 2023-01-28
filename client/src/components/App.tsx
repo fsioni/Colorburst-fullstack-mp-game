@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
 import io from "socket.io-client";
-import Game from "./Game/Game";
 const socket = io("http://localhost:3000");
 
 const keysDirection: string[] = [
@@ -32,7 +31,7 @@ export default function App() {
 
   return (
     <div>
-      <Game />
+      <h1>ColorBurst</h1>
     </div>
   );
 }
