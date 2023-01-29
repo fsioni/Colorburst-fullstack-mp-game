@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Player from "../gameObjects/Player";
 
 /**
  * FirstGameScene is an example Phaser Scene
@@ -7,8 +8,6 @@ import Phaser from "phaser";
  * @public
  */
 export class FirstGameScene extends Phaser.Scene {
-  private controls!: Phaser.Cameras.Controls.SmoothedKeyControl;
-
   constructor() {
     super("FirstGameScene");
     console.log("FirstGameScene.constructor()");
@@ -16,24 +15,18 @@ export class FirstGameScene extends Phaser.Scene {
 
   preload() {
     console.log("FirstGameScene.preload");
+    this.load.spritesheet("playerHeads", "src/assets/img/player_heads.png", {
+      frameWidth: 142,
+      frameHeight: 183,
+    });
   }
 
   create() {
-    const cursors = this.input.keyboard.createCursorKeys();
-
-    this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl({
-      camera: this.cameras.main,
-      left: cursors.left,
-      right: cursors.right,
-      up: cursors.up,
-      down: cursors.down,
-      acceleration: 0.06,
-      drag: 0.0005,
-      maxSpeed: 1.0,
-    });
-
     const { width, height } = this.sys.canvas;
-    this.add.grid(width / 2, height / 2, width, height, 64, 64, 0x00b9f2); //.setAltFillStyle(0x016fce)//.setOutlineStyle();
+    this.add
+      .grid(width / 2, height / 2, width, height, 142, 142, 0x00b9f2)
+      .setAltFillStyle(0x016fce)
+      .setOutlineStyle();
 
     const graphics = this.add.graphics({ fillStyle: { color: 0xff0000 } });
 
@@ -52,9 +45,8 @@ export class FirstGameScene extends Phaser.Scene {
 
       graphics.fillCircleShape(circle);
     });
-  }
 
-  update(time: number, deltaTime: number) {
-    this.controls.update(deltaTime);
+    const player = this.add.existing(new Player(this, 200, 200, true));
+    this.cameras.main.startFollow(player, true, 0.1, 0.1);
   }
 }
