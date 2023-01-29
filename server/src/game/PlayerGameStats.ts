@@ -1,4 +1,4 @@
-import { Stats } from "./enums/Stats";
+import { Stats } from "../enums/Stats";
 export default class name {
   kills: number;
   killed: number;

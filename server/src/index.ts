@@ -3,8 +3,7 @@ import cors from "cors";
 import * as http from "http";
 import * as socketio from "socket.io";
 import dotenv from "dotenv";
-import Game from "./game";
-import Settings from "./interfaces/Settings";
+import Game from "./Game";
 
 const log = (...text: string[]) => console.log(`[Server] ${text.join(" ")}`);
 
@@ -27,21 +26,16 @@ const io: socketio.Server = new socketio.Server(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
-const settings: Settings = {
+const game = new Game(io, {
   boardSize: 100,
   nbPlayersMax: 0,
   isPrivate: false,
   invitationCode: null,
-};
-const game = new Game(io, settings);
+});
 
 io.on("connection", (socket) => {
-  // Get session id
-  game.addPlayer(socket);
-  log("📈 New client connected", socket.id);
-  socket.on("disconnect", () => {
-    log("📉 Client disconnected", socket.id);
-  });
+  // Join the game
+  game.join(socket);
 });
 
 server.listen(port, () => {

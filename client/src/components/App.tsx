@@ -4,6 +4,10 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:3000");
 
+socket.on("playersPositions", (data: any) => {
+  console.log(data);
+});
+
 const keysDirection: string[] = [
   "ArrowUp",
   "ArrowDown",
