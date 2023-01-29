@@ -27,7 +27,7 @@ const io: socketio.Server = new socketio.Server(server, {
 });
 
 const game = new Game(io, {
-  boardSize: 100,
+  boardSize: 20,
   nbPlayersMax: 0,
   isPrivate: false,
   invitationCode: null,

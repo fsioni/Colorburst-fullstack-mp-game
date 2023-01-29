@@ -3,14 +3,7 @@ import Player from "./Player";
 import Settings from "./Settings";
 import { Server, Socket } from "socket.io";
 import Cell from "./Cell";
-
-interface playersPositions {
-  position: {
-    x: number;
-    y: number;
-  };
-  direction: number;
-}
+import { playersPositions } from "./interfaces";
 
 export default class Game {
   socketServer: Server;
@@ -64,12 +57,15 @@ export default class Game {
       x: Math.max(Math.floor(Math.random() * this.boardSize) - 10, 10),
       y: Math.max(Math.floor(Math.random() * this.boardSize) - 10, 10),
     };
+
+    // On occupe les case en 5*5 autour du joueur 2 + 1 + 2
+    this.gameBoard.occupeCells(player.position, 2, player.id);
     this.sendPlayersPositions();
   }
 
   get playersPositions(): playersPositions[] {
     return this.alivePlayers.map((player) => ({
-      position: player.position,
+      ...player.position,
       direction: player.direction,
     }));
   }
@@ -104,6 +100,12 @@ export default class Game {
     });
   }
 
+  private sendMapToPlayers(): void {
+    this.alivePlayers.forEach((player) => {
+      player.socket.emit("map", this.boardCells);
+    });
+  }
+
   private movePlayers(): void {
     this.alivePlayers.forEach((player) => {
       player.Move();
@@ -113,10 +115,11 @@ export default class Game {
       if (x < 0 || x > this.boardSize || y < 0 || y > this.boardSize) {
         player.isAlive = false;
         player.socket.emit("gameOver");
-        this.sendPlayersPositions();
         this.spawnPlayer(player);
       }
     });
+    this.sendPlayersPositions();
+    this.sendMapToPlayers();
     console.log(this.playersPositions);
   }
 }

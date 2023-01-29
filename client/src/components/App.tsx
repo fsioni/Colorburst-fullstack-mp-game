@@ -8,6 +8,10 @@ socket.on("playersPositions", (data: any) => {
   console.log(data);
 });
 
+socket.on("map", (data: any) => {
+  console.log(data);
+});
+
 const keysDirection: string[] = [
   "ArrowUp",
   "ArrowDown",
