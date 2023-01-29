@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
 import io from "socket.io-client";
-import Game from "./Game/Game";
+
 const socket = io("http://localhost:3000");
 
 const keysDirection: string[] = [
@@ -30,9 +30,5 @@ export default function App() {
     document.addEventListener("keydown", KeyHandler);
   });
 
-  return (
-    <div>
-      <Game />
-    </div>
-  );
+  return <div>App</div>;
 }
