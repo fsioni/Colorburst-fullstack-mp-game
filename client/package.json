@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "postdev": "cd ../crawlavers-backend && npm run start",
     "build": "tsc && vite build",
     "format": "npx prettier --write .",
@@ -16,6 +16,7 @@
     "firebase": "^9.16.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
     "socket.io-client": "^4.5.4"
   },
   "devDependencies": {
