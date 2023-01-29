@@ -23,8 +23,10 @@ export class FirstGameScene extends Phaser.Scene {
 
   create() {
     const { width, height } = this.sys.canvas;
+    const gridW = width * 3;
+    const gridH = height * 3;
     this.add
-      .grid(width / 2, height / 2, width, height, 142, 142, 0x00b9f2)
+      .grid(0, 0, gridW, gridH, 142, 142, 0x00b9f2)
       .setAltFillStyle(0x016fce)
       .setOutlineStyle();
 
@@ -48,5 +50,6 @@ export class FirstGameScene extends Phaser.Scene {
 
     const player = this.add.existing(new Player(this, 200, 200, true));
     this.cameras.main.startFollow(player, true, 0.1, 0.1);
+    this.cameras.main.setZoom(0.4);
   }
 }
