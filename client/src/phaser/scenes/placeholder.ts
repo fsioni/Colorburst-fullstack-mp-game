@@ -1,6 +1,8 @@
+import Cell from "../gameObjects/Cell";
 import Phaser from "phaser";
 import Player from "../gameObjects/Player";
-
+import { AlignGrid } from "../utils/AlignGrid";
+import Board from "../gameObjects/Board";
 /**
  * FirstGameScene is an example Phaser Scene
  * @class
@@ -22,31 +24,7 @@ export class FirstGameScene extends Phaser.Scene {
   }
 
   create() {
-    const { width, height } = this.sys.canvas;
-    const gridW = width * 3;
-    const gridH = height * 3;
-    this.add
-      .grid(0, 0, gridW, gridH, 142, 142, 0x00b9f2)
-      .setAltFillStyle(0x016fce)
-      .setOutlineStyle();
-
-    const graphics = this.add.graphics({ fillStyle: { color: 0xff0000 } });
-
-    const circle = new Phaser.Geom.Circle(400, 300, 200);
-
-    graphics.fillCircleShape(circle);
-
-    this.input.on("pointermove", function (pointer: { x: number; y: number }) {
-      graphics.clear();
-
-      if (circle.contains(pointer.x, pointer.y)) {
-        graphics.fillStyle(0x00ff00);
-      } else {
-        graphics.fillStyle(0xff0000);
-      }
-
-      graphics.fillCircleShape(circle);
-    });
+    new Board(this, 200, 200);
 
     const player = this.add.existing(new Player(this, 200, 200, true));
     this.cameras.main.startFollow(player, true, 0.1, 0.1);
