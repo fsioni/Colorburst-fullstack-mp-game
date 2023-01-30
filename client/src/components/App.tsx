@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-
+import { Buffer } from "buffer";
 import io from "socket.io-client";
 
 const socket = io("http://localhost:3000");
@@ -8,8 +8,11 @@ socket.on("playersPositions", (data: any) => {
   console.log(data);
 });
 
-socket.on("map", (data: any) => {
-  console.log(data);
+socket.on("map", (...data: any) => {
+  const messageData = JSON.stringify(data);
+  const messageSize = Buffer.byteLength(messageData);
+  const messageSizeInMB = messageSize / Math.pow(10, 6);
+  console.log(`Message size: ${messageSizeInMB.toFixed(2)} MB`);
 });
 
 const keysDirection: string[] = [
