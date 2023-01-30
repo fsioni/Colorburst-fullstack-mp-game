@@ -54,8 +54,10 @@ export default class Game {
   spawnPlayer(player: Player): void {
     player.isAlive = true;
     player.position = {
-      x: Math.max(Math.floor(Math.random() * this.boardSize) - 10, 10),
-      y: Math.max(Math.floor(Math.random() * this.boardSize) - 10, 10),
+      x: 5,
+      y: 5,
+      // x: Math.max(Math.floor(Math.random() * this.boardSize) - 10, 10),
+      // y: Math.max(Math.floor(Math.random() * this.boardSize) - 10, 10),
     };
 
     // On occupe les case en 5*5 autour du joueur 2 + 1 + 2

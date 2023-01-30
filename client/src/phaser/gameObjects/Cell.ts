@@ -5,10 +5,6 @@ export default class Cell extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
     this.setFrame(Phaser.Math.Between(2, 32));
     grid.placeAt(i, j, this);
-
-    setInterval(() => {
-      this.changeSprite();
-    }, 1000);
   }
 
   changeSprite = () => {

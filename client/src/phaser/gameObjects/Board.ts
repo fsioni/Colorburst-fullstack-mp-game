@@ -1,3 +1,5 @@
+import { Socket } from "socket.io";
+import { Socket } from "socket.io";
 import { AlignGrid } from "./../utils/AlignGrid";
 import Cell from "./Cell";
 
@@ -6,8 +8,9 @@ export default class Board {
   size: { x: number; y: number };
   cells: Cell[][] = [];
   aGrid: AlignGrid;
+  socket: Socket;
 
-  constructor(scene: Phaser.Scene, _x: number, _y: number) {
+  constructor(scene: Phaser.Scene, _x: number, _y: number, _socket: Socket) {
     console.log("Board.constructor()");
     this.scene = scene;
     this.size = { x: _x, y: _y };
@@ -17,12 +20,29 @@ export default class Board {
       cols: this.size.x,
       rows: this.size.y,
     });
+    this.aGrid.showNumbers();
 
     for (let i = 0; i < this.size.x; i++) {
       this.cells[i] = [];
       for (let j = 0; j < this.size.y; j++) {
-        this.cells[i][j] = new Cell(this.scene, this.aGrid, i, j);
+        //this.cells[i][j] = new Cell(this.scene, this.aGrid, i, j);
       }
     }
+    this.socket = _socket;
+    this.handleSocketEvents();
+  }
+
+  handleSocketEvents() {
+    this.socket.on("map", (...data: any) => {
+      const messageData = JSON.stringify(data);
+      /* const cells = JSON.parse(messageData);
+      for (let i = 0; i < cells.length; i++) {
+        for (let j = 0; j < cells[i].length; j++) {
+          console.log(cells[i][j]);
+        }
+      } */
+      //console.log(cells);
+      //console.log(messageData);
+    });
   }
 }

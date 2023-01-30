@@ -1,60 +1,149 @@
+import { Socket } from "socket.io-client";
 import Phaser from "phaser";
 import { Direction } from "../Direction";
+import Board from "./Board";
 
 const speed = 10;
-
 export default class Player extends Phaser.GameObjects.Sprite {
-  direction: Direction | null;
-  isPlayable: boolean;
+  direction: Direction | null = null;
+  isPlayable = false;
+  id: string;
+  isAlive = true;
+  socket: Socket | null = null;
 
-  cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+  lastMoveTime = 0;
+  moveCooldownTime = 10000;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, isPlayable: boolean) {
-    super(scene, x, y, "playerHeads");
+  lastMovementChangeTime = 0;
+  movementChangeCooldownTime = 100;
+  board: Board;
 
-    this.direction = null;
+  boardPosition = { x: 0, y: 0 };
+
+  cursors = this.scene.input.keyboard.createCursorKeys();
+
+  constructor(
+    scene: Phaser.Scene,
+    id: string,
+    board: Board,
+    isPlayable = false,
+    _socket: Socket | null = null
+  ) {
+    super(scene, 0, 0, "playerHeads");
+
+    this.board = board;
     this.isPlayable = isPlayable;
-
-    this.cursors = scene.input.keyboard.createCursorKeys();
-    super.setPosition(x, y);
+    if (this.isPlayable && _socket) {
+      this.socket = _socket;
+    }
+    this.id = id;
   }
 
   preUpdate(time: number, delta: number) {
     super.preUpdate(time, delta);
-    this.handleInputs();
+    if (this.isPlayable) {
+      this.handleInputs();
+    }
     this.handleMovements();
   }
 
+  keyPressed() {
+    if (!this.socket) {
+      return;
+    }
+
+    this.socket.emit("directionChange", this.direction);
+    this.lastMovementChangeTime = Date.now();
+  }
+
   handleInputs() {
-    if (this.cursors.up.isDown) {
+    if (
+      Date.now() - this.lastMovementChangeTime <
+      this.movementChangeCooldownTime
+    ) {
+      console.log("cooldown not over");
+      return;
+    }
+
+    if (this.cursors.up.isDown && !(this.direction === Direction.Up)) {
       this.direction = Direction.Up;
-      //Send to server socket
-    } else if (this.cursors.down.isDown) {
+      this.keyPressed();
+    } else if (
+      this.cursors.down.isDown &&
+      !(this.direction === Direction.Down)
+    ) {
       this.direction = Direction.Down;
-      //Send to server socket
-    } else if (this.cursors.right.isDown) {
+      this.keyPressed();
+    } else if (
+      this.cursors.right.isDown &&
+      !(this.direction === Direction.Right)
+    ) {
       this.direction = Direction.Right;
-      //Send to server socket
-    } else if (this.cursors.left.isDown) {
+      this.keyPressed();
+    } else if (
+      this.cursors.left.isDown &&
+      !(this.direction === Direction.Left)
+    ) {
       this.direction = Direction.Left;
-      //Send to server socket
+      this.keyPressed();
     }
   }
 
   handleMovements() {
+    if (Date.now() - this.lastMoveTime < this.moveCooldownTime) {
+      return;
+    }
+
     switch (this.direction) {
       case Direction.Up:
-        this.y -= speed;
+        this.boardPosition.y -= 1;
+        this.board.aGrid.placeAt(
+          this.boardPosition.x,
+          this.boardPosition.y,
+          this
+        );
+        this.moveCooldownTime = Date.now();
+        //this.y -= speed;
         break;
       case Direction.Down:
-        this.y += speed;
+        this.boardPosition.y += 1;
+        this.board.aGrid.placeAt(
+          this.boardPosition.x,
+          this.boardPosition.y,
+          this
+        );
+        this.moveCooldownTime = Date.now();
+
+        // this.y += speed;
         break;
       case Direction.Right:
-        this.x += speed;
+        this.boardPosition.x += 1;
+        this.board.aGrid.placeAt(
+          this.boardPosition.x,
+          this.boardPosition.y,
+          this
+        );
+        this.moveCooldownTime = Date.now();
+
+        // this.x += speed;
         break;
       case Direction.Left:
-        this.x -= speed;
+        this.boardPosition.x -= 1;
+        this.board.aGrid.placeAt(
+          this.boardPosition.x,
+          this.boardPosition.y,
+          this
+        );
+        this.moveCooldownTime = Date.now();
+
+        // this.x -= speed;
         break;
     }
+  }
+
+  correctPosition(x: number, y: number) {
+    this.boardPosition.x = x;
+    this.boardPosition.y = y;
+    this.board.aGrid.placeAt(x, y, this);
   }
 }
