@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
 import io from "socket.io-client";
-
 const socket = io("http://localhost:3000");
 
 socket.on("playersPositions", (data: any) => {
