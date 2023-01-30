@@ -74,8 +74,8 @@ export default class Game {
     return this.players.filter((player) => player.isAlive);
   }
 
-  log(...text: string[]): void {
-    console.log(`[Game:${this.gameID}] ${text.join(" ")}`);
+  log(...data: any[]): void {
+    console.log(`[Game ${this.gameID}]`, ...data);
   }
 
   private handlePlayersEvent(player: Socket): void {
@@ -120,6 +120,6 @@ export default class Game {
     });
     this.sendPlayersPositions();
     this.sendMapToPlayers();
-    console.log(this.playersPositions);
+    this.log(this.playersPositions);
   }
 }
