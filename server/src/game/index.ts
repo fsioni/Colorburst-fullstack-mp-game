@@ -1,5 +1,5 @@
 import Board from "./Board";
-import Player from "./Player";
+import Player from "./player";
 import Settings from "./Settings";
 import { Server, Socket } from "socket.io";
 import Cell from "./Cell";
