@@ -32,6 +32,7 @@ export class AlignGrid {
     this.ch = this.h / this.rows;
     this.scene = config.scene;
   }
+
   //place an object in relation to the grid
   placeAt(xx: number, yy: number, obj: { x: number; y: number }) {
     //calculate the center of the cell
@@ -42,6 +43,14 @@ export class AlignGrid {
     obj.x = x2;
     obj.y = y2;
   }
+
+  //get the x and y coordinates of a cell to place an object in the center
+  getCellPosition(xx: number, yy: number) {
+    const x2 = this.cw * xx + this.cw / 2;
+    const y2 = this.ch * yy + this.ch / 2;
+    return { x: x2, y: y2 };
+  }
+
   //mostly for planning and debugging this will
   //create a visual representation of the grid
   show(a = 1) {

@@ -2,6 +2,7 @@ import { Socket } from "socket.io-client";
 import Phaser from "phaser";
 import { Direction } from "../Direction";
 import Board from "./Board";
+import Point = Phaser.Geom.Point;
 
 const speed = 10;
 export default class Player extends Phaser.GameObjects.Sprite {
@@ -19,6 +20,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
   board: Board;
 
   boardPosition = { x: 0, y: 0 };
+  aimedPosition: Point = new Point(0, 0);
+  interpolationRatio = 0.01;
 
   cursors = this.scene.input.keyboard.createCursorKeys();
 
@@ -44,7 +47,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if (this.isPlayable) {
       this.handleInputs();
     }
-    this.handleMovements();
+    this.handleMovements(delta);
   }
 
   keyPressed() {
@@ -89,61 +92,23 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
-  handleMovements() {
-    if (Date.now() - this.lastMoveTime < this.moveCooldownTime) {
-      return;
-    }
-
-    switch (this.direction) {
-      case Direction.Up:
-        this.boardPosition.y -= 1;
-        this.board.aGrid.placeAt(
-          this.boardPosition.x,
-          this.boardPosition.y,
-          this
-        );
-        this.moveCooldownTime = Date.now();
-        //this.y -= speed;
-        break;
-      case Direction.Down:
-        this.boardPosition.y += 1;
-        this.board.aGrid.placeAt(
-          this.boardPosition.x,
-          this.boardPosition.y,
-          this
-        );
-        this.moveCooldownTime = Date.now();
-
-        // this.y += speed;
-        break;
-      case Direction.Right:
-        this.boardPosition.x += 1;
-        this.board.aGrid.placeAt(
-          this.boardPosition.x,
-          this.boardPosition.y,
-          this
-        );
-        this.moveCooldownTime = Date.now();
-
-        // this.x += speed;
-        break;
-      case Direction.Left:
-        this.boardPosition.x -= 1;
-        this.board.aGrid.placeAt(
-          this.boardPosition.x,
-          this.boardPosition.y,
-          this
-        );
-        this.moveCooldownTime = Date.now();
-
-        // this.x -= speed;
-        break;
-    }
+  handleMovements(delta: number) {
+    const actualPosition = new Point(this.x, this.y);
+    const nextPosition = new Point(0, 0);
+    Phaser.Geom.Point.Interpolate(
+      actualPosition,
+      this.aimedPosition,
+      this.interpolationRatio * delta,
+      nextPosition
+    );
+    this.setPosition(nextPosition.x, nextPosition.y);
   }
 
   correctPosition(x: number, y: number) {
     this.boardPosition.x = x;
     this.boardPosition.y = y;
-    this.board.aGrid.placeAt(x, y, this);
+    const cellPosition = this.board.aGrid.getCellPosition(x, y);
+    this.aimedPosition.x = cellPosition.x;
+    this.aimedPosition.y = cellPosition.y;
   }
 }
