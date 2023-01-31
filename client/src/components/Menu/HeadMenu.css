@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Kavoon&display=swap");
+
+.header {
+  width: auto;
+  height: 20vh;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(195, 85, 85);
+}
+
+.game__tile {
+  display: table;
+  margin: 0 auto;
+  font-size: 50px;
+  color: rgb(44, 41, 41);
+  font-family: "Kavoon", cursive;
+}
