@@ -1,9 +1,9 @@
-import Board from "./Board";
+import Board from "./board";
 import Player from "./player";
 
-import Settings from "./Settings";
+import Settings from "./settings";
 import { Server, Socket } from "socket.io";
-import Cell from "./Cell";
+import Cell from "./cell";
 import { playerPosition } from "./interfaces";
 
 export default class Game {
@@ -136,8 +136,9 @@ export default class Game {
         const cell = this.gameBoard.getCell(player.position);
         if (!cell) return;
         if (cell.trailsBy && cell.trailsBy !== player.id) {
-          // TODO : LA MORT QUI TUE DU PELAV TUE
+          // TODO : LA MORT QUI TUE DU PELAV TUÉ
         }
+
         // Check if player is on his own trail
         if (cell.trailsBy && cell.trailsBy === player.id)
           player.isAlive = false;

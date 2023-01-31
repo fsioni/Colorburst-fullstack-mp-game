@@ -1,7 +1,7 @@
 import { Socket } from "socket.io";
 import { Direction } from "../enums/Direction";
 import { Stats } from "../enums/Stats";
-import PlayerGameStats from "./PlayerGameStats";
+import PlayerGameStats from "./playerGameStats";
 
 export default class Player {
   id: string;
