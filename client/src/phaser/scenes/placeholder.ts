@@ -10,9 +10,11 @@ import Board from "../gameObjects/Board";
  * @public
  */
 export class FirstGameScene extends Phaser.Scene {
+  board: Board;
   constructor() {
     super("FirstGameScene");
     console.log("FirstGameScene.constructor()");
+    this.board = new Board(this, 20, 20);
   }
 
   preload() {
@@ -21,11 +23,14 @@ export class FirstGameScene extends Phaser.Scene {
       frameWidth: 142,
       frameHeight: 183,
     });
+
+    this.load.spritesheet("boardCells", "src/assets/img/cells.png", {
+      frameWidth: 10,
+      frameHeight: 10,
+    });
   }
 
   create() {
-    new Board(this, 200, 200);
-
     const player = this.add.existing(new Player(this, 200, 200, true));
     this.cameras.main.startFollow(player, true, 0.1, 0.1);
     this.cameras.main.setZoom(0.4);
