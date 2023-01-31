@@ -1,5 +1,6 @@
 import Board from "./Board";
 import Player from "./player";
+
 import Settings from "./Settings";
 import { Server, Socket } from "socket.io";
 import Cell from "./Cell";
@@ -12,6 +13,7 @@ export default class Game {
   players: Player[];
   isJoinable: boolean;
   gameID: string;
+
   constructor(socketServer: Server, settings: Settings) {
     this.socketServer = socketServer;
     this.gameSettings = settings;
@@ -53,6 +55,7 @@ export default class Game {
 
   spawnPlayer(player: Player): void {
     const spawnFromBordures = 5;
+
     player.isAlive = true;
     player.position = {
       x: Math.max(
@@ -67,6 +70,7 @@ export default class Game {
 
     // On occupe les case en 5*5 autour du joueur 2 + 1 + 2
     this.gameBoard.occupeCellsSpawn(player.position, player.id);
+
     this.sendPlayersPositions();
   }
 
@@ -96,6 +100,7 @@ export default class Game {
     // Quand le joueur change de direction
     player.on("directionChange", (direction: number) => {
       const playerObject = this.players.find((p) => p.id === player.id);
+
       if (!playerObject) return;
       playerObject.ChangeDirection(direction);
       this.sendPlayersPositions();
@@ -128,6 +133,7 @@ export default class Game {
         player.isAlive = false;
         player.socket.emit("gameOver");
         this.killPlayer(player);
+
         this.spawnPlayer(player);
       }
     });
