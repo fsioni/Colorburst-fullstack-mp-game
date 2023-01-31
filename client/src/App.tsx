@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from "react";
+import React, { FC } from "react";
 
 import io from "socket.io-client";
 const socket = io("http://localhost:3000");

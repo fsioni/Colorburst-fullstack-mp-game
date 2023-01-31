@@ -1,18 +1,47 @@
 @import url("https://fonts.googleapis.com/css2?family=Kavoon&display=swap");
 
 .header {
-  width: auto;
   height: 20vh;
   align-items: center;
   display: flex;
-  justify-content: center;
-  background-color: rgb(195, 85, 85);
+  justify-content: space-between;
+  flex-direction: row;
+  text-align: center;
+  min-height: 100%;
+  border-bottom: solid 3px black;
 }
 
 .game__tile {
-  display: table;
+  position: relative;
   margin: 0 auto;
-  font-size: 50px;
+  font-size: 3rem;
   color: rgb(44, 41, 41);
   font-family: "Kavoon", cursive;
+}
+
+.menu-connexion-area {
+  width: 150px;
+}
+
+.menu-connexion-button {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #000000;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px #020202;
+  cursor: pointer;
+}
+
+.menu-connexion-button:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+
+.icon {
+  font-size: 25px;
+  cursor: pointer;
+  margin-right: 15px;
 }
