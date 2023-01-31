@@ -23,7 +23,7 @@ export default class Game {
     this.gameID = Math.random().toString(36).substring(7);
     setInterval(() => {
       this.movePlayers();
-    }, 1000);
+    }, 500);
   }
 
   get boardSize(): number {
@@ -74,7 +74,7 @@ export default class Game {
     this.sendPlayersPositions();
   }
 
-  get playersPositions(): playerPosition[] {
+  private get playersPositions(): playerPosition[] {
     return this.alivePlayers.map((player) => ({
       playerID: player.id,
       ...player.position,
@@ -82,7 +82,7 @@ export default class Game {
     }));
   }
 
-  get alivePlayers(): Player[] {
+  private get alivePlayers(): Player[] {
     return this.players.filter((player) => player.isAlive);
   }
 
@@ -94,7 +94,11 @@ export default class Game {
     // Quand le joueur se déconnecte
     player.on("disconnect", () => {
       this.log(`Player disconnected: ${player.id}`);
+      const playerToDelete = this.players.find(
+        (p) => p.id === player.id
+      ) as Player;
       this.players = this.players.filter((p) => p.id !== player.id);
+      this.killPlayer(playerToDelete);
     });
 
     // Quand le joueur change de direction
@@ -128,14 +132,29 @@ export default class Game {
       player.Move();
 
       // Check if player is out of bounds
-      const { x, y } = player.position;
-      if (x < 0 || x > this.boardSize || y < 0 || y > this.boardSize) {
-        player.isAlive = false;
+      if (this.gameBoard.isInBoard(player)) {
+        const cell = this.gameBoard.getCell(player.position);
+        if (!cell) return;
+        if (cell.trailsBy && cell.trailsBy !== player.id) {
+          // TODO : LA MORT QUI TUE DU PELAV TUE
+        }
+        // Check if player is on his own trail
+        if (cell.trailsBy && cell.trailsBy === player.id)
+          player.isAlive = false;
+
+        // Check if player is on his own territory
+        if (cell.territoryOccupiedBy !== player.id)
+          this.gameBoard.setTrail(player);
+      } else player.isAlive = false;
+
+      // Check if player is dead
+      if (!player.isAlive) {
         player.socket.emit("gameOver");
         this.killPlayer(player);
-
         this.spawnPlayer(player);
       }
+
+      // Make a trail
     });
     this.sendPlayersPositions();
     this.sendMapToPlayers();

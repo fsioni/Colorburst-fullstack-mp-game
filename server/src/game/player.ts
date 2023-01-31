@@ -32,6 +32,12 @@ export default class Player {
   ChangeDirection(direction: Direction): void {
     if (direction < 0 || direction > 3) return;
     if (this.direction === direction) return;
+    if (this.direction === Direction.Up && direction === Direction.Down) return;
+    if (this.direction === Direction.Down && direction === Direction.Up) return;
+    if (this.direction === Direction.Left && direction === Direction.Right)
+      return;
+    if (this.direction === Direction.Right && direction === Direction.Left)
+      return;
 
     this.direction = direction;
   }
@@ -41,10 +47,10 @@ export default class Player {
 
     switch (this.direction) {
       case Direction.Up:
-        this.position.y += 1;
+        this.position.y -= 1;
         break;
       case Direction.Down:
-        this.position.y -= 1;
+        this.position.y += 1;
         break;
       case Direction.Left:
         this.position.x -= 1;

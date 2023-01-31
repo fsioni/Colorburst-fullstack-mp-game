@@ -42,14 +42,30 @@ export default class Board {
 
   freeCells(playerId: string): void {
     const toFree = this.boardCells.flat().filter((cell) => {
-      return cell.territoryOccupiedBy === playerId;
+      return (
+        cell.territoryOccupiedBy === playerId || cell.trailsBy === playerId
+      );
     });
+
     toFree.forEach((cell) => {
-      cell.territoryOccupiedBy = null;
+      if (cell.territoryOccupiedBy == playerId) cell.territoryOccupiedBy = null;
+      if (cell.trailsBy == playerId) cell.trailsBy = null;
     });
   }
 
-  clearPlayerTerritory(player: Player): void {
-    throw new Error("not Implemented");
+  getCell(position: playerPosition): Cell | null {
+    const { x, y } = position;
+
+    return this.boardCells[x][y];
+  }
+
+  setTrail(player: Player): void {
+    const { x, y } = player.position;
+    this.boardCells[x][y].trailsBy = player.id;
+  }
+
+  isInBoard(player: Player): boolean {
+    const { x, y } = player.position;
+    return x >= 0 && x < this.boardSize && y >= 0 && y < this.boardSize;
   }
 }

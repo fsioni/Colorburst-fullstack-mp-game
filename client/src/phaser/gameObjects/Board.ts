@@ -45,6 +45,8 @@ export default class Board {
         for (let j = 0; j < map[i].length; j++) {
           if (map[i][j].territoryOccupiedBy) {
             this.cells[i][j].setFrame(1);
+          } else if (map[i][j].trailsBy) {
+            this.cells[i][j].setFrame(2);
           } else {
             this.cells[i][j].setFrame(0);
           }
