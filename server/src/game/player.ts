@@ -15,13 +15,11 @@ export default class Player {
   color: string;
   score: number;
   isAlive: boolean;
-  socketID: string;
   socket: Socket;
 
   constructor(socket: Socket) {
-    this.socketID = socket.id;
     this.socket = socket;
-    this.id = "";
+    this.id = socket.id;
     this.pseudo = "";
     this.direction = Direction.Up;
     this.position = { x: 0, y: 0 };

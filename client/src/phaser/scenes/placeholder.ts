@@ -7,6 +7,8 @@ export class FirstGameScene extends Phaser.Scene {
   socket = io("http://localhost:3000");
   player: Player | null = null;
   players: Player[];
+  board?: Board;
+
   constructor() {
     super("FirstGameScene");
     console.log("FirstGameScene.constructor()");
@@ -19,16 +21,20 @@ export class FirstGameScene extends Phaser.Scene {
       frameWidth: 142,
       frameHeight: 183,
     });
+    this.load.spritesheet("boardCells", "src/assets/img/cells.png", {
+      frameWidth: 10,
+      frameHeight: 10,
+    });
   }
 
   create() {
-    const board = new Board(this, 200, 200, this.socket);
-    this.handleSocketEvents(board);
+    this.board = new Board(this, 20, 20, this.socket);
+    this.handleSocketEvents(this.board);
 
-    /* const player = this.add.existing(
-      new Player(this, "0", board, true, this.socket)
+    const player = this.add.existing(
+      new Player(this, "0", this.board, true, this.socket)
     );
-    this.cameras.main.startFollow(player, true, 0.1, 0.1); */
+    this.cameras.main.startFollow(player, true, 0.1, 0.1);
     this.cameras.main.setZoom(0.4);
   }
 

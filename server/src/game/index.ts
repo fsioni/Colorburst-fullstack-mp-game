@@ -1,9 +1,10 @@
 import Board from "./Board";
-import Player from "./Player";
+import Player from "./player";
+
 import Settings from "./Settings";
 import { Server, Socket } from "socket.io";
 import Cell from "./Cell";
-import { playersPositions } from "./interfaces";
+import { playerPosition } from "./interfaces";
 
 export default class Game {
   socketServer: Server;
@@ -12,6 +13,7 @@ export default class Game {
   players: Player[];
   isJoinable: boolean;
   gameID: string;
+
   constructor(socketServer: Server, settings: Settings) {
     this.socketServer = socketServer;
     this.gameSettings = settings;
@@ -52,21 +54,29 @@ export default class Game {
   }
 
   spawnPlayer(player: Player): void {
+    const spawnFromBordures = 5;
+
     player.isAlive = true;
     player.position = {
-      x: 5,
-      y: 5,
-      // x: Math.max(Math.floor(Math.random() * this.boardSize) - 10, 10),
-      // y: Math.max(Math.floor(Math.random() * this.boardSize) - 10, 10),
+      x: Math.max(
+        Math.floor(Math.random() * this.boardSize) - spawnFromBordures,
+        spawnFromBordures
+      ),
+      y: Math.max(
+        Math.floor(Math.random() * this.boardSize) - spawnFromBordures,
+        spawnFromBordures
+      ),
     };
 
     // On occupe les case en 5*5 autour du joueur 2 + 1 + 2
-    this.gameBoard.occupeCells(player.position, 2, player.id);
+    this.gameBoard.occupeCellsSpawn(player.position, player.id);
+
     this.sendPlayersPositions();
   }
 
-  get playersPositions(): playersPositions[] {
+  get playersPositions(): playerPosition[] {
     return this.alivePlayers.map((player) => ({
+      playerID: player.id,
       ...player.position,
       direction: player.direction,
     }));
@@ -84,12 +94,13 @@ export default class Game {
     // Quand le joueur se déconnecte
     player.on("disconnect", () => {
       this.log(`Player disconnected: ${player.id}`);
-      this.players = this.players.filter((p) => p.socketID !== player.id);
+      this.players = this.players.filter((p) => p.id !== player.id);
     });
 
     // Quand le joueur change de direction
     player.on("directionChange", (direction: number) => {
-      const playerObject = this.players.find((p) => p.socketID === player.id);
+      const playerObject = this.players.find((p) => p.id === player.id);
+
       if (!playerObject) return;
       playerObject.ChangeDirection(direction);
       this.sendPlayersPositions();
@@ -108,6 +119,10 @@ export default class Game {
     });
   }
 
+  private killPlayer(player: Player): void {
+    this.gameBoard.freeCells(player.id);
+  }
+
   private movePlayers(): void {
     this.alivePlayers.forEach((player) => {
       player.Move();
@@ -117,6 +132,8 @@ export default class Game {
       if (x < 0 || x > this.boardSize || y < 0 || y > this.boardSize) {
         player.isAlive = false;
         player.socket.emit("gameOver");
+        this.killPlayer(player);
+
         this.spawnPlayer(player);
       }
     });

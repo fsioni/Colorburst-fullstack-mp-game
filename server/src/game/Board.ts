@@ -1,6 +1,6 @@
 import Cell from "./Cell";
-import Player from "./Player";
-import { playersPositions } from "./interfaces";
+import Player from "./player";
+import { playerPosition } from "./interfaces";
 
 export default class Board {
   boardCells: Cell[][];
@@ -27,19 +27,26 @@ export default class Board {
 
   // Function to occupe the cells around the player
   // If size is 2, it will occupe 5*5 cells
-  occupeCells(
-    playersPositions: playersPositions,
-    size: number,
-    playerId: string
-  ): void {
-    const { x, y } = playersPositions;
-    for (let i = x - size; i <= x + size; i++) {
-      for (let j = y - size; j <= y + size; j++) {
+  occupeCellsSpawn(playerPosition: playerPosition, playerId: string): void {
+    console.log("occupeCellsSpawn", playerPosition, playerId);
+    const spawnSize = 2;
+    const { x, y } = playerPosition;
+    for (let i = x - spawnSize; i <= x + spawnSize; i++) {
+      for (let j = y - spawnSize; j <= y + spawnSize; j++) {
         if (i >= 0 && i < this.boardSize && j >= 0 && j < this.boardSize) {
           this.boardCells[i][j].territoryOccupiedBy = playerId;
         }
       }
     }
+  }
+
+  freeCells(playerId: string): void {
+    const toFree = this.boardCells.flat().filter((cell) => {
+      return cell.territoryOccupiedBy === playerId;
+    });
+    toFree.forEach((cell) => {
+      cell.territoryOccupiedBy = null;
+    });
   }
 
   clearPlayerTerritory(player: Player): void {
