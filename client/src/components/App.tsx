@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import { Buffer } from "buffer";
+import React from "react";
 
 export default function App() {
   return <div>App</div>;

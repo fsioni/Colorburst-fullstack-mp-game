@@ -38,18 +38,17 @@ export class FirstGameScene extends Phaser.Scene {
     this.cameras.main.setZoom(0.4);
   }
 
-  updatePlayersPositions(board: Board) {
+  handlePlayersPositions(board: Board) {
     this.socket.on("playersPositions", (data: any) => {
       //console.log(data);
 
       //add players that are not in the players array
       Object.keys(data).forEach((id: string) => {
         if (!this.players.find((player: Player) => player.id === id)) {
-          if (this.player && this.player.id === id) {
-            return;
-          }
+          if (this.player && this.player.id === id) return;
 
           const newPlayer = new Player(this, id, board);
+          console.log("Nouveau joueuer ajouté");
           this.cameras.main.startFollow(newPlayer, true, 0.1, 0.1);
           this.players.push(this.add.existing(newPlayer));
         }
@@ -64,9 +63,9 @@ export class FirstGameScene extends Phaser.Scene {
 
         //move players to new positions
         const { x, y } = data[player.id];
-        if (x === player.boardPosition.x && y === player.boardPosition.y) {
+        if (x === player.boardPosition.x && y === player.boardPosition.y)
           return;
-        }
+
         player.correctPosition(x, y);
       });
 
@@ -77,7 +76,14 @@ export class FirstGameScene extends Phaser.Scene {
     });
   }
 
+  handlePlayersList() {
+    this.socket.on("playersList", (data) => {
+      console.log(data);
+    });
+  }
+
   handleSocketEvents(board: Board) {
-    this.updatePlayersPositions(board);
+    this.handlePlayersList();
+    this.handlePlayersPositions(board);
   }
 }

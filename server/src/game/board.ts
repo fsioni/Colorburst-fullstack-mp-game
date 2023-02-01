@@ -28,7 +28,6 @@ export default class Board {
   // Function to occupe the cells around the player
   // If size is 2, it will occupe 5*5 cells
   occupeCellsSpawn(playerPosition: playerPosition, playerId: string): void {
-    console.log("occupeCellsSpawn", playerPosition, playerId);
     const spawnSize = 2;
     const { x, y } = playerPosition;
     for (let i = x - spawnSize; i <= x + spawnSize; i++) {

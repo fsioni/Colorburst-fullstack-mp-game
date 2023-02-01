@@ -1,32 +1,24 @@
 import { Socket } from "socket.io";
 import { Direction } from "../enums/Direction";
 import { Stats } from "../enums/Stats";
+import { playerPosition } from "./interfaces";
 import PlayerGameStats from "./playerGameStats";
 
 export default class Player {
   id: string;
-  pseudo: string;
-  direction: Direction;
-  position: {
-    x: number;
-    y: number;
-  };
+  pseudo = "";
+  direction = Direction.Up;
+  position = { x: 0, y: 0 } as playerPosition;
   gameStats: PlayerGameStats;
-  color: string;
-  score: number;
-  isAlive: boolean;
+  color = 0;
+  score = 0;
+  isAlive = false;
   socket: Socket;
 
   constructor(socket: Socket) {
     this.socket = socket;
     this.id = socket.id;
-    this.pseudo = "";
-    this.direction = Direction.Up;
-    this.position = { x: 0, y: 0 };
     this.gameStats = new PlayerGameStats();
-    this.color = "";
-    this.score = 0;
-    this.isAlive = false;
   }
 
   ChangeDirection(direction: Direction): void {

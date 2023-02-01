@@ -3,8 +3,6 @@ import Phaser from "phaser";
 import { Direction } from "../Direction";
 import Board from "./Board";
 import Point = Phaser.Geom.Point;
-
-const speed = 10;
 export default class Player extends Phaser.GameObjects.Sprite {
   direction: Direction | null = null;
   isPlayable = false;
@@ -20,10 +18,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
   board: Board;
 
   boardPosition = { x: 0, y: 0 };
-  aimedPosition: Point = new Point(0, 0);
+  aimedPosition = new Point(0, 0);
   interpolationRatio = 0.01;
 
   cursors = this.scene.input.keyboard.createCursorKeys();
+  color = 0;
 
   constructor(
     scene: Phaser.Scene,

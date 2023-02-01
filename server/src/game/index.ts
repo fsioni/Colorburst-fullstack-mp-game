@@ -6,19 +6,20 @@ import { Server, Socket } from "socket.io";
 import Cell from "./cell";
 import { playerPosition } from "./interfaces";
 
+const skinsCount = 5;
+
 export default class Game {
   socketServer: Server;
   gameSettings: Settings;
   gameBoard: Board;
-  players: Player[];
+  players: Player[] = [];
   isJoinable: boolean;
   gameID: string;
-
+  nextSkin = 0;
   constructor(socketServer: Server, settings: Settings) {
     this.socketServer = socketServer;
     this.gameSettings = settings;
     this.gameBoard = new Board(this.boardSize);
-    this.players = [];
     this.isJoinable = true;
     this.gameID = Math.random().toString(36).substring(7);
     setInterval(() => {
@@ -34,7 +35,7 @@ export default class Game {
     return this.gameBoard.boardCells;
   }
 
-  join(playerSocket: Socket): void {
+  async join(playerSocket: Socket): Promise<void> {
     if (!this.isJoinable)
       return this.log(`Player tried to join the game: ${playerSocket.id}`);
     this.log(`New player joined the game: ${playerSocket.id}`);
@@ -44,6 +45,8 @@ export default class Game {
 
     // Création du joueur
     const player = new Player(playerSocket);
+    player.color = this.nextSkin;
+    this.nextSkin = (this.nextSkin + 1) % skinsCount;
     this.players.push(player);
 
     // On met le detecteur d'évènement sur le joueur
@@ -51,6 +54,20 @@ export default class Game {
 
     // On fait spawn le joueur
     this.spawnPlayer(player);
+
+    // On envoie la liste des joueurs pour la couleur :)
+    setTimeout(() => this.sendPlayersList(), 500);
+  }
+
+  private sendPlayersList(): void {
+    console.log("sendPlayersList");
+    this.socketServer.to(this.gameID).emit(
+      "playersList",
+      this.players.map((player) => ({
+        id: player.id,
+        color: player.color,
+      }))
+    );
   }
 
   spawnPlayer(player: Player): void {
@@ -159,6 +176,5 @@ export default class Game {
     });
     this.sendPlayersPositions();
     this.sendMapToPlayers();
-    this.log(this.playersPositions);
   }
 }
