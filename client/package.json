@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "postdev": "cd ../crawlavers-backend && npm run start",
     "build": "tsc && vite build",
     "format": "npx prettier --write .",
