@@ -1,14 +1,14 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState, useEffect } from "react";
-import "./HeadMenu.css";
+import { useState, useEffect, FC } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { RxExit } from "react-icons/rx";
+import "./HeadMenu.css";
 
 const getRandomInt = (maximum: number): number => {
   return Math.floor(Math.random() * maximum);
 };
 
-const Connect = (): JSX.Element => {
+const Connect: FC = (): JSX.Element => {
   const savedLoging: string | null = localStorage.getItem("isLoged");
   const [isLoged, setIsLoged] = useState<number>(
     savedLoging ? JSON.parse(savedLoging) : -1

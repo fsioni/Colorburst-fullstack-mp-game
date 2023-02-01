@@ -1,0 +1,32 @@
+.menu-stat-open {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(116, 116, 119, 0.178);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  width: 350px;
+  padding: 20px;
+  margin: 1%;
+}
+
+.icon-close {
+  font-size: x-large;
+}
+
+.menu-stat-tile {
+  align-self: center;
+}
+
+.menu-stat-close {
+  float: right;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.icon-podium {
+  font-size: 50px;
+  cursor: pointer;
+  align-items: center;
+}
