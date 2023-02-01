@@ -3,8 +3,14 @@ import Player from "../gameObjects/Player";
 import Board from "../gameObjects/Board";
 import io from "socket.io-client";
 
+const Socketorigin =
+  window.location.origin.split(":")[0] +
+  ":" +
+  window.location.origin.split(":")[1] +
+  ":3040";
+
 export class FirstGameScene extends Phaser.Scene {
-  socket = io("http://localhost:3000");
+  socket = io(Socketorigin);
   player: Player | null = null;
   players: Player[];
   board?: Board;
