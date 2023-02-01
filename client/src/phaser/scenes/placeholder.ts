@@ -31,59 +31,85 @@ export class FirstGameScene extends Phaser.Scene {
     this.board = new Board(this, 20, 20, this.socket);
     this.handleSocketEvents(this.board);
 
-    const player = this.add.existing(
-      new Player(this, "0", this.board, true, this.socket)
-    );
-    this.cameras.main.startFollow(player, true, 0.1, 0.1);
     this.cameras.main.setZoom(0.4);
   }
 
-  handlePlayersPositions(board: Board) {
-    this.socket.on("playersPositions", (data: any) => {
-      //console.log(data);
+  handlePlayersPositions() {
+    this.socket.on(
+      "playersPositions",
+      (data: { playerID: string; x: number; y: number }[]) => {
+        if (this.player?.id) {
+          const dataThisPlayer = data.find(
+            (p: { playerID: string }) => p.playerID === this.player?.id
+          );
 
-      //add players that are not in the players array
-      Object.keys(data).forEach((id: string) => {
-        if (!this.players.find((player: Player) => player.id === id)) {
-          if (this.player && this.player.id === id) return;
-
-          const newPlayer = new Player(this, id, board);
-          console.log("Nouveau joueuer ajouté");
-          this.cameras.main.startFollow(newPlayer, true, 0.1, 0.1);
-          this.players.push(this.add.existing(newPlayer));
-        }
-      });
-
-      //remove players that are not in the data
-      this.players.forEach((player: Player) => {
-        if (!data[player.id]) {
-          player.destroy();
-          this.players = this.players.filter((p: Player) => p.id !== player.id);
+          if (dataThisPlayer) {
+            this.player.correctPosition(dataThisPlayer.x, dataThisPlayer.y);
+          }
         }
 
-        //move players to new positions
-        const { x, y } = data[player.id];
-        if (x === player.boardPosition.x && y === player.boardPosition.y)
-          return;
+        //remove players that are not in the data
+        this.players.forEach((player: Player) => {
+          const dataPlayer = data.find(
+            (p: { playerID: string }) => p.playerID === player.id
+          );
 
-        player.correctPosition(x, y);
-      });
+          if (!dataPlayer) {
+            player.destroy();
+            this.players = this.players.filter(
+              (p: Player) => p.id !== player.id
+            );
+            return;
+          }
 
-      if (this.player) {
-        const { x, y } = data[this.player.id];
-        this.player.correctPosition(x, y);
+          //move players to new positions
+
+          if (
+            dataPlayer.x === player.boardPosition.x &&
+            dataPlayer.y === player.boardPosition.y
+          )
+            return;
+
+          player.correctPosition(dataPlayer.x, dataPlayer.y);
+        });
       }
-    });
+    );
   }
 
   handlePlayersList() {
-    this.socket.on("playersList", (data) => {
-      console.log(data);
+    this.socket.on("playersList", (data: { id: string; color: number }[]) => {
+      //console.log(data);
+      //add players that are not in the players array
+
+      data.forEach((p) => {
+        if (!this.players.find((player: Player) => player.id === p.id)) {
+          if (!this.board) return;
+          console.log(
+            "Socket ID" + this.socket?.id + " this Player ID " + p.id
+          );
+
+          if (p.id === this.socket?.id && this.player === null) {
+            this.player = this.add.existing(
+              new Player(this, p.id, this.board, p.color, true, this.socket)
+            );
+            this.player.setFrame(p.color);
+            this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
+            console.log("Nouveau joueur jouable ajouté");
+          } else {
+            const newPlayer = new Player(this, p.id, this.board, p.color);
+            newPlayer.setFrame(p.color);
+            this.players.push(this.add.existing(newPlayer));
+            console.log("ID : " + p.id);
+
+            console.log("Nouveau joueur non-jouable ajouté");
+          }
+        }
+      });
     });
   }
 
-  handleSocketEvents(board: Board) {
+  handleSocketEvents() {
     this.handlePlayersList();
-    this.handlePlayersPositions(board);
+    this.handlePlayersPositions();
   }
 }

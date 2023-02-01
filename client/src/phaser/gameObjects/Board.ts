@@ -36,20 +36,37 @@ export default class Board {
   }
 
   handleSocketEvents() {
-    this.socket.on("map", (...data: any) => {
-      const map = data[0];
-      for (let i = 0; i < map.length; i++) {
-        for (let j = 0; j < map[i].length; j++) {
-          const cell = map[i][j];
-          if (cell.territoryOccupiedBy) {
-            this.setCell(i, j, 1);
-          } else if (cell.trailsBy) {
-            this.setCell(i, j, 2);
-          } else {
-            this.setCell(i, j, 0);
+    this.socket.on(
+      "map",
+      (
+        data: {
+          territoryOccupiedBy: string | null;
+          trailsBy: string | null;
+        }[][]
+      ) => {
+        console.log("Board.handleSocketEvents() map", data);
+        const map = data;
+        console.log(this.scene.player?.color);
+        let colors = this.scene.players.reduce((acc, p) => {
+          acc[p.id] = p.color;
+          return acc;
+        }, {});
+        colors = { ...colors, [this.socket.id]: this.scene.player?.color || 0 };
+        for (let i = 0; i < map.length; i++) {
+          for (let j = 0; j < map[i].length; j++) {
+            const cell = map[i][j];
+            if (cell.territoryOccupiedBy) {
+              const color = colors[cell.territoryOccupiedBy] || 0;
+              this.setCell(i, j, color + 1);
+            } else if (cell.trailsBy) {
+              const color = colors[cell.trailsBy] || 0;
+              this.setCell(i, j, color + 2);
+            } else {
+              this.setCell(i, j, 0);
+            }
           }
         }
       }
-    });
+    );
   }
 }

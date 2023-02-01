@@ -28,12 +28,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
     scene: Phaser.Scene,
     id: string,
     board: Board,
+    color = 0,
     isPlayable = false,
     _socket: Socket | null = null
   ) {
     super(scene, 0, 0, "playerHeads");
 
     this.board = board;
+
+    this.color = color;
+
     this.isPlayable = isPlayable;
     if (this.isPlayable && _socket) {
       this.socket = _socket;

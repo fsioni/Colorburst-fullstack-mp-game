@@ -3,7 +3,7 @@ import cors from "cors";
 import * as http from "http";
 import * as socketio from "socket.io";
 import dotenv from "dotenv";
-import Game from "./Game";
+import Game from "./game";
 
 const log = (...text: string[]) => console.log(`[Server] ${text.join(" ")}`);
 
