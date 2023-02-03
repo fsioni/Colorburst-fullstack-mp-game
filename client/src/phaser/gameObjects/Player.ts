@@ -19,6 +19,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   boardPosition = { x: 0, y: 0 };
   aimedPosition = new Point(0, 0);
+  aimedAngle = 0;
   interpolationRatio = 0.01;
 
   cursors = this.scene.input.keyboard.createCursorKeys();
@@ -51,6 +52,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.handleInputs();
     }
     this.handleMovements(delta);
+    this.handleRotation(delta);
   }
 
   keyPressed() {
@@ -67,30 +69,38 @@ export default class Player extends Phaser.GameObjects.Sprite {
       Date.now() - this.lastMovementChangeTime <
       this.movementChangeCooldownTime
     ) {
-      console.log("cooldown not over");
+      console.log("move cooldown not over");
       return;
     }
 
-    if (this.cursors.up.isDown && !(this.direction === Direction.Up)) {
-      this.direction = Direction.Up;
+    if (
+      this.cursors.up.isDown &&
+      !(this.direction === Direction.Up) &&
+      !(this.direction === Direction.Down)
+    ) {
+      this.changeDirection(Direction.Up);
       this.keyPressed();
     } else if (
       this.cursors.down.isDown &&
-      !(this.direction === Direction.Down)
+      !(this.direction === Direction.Down) &&
+      !(this.direction === Direction.Up)
     ) {
-      this.direction = Direction.Down;
+      this.changeDirection(Direction.Down);
+
       this.keyPressed();
     } else if (
       this.cursors.right.isDown &&
-      !(this.direction === Direction.Right)
+      !(this.direction === Direction.Right) &&
+      !(this.direction === Direction.Left)
     ) {
-      this.direction = Direction.Right;
+      this.changeDirection(Direction.Right);
       this.keyPressed();
     } else if (
       this.cursors.left.isDown &&
-      !(this.direction === Direction.Left)
+      !(this.direction === Direction.Left) &&
+      !(this.direction === Direction.Right)
     ) {
-      this.direction = Direction.Left;
+      this.changeDirection(Direction.Left);
       this.keyPressed();
     }
   }
@@ -104,12 +114,34 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.interpolationRatio * delta,
       nextPosition
     );
+
     this.setPosition(nextPosition.x, nextPosition.y);
   }
 
-  correctPosition(x: number, y: number) {
+  handleRotation(delta: number) {
+    this.angle = Phaser.Math.Interpolation.Linear(
+      [this.angle, this.aimedAngle],
+      0.01 * delta
+    );
+  }
+
+  changeDirection(direction: Direction) {
+    this.direction = direction;
+    if (this.direction === Direction.Up) {
+      this.aimedAngle = 180;
+    } else if (this.direction === Direction.Down) {
+      this.aimedAngle = 0;
+    } else if (this.direction === Direction.Left) {
+      this.aimedAngle = 90;
+    } else if (this.direction === Direction.Right) {
+      this.aimedAngle = -90;
+    }
+  }
+
+  correctPosition(x: number, y: number, direction: number) {
     this.boardPosition.x = x;
     this.boardPosition.y = y;
+    this.changeDirection(direction);
     const cellPosition = this.board.aGrid.getCellPosition(x, y);
     this.aimedPosition.x = cellPosition.x;
     this.aimedPosition.y = cellPosition.y;
