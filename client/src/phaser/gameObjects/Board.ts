@@ -44,9 +44,7 @@ export default class Board {
           trailsBy: string | null;
         }[][]
       ) => {
-        console.log("Board.handleSocketEvents() map", data);
         const map = data;
-        console.log(this.scene.player?.color);
         let colors = this.scene.players.reduce((acc, p) => {
           acc[p.id] = p.color;
           return acc;
