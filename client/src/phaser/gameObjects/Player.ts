@@ -3,6 +3,10 @@ import Phaser from "phaser";
 import { Direction } from "../Direction";
 import Board from "./Board";
 import Point = Phaser.Geom.Point;
+
+const moveInterpolationRatio = 0.01;
+const rotaInterpolationRatio = 0.01;
+
 export default class Player extends Phaser.GameObjects.Sprite {
   direction: Direction | null = null;
   isPlayable = false;
@@ -20,7 +24,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
   boardPosition = { x: 0, y: 0 };
   aimedPosition = new Point(0, 0);
   aimedAngle = 0;
-  interpolationRatio = 0.01;
 
   cursors = this.scene.input.keyboard.createCursorKeys();
   color = 0;
@@ -111,7 +114,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     Phaser.Geom.Point.Interpolate(
       actualPosition,
       this.aimedPosition,
-      this.interpolationRatio * delta,
+      moveInterpolationRatio * delta,
       nextPosition
     );
 
@@ -119,22 +122,23 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   handleRotation(delta: number) {
-    this.angle = Phaser.Math.Interpolation.Linear(
-      [this.angle, this.aimedAngle],
-      0.01 * delta
+    this.rotation = Phaser.Math.Angle.RotateTo(
+      this.rotation,
+      this.aimedAngle,
+      rotaInterpolationRatio * delta
     );
   }
 
   changeDirection(direction: Direction) {
     this.direction = direction;
     if (this.direction === Direction.Up) {
-      this.aimedAngle = 180;
+      this.aimedAngle = Phaser.Math.DegToRad(180);
     } else if (this.direction === Direction.Down) {
-      this.aimedAngle = 0;
+      this.aimedAngle = Phaser.Math.DegToRad(0);
     } else if (this.direction === Direction.Left) {
-      this.aimedAngle = 90;
+      this.aimedAngle = Phaser.Math.DegToRad(90);
     } else if (this.direction === Direction.Right) {
-      this.aimedAngle = -90;
+      this.aimedAngle = Phaser.Math.DegToRad(-90);
     }
   }
 
