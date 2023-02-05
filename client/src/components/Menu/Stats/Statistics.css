@@ -1,25 +1,27 @@
-.menu-stat-open {
-  float: right;
+.statOpen-container {
+  background-color: aqua;
   display: flex;
   flex-direction: column;
-  background-color: rgba(116, 116, 119, 0.178);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  width: 350px;
+  width: 300px;
   padding: 20px;
-  margin: 1%;
 }
 
 .icon-close {
   font-size: x-large;
 }
 
+.icon-close:hover {
+  color: rgb(255, 0, 0);
+}
+
 .menu-stat-tile {
   align-self: center;
 }
 
-.menu-stat-close {
-  float: right;
+.statClose-container {
+  min-width: 55px;
   display: flex;
   justify-content: flex-end;
   padding: 20px;
@@ -29,4 +31,13 @@
   font-size: 50px;
   cursor: pointer;
   align-items: center;
+}
+
+.icon-podium:hover {
+  color: rgb(35, 35, 35);
+  transform: scale(1.04);
+}
+
+.icon-podium:active {
+  transform: scale(0.8);
 }

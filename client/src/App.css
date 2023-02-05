@@ -1,0 +1,10 @@
+.App {
+  width: auto;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}

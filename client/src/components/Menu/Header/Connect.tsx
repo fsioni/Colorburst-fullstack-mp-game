@@ -2,7 +2,7 @@
 import { useState, useEffect, FC } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { RxExit } from "react-icons/rx";
-import "./HeadMenu.css";
+import "./Connect.css";
 
 const getRandomInt = (maximum: number): number => {
   return Math.floor(Math.random() * maximum);
@@ -20,20 +20,21 @@ const Connect: FC = (): JSX.Element => {
   }, [isLoged]);
 
   return isLoged === -1 ? (
-    <div className="menu-connexion-area">
+    <div className="connexion-area-container">
       <button
-        className="menu-connexion-button"
+        className="connexion-button"
+        // A changer renvoie l'id du joueur connecté
         onClick={() => setIsLoged(getRandomInt(100))}
       >
-        Se connecter
+        Login
       </button>
     </div>
   ) : (
-    <div className="menu-connexion-area">
-      <span className="icon">
+    <div className="connexion-area-container">
+      <span className="icon-acount">
         <FaUserAlt />
       </span>
-      <span className="icon" onClick={() => setIsLoged(-1)}>
+      <span className="icon-logout" onClick={() => setIsLoged(-1)}>
         <RxExit />
       </span>
     </div>

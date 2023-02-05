@@ -7,7 +7,7 @@ import "./Statistics.css";
 const Statistics: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return isOpen ? (
-    <div className="menu-stat-open">
+    <div className="statOpen-container">
       <span onClick={() => setIsOpen(false)} className="icon-close">
         <CgClose />
       </span>
@@ -15,7 +15,7 @@ const Statistics: FC = () => {
       <p>Ici il y aura pleins de stats ca va être super nespa ?</p>
     </div>
   ) : (
-    <div className="menu-stat-close">
+    <div className="statClose-container">
       <span onClick={() => setIsOpen(true)} className="icon-podium">
         <GiPodium />
       </span>

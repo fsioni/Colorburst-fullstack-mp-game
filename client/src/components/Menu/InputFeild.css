@@ -1,0 +1,55 @@
+.inputFeild-container {
+  width: 40%;
+  min-width: 350px;
+  max-width: 500px;
+  background-color: red;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-end;
+}
+
+.input-form {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.input-feild-box {
+  width: 90%;
+  border-radius: 50px;
+  padding: 15px 30px;
+  font-size: 20px;
+  border: none;
+  transition: 0.2s;
+  box-shadow: inset 0 0 5px black;
+}
+
+.input-feild-box:focus {
+  box-shadow: 0 0 10px 1000px rgb(0, 0, 0, 0.5);
+  outline: none;
+}
+
+.input-feild-submit {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin: 8px;
+  border-radius: 50px;
+  border: none;
+  font-size: 15px;
+  background-color: rgb(88, 135, 217);
+  color: antiquewhite;
+  transition: 0.2 all;
+  box-shadow: 0 0 10px black;
+}
+
+.input-feild-submit:hover {
+  background-color: rgb(70, 116, 195);
+}
+
+.input-feild-submit:active {
+  transform: scale(0.9);
+  box-shadow: 0 0 6px black;
+}

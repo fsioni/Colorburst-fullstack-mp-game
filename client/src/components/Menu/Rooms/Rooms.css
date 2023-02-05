@@ -1,0 +1,42 @@
+.room-container-open {
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  width: 300px;
+  padding: 20px;
+}
+
+.close-icon {
+  font-size: x-large;
+  text-align: right;
+}
+
+.close-icon:hover {
+  color: rgb(255, 0, 0);
+}
+
+.room-container-close {
+  display: flex;
+  background-color: green;
+  min-width: 55px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.room-icon {
+  font-size: 50px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.room-icon:hover {
+  color: rgb(35, 35, 35);
+  transform: scale(1.04);
+}
+
+.room-icon:active {
+  transform: scale(0.8);
+}

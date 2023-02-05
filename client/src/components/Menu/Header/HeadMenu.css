@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Wendy+One&display=swap");
+
+.header-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: solid 3px black;
+  margin-bottom: 3px;
+}
+
+.game-tile {
+  font-family: "Wendy One", sans-serif;
+  color: #ffa01b;
+  cursor: pointer;
+  position: relative;
+  text-shadow: -6px 6px 0 #e8476a, -9px 9px 0 purple;
+  font-size: 10vmin;
+}
+
+.game-tile:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  bottom: -10px;
+  left: -4px;
+  transform: scaleX(0);
+  box-shadow: 0 5px 0 #e8476a, 0 10px 0 purple;
+  background: #ffa01b;
+  transform-origin: bottom right;
+  transition: transform 0.5s ease-out;
+}
+
+.game-tile:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}

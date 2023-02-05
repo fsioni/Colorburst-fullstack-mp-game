@@ -1,0 +1,59 @@
+.connexion-area-container {
+  width: 90px;
+  display: flex;
+}
+
+.connexion-button {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #000000;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px #020202;
+  cursor: pointer;
+}
+
+.menu-connexion-button:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+
+.icon-acount {
+  font-size: 25px;
+  color: black;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.icon-logout {
+  font-size: 25px;
+  color: black;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.icon-acount:hover {
+  transform: scale(1.05);
+  color: rgb(34, 34, 34);
+  cursor: pointer;
+  padding: 10px;
+}
+
+.icon-logout:hover {
+  transform: scale(1.05);
+  color: rgb(34, 34, 34);
+  cursor: pointer;
+  padding: 10px;
+}
+
+.icon-acount:active {
+  transform: scale(0.8);
+  color: rgb(34, 34, 34);
+}
+
+.icon-logout:active {
+  transform: scale(0.8);
+  cursor: pointer;
+}
