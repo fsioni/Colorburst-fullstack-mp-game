@@ -32,6 +32,7 @@ export default class Board {
   }
 
   setCell(x: number, y: number, frame: number) {
+    if (x < 0 || y < 0 || x > this.size.x || y > this.size.y) return;
     this.cells[x][y].setFrame(frame);
   }
 
