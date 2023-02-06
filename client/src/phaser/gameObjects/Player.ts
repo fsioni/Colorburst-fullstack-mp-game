@@ -69,41 +69,65 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.lastMovementChangeTime = Date.now();
   }
 
-  handleInputs() {
+  checkIfDirectionChangeIsAllowed(direction: Direction) {
     if (
-      Date.now() - this.lastMovementChangeTime <
-      this.movementChangeCooldownTime
+      direction === Direction.Up &&
+      !(this.direction === Direction.Up) &&
+      !(this.direction === Direction.Down)
     ) {
+      return true;
+    } else if (
+      direction === Direction.Down &&
+      !(this.direction === Direction.Down) &&
+      !(this.direction === Direction.Up)
+    ) {
+      return true;
+    } else if (
+      direction === Direction.Right &&
+      !(this.direction === Direction.Right) &&
+      !(this.direction === Direction.Left)
+    ) {
+      return true;
+    } else if (
+      direction === Direction.Left &&
+      !(this.direction === Direction.Left) &&
+      !(this.direction === Direction.Right)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  handleInputs() {
+    const canMove = Date.now() - this.lastMoveTime > this.moveCooldownTime;
+    if (!canMove) {
       console.log("move cooldown not over");
       return;
     }
 
     if (
       this.cursors.up.isDown &&
-      !(this.direction === Direction.Up) &&
-      !(this.direction === Direction.Down)
+      this.checkIfDirectionChangeIsAllowed(Direction.Up)
     ) {
       this.changeDirection(Direction.Up);
       this.sendDirectionToSocket();
     } else if (
       this.cursors.down.isDown &&
-      !(this.direction === Direction.Down) &&
-      !(this.direction === Direction.Up)
+      this.checkIfDirectionChangeIsAllowed(Direction.Down)
     ) {
       this.changeDirection(Direction.Down);
 
       this.sendDirectionToSocket();
     } else if (
       this.cursors.right.isDown &&
-      !(this.direction === Direction.Right) &&
-      !(this.direction === Direction.Left)
+      this.checkIfDirectionChangeIsAllowed(Direction.Right)
     ) {
       this.changeDirection(Direction.Right);
       this.sendDirectionToSocket();
     } else if (
       this.cursors.left.isDown &&
-      !(this.direction === Direction.Left) &&
-      !(this.direction === Direction.Right)
+      this.checkIfDirectionChangeIsAllowed(Direction.Left)
     ) {
       this.changeDirection(Direction.Left);
       this.sendDirectionToSocket();
