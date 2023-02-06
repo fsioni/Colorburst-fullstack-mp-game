@@ -56,12 +56,12 @@ export default class Board {
               territoryOccupiedBy: string | null;
               trailsBy: string | null;
             };
-            if (cell.territoryOccupiedBy) {
-              const color = colors[cell.territoryOccupiedBy] || 0;
-              this.setCell(i, j, color * 2 + 1);
-            } else if (cell.trailsBy) {
+            if (cell.trailsBy) {
               const color = colors[cell.trailsBy] || 0;
-              this.setCell(i, j, color * 2 + 2);
+              this.setTrailsBy(i, j, color);
+            } else if (cell.territoryOccupiedBy) {
+              const color = colors[cell.territoryOccupiedBy] || 0;
+              this.setTerritoryOccupied(i, j, color);
             } else {
               this.setCell(i, j, 0);
             }
@@ -69,5 +69,13 @@ export default class Board {
         }
       }
     );
+  }
+
+  setTrailsBy(i: number, j: number, color: number) {
+    this.setCell(i, j, color * 2 + 2);
+  }
+
+  setTerritoryOccupied(i: number, j: number, color: number) {
+    this.setCell(i, j, color * 2 + 1);
   }
 }
