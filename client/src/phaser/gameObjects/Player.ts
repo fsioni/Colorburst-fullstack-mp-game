@@ -108,17 +108,40 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
+  calculateAimedPosition() {
+    if (!this.direction) {
+      return;
+    }
+    if (this.direction === Direction.Up) {
+      this.aimedPosition.y -= 1;
+      this.boardPosition.y -= 1;
+    }
+    if (this.direction === Direction.Down) {
+      this.aimedPosition.y += 1;
+      this.boardPosition.y += 1;
+    }
+    if (this.direction === Direction.Left) {
+      this.aimedPosition.x -= 1;
+      this.boardPosition.x -= 1;
+    }
+    if (this.direction === Direction.Right) {
+      this.aimedPosition.x += 1;
+      this.boardPosition.x += 1;
+    }
+  }
+
   handleMovements(delta: number) {
+    this.calculateAimedPosition();
     const actualPosition = new Point(this.x, this.y);
-    const nextPosition = new Point(0, 0);
+    const calculatedPosition = new Point(0, 0);
     Phaser.Geom.Point.Interpolate(
       actualPosition,
       this.aimedPosition,
       moveInterpolationRatio * delta,
-      nextPosition
+      calculatedPosition
     );
 
-    this.setPosition(nextPosition.x, nextPosition.y);
+    this.setPosition(calculatedPosition.x, calculatedPosition.y);
   }
 
   handleRotation(delta: number) {
@@ -143,9 +166,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   correctPosition(x: number, y: number, direction: number) {
+    if (this.direction !== direction) this.changeDirection(direction);
+
+    if (this.boardPosition.x === x && this.boardPosition.y === y) return;
+
     this.boardPosition.x = x;
     this.boardPosition.y = y;
-    this.changeDirection(direction);
     const cellPosition = this.board.aGrid.getCellPosition(x, y);
     this.aimedPosition.x = cellPosition.x;
     this.aimedPosition.y = cellPosition.y;
