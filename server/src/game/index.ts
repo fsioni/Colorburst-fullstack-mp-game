@@ -88,7 +88,7 @@ export default class Game {
     // On occupe les case en 5*5 autour du joueur 2 + 1 + 2
     this.gameBoard.occupeCellsSpawn(player.position, player.id);
 
-    this.sendPlayersPositions();
+    this.sendGameData();
   }
 
   private get playersPositions(): playerPosition[] {
@@ -124,7 +124,7 @@ export default class Game {
 
       if (!playerObject) return;
       playerObject.ChangeDirection(direction);
-      this.sendPlayersPositions();
+      this.sendGameData();
     });
   }
 
@@ -138,6 +138,11 @@ export default class Game {
     this.alivePlayers.forEach((player) => {
       player.socket.emit("map", this.boardCells);
     });
+  }
+
+  private sendGameData(): void {
+    this.sendPlayersPositions();
+    this.sendMapToPlayers();
   }
 
   private killPlayer(player: Player, killer: Player | null = null): void {
@@ -173,7 +178,5 @@ export default class Game {
           this.gameBoard.setTrail(player);
       } else this.killPlayer(player);
     });
-    this.sendPlayersPositions();
-    this.sendMapToPlayers();
   }
 }
