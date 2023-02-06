@@ -15,7 +15,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   socket: Socket | null = null;
 
   lastMoveTime = 0;
-  moveCooldownTime = 10000;
+  moveCooldownTime = 1000;
 
   lastMovementChangeTime = 0;
   movementChangeCooldownTime = 100;
@@ -51,14 +51,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   preUpdate(time: number, delta: number) {
     super.preUpdate(time, delta);
+
     if (this.isPlayable) {
       this.handleInputs();
     }
+
     this.handleMovements(delta);
     this.handleRotation(delta);
   }
 
-  keyPressed() {
+  sendDirectionToSocket() {
     if (!this.socket) {
       return;
     }
@@ -82,7 +84,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       !(this.direction === Direction.Down)
     ) {
       this.changeDirection(Direction.Up);
-      this.keyPressed();
+      this.sendDirectionToSocket();
     } else if (
       this.cursors.down.isDown &&
       !(this.direction === Direction.Down) &&
@@ -90,48 +92,54 @@ export default class Player extends Phaser.GameObjects.Sprite {
     ) {
       this.changeDirection(Direction.Down);
 
-      this.keyPressed();
+      this.sendDirectionToSocket();
     } else if (
       this.cursors.right.isDown &&
       !(this.direction === Direction.Right) &&
       !(this.direction === Direction.Left)
     ) {
       this.changeDirection(Direction.Right);
-      this.keyPressed();
+      this.sendDirectionToSocket();
     } else if (
       this.cursors.left.isDown &&
       !(this.direction === Direction.Left) &&
       !(this.direction === Direction.Right)
     ) {
       this.changeDirection(Direction.Left);
-      this.keyPressed();
+      this.sendDirectionToSocket();
     }
   }
 
   calculateAimedPosition() {
-    if (!this.direction) {
-      return;
-    }
+    const cellPosition = this.board.aGrid.getCellPosition(
+      this.boardPosition.x,
+      this.boardPosition.y
+    );
+    this.aimedPosition.x = cellPosition.x;
+    this.aimedPosition.y = cellPosition.y;
+  }
+
+  calculateBoardPosition() {
     if (this.direction === Direction.Up) {
-      this.aimedPosition.y -= 1;
       this.boardPosition.y -= 1;
-    }
-    if (this.direction === Direction.Down) {
-      this.aimedPosition.y += 1;
+    } else if (this.direction === Direction.Down) {
       this.boardPosition.y += 1;
-    }
-    if (this.direction === Direction.Left) {
-      this.aimedPosition.x -= 1;
+    } else if (this.direction === Direction.Left) {
       this.boardPosition.x -= 1;
-    }
-    if (this.direction === Direction.Right) {
-      this.aimedPosition.x += 1;
+    } else if (this.direction === Direction.Right) {
       this.boardPosition.x += 1;
     }
+
+    this.calculateAimedPosition();
+
+    this.board.setTrailsBy(
+      this.boardPosition.x,
+      this.boardPosition.y,
+      this.color
+    );
   }
 
   handleMovements(delta: number) {
-    this.calculateAimedPosition();
     const actualPosition = new Point(this.x, this.y);
     const calculatedPosition = new Point(0, 0);
     Phaser.Geom.Point.Interpolate(
