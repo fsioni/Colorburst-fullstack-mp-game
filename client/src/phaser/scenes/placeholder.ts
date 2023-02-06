@@ -126,8 +126,20 @@ export class FirstGameScene extends Phaser.Scene {
     });
   }
 
+  handlePositionUpdated() {
+    this.socket?.on("gameUpdated", () => {
+      console.log("gameUpdated");
+      this.player?.calculateBoardPosition();
+
+      this.players.forEach((player) => {
+        player.calculateBoardPosition();
+      });
+    });
+  }
+
   handleSocketEvents() {
     this.handlePlayersList();
     this.handlePlayersPositions();
+    this.handlePositionUpdated();
   }
 }
