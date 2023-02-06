@@ -55,10 +55,10 @@ export default class Board {
             const cell = map[i][j];
             if (cell.territoryOccupiedBy) {
               const color = colors[cell.territoryOccupiedBy] || 0;
-              this.setCell(i, j, color + 1);
+              this.setCell(i, j, color * 2 + 1);
             } else if (cell.trailsBy) {
               const color = colors[cell.trailsBy] || 0;
-              this.setCell(i, j, color + 2);
+              this.setCell(i, j, color * 2 + 2);
             } else {
               this.setCell(i, j, 0);
             }

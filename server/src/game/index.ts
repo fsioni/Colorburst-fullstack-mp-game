@@ -140,8 +140,15 @@ export default class Game {
     });
   }
 
-  private killPlayer(player: Player): void {
+  private killPlayer(player: Player, killer: Player | null = null): void {
+    player.socket.emit("gameOver");
+    player.isAlive = false;
     this.gameBoard.freeCells(player.id);
+    this.spawnPlayer(player);
+
+    if (killer) {
+      // add score to killer
+    }
   }
 
   private movePlayers(): void {
@@ -153,26 +160,18 @@ export default class Game {
         const cell = this.gameBoard.getCell(player.position);
         if (!cell) return;
         if (cell.trailsBy && cell.trailsBy !== player.id) {
-          // TODO : LA MORT QUI TUE DU PELAV TUÉ
+          const playerToKill = this.players.find((p) => p.id === cell.trailsBy);
+          if (playerToKill) this.killPlayer(playerToKill, player);
         }
 
         // Check if player is on his own trail
         if (cell.trailsBy && cell.trailsBy === player.id)
-          player.isAlive = false;
+          this.killPlayer(player);
 
         // Check if player is on his own territory
         if (cell.territoryOccupiedBy !== player.id)
           this.gameBoard.setTrail(player);
-      } else player.isAlive = false;
-
-      // Check if player is dead
-      if (!player.isAlive) {
-        player.socket.emit("gameOver");
-        this.killPlayer(player);
-        this.spawnPlayer(player);
-      }
-
-      // Make a trail
+      } else this.killPlayer(player);
     });
     this.sendPlayersPositions();
     this.sendMapToPlayers();
