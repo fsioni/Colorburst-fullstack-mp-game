@@ -48,17 +48,20 @@ export default class Board {
         let colors = this.scene.players.reduce((acc, p) => {
           acc[p.id] = p.color;
           return acc;
-        }, {});
+        }, {} as { [key: string]: number }) as { [key: string]: number };
         colors = { ...colors, [this.socket.id]: this.scene.player?.color || 0 };
         for (let i = 0; i < map.length; i++) {
           for (let j = 0; j < map[i].length; j++) {
-            const cell = map[i][j];
+            const cell = map[i][j] as {
+              territoryOccupiedBy: string | null;
+              trailsBy: string | null;
+            };
             if (cell.territoryOccupiedBy) {
               const color = colors[cell.territoryOccupiedBy] || 0;
-              this.setCell(i, j, color + 1);
+              this.setCell(i, j, color * 2 + 1);
             } else if (cell.trailsBy) {
               const color = colors[cell.trailsBy] || 0;
-              this.setCell(i, j, color + 2);
+              this.setCell(i, j, color * 2 + 2);
             } else {
               this.setCell(i, j, 0);
             }
