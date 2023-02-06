@@ -178,5 +178,8 @@ export default class Game {
           this.gameBoard.setTrail(player);
       } else this.killPlayer(player);
     });
+
+    // Emit message to informe client game was updated
+    this.socketServer.to(this.gameID).emit("gameUpdated");
   }
 }
