@@ -155,28 +155,38 @@ export default class Game {
       // add score to killer
     }
   }
+  private setGainedTerritory(player: Player): void {
+    //TODO
+  }
 
   private movePlayers(): void {
     this.alivePlayers.forEach((player) => {
       player.Move();
 
       // Check if player is out of bounds
-      if (this.gameBoard.isInBoard(player)) {
-        const cell = this.gameBoard.getCell(player.position);
-        if (!cell) return;
-        if (cell.trailsBy && cell.trailsBy !== player.id) {
-          const playerToKill = this.players.find((p) => p.id === cell.trailsBy);
-          if (playerToKill) this.killPlayer(playerToKill, player);
-        }
+      if (!this.gameBoard.isInBoard(player)) {
+        this.killPlayer(player);
+        return;
+      }
 
-        // Check if player is on his own trail
-        if (cell.trailsBy && cell.trailsBy === player.id)
-          this.killPlayer(player);
+      const cell = this.gameBoard.getCell(player.position);
+      if (!cell) return;
 
-        // Check if player is on his own territory
-        if (cell.territoryOccupiedBy !== player.id)
-          this.gameBoard.setTrail(player);
-      } else this.killPlayer(player);
+      // Check if player is on another player trail
+      if (cell.trailsBy && cell.trailsBy !== player.id) {
+        const playerToKill = this.players.find((p) => p.id === cell.trailsBy);
+        if (playerToKill) this.killPlayer(playerToKill, player);
+      }
+
+      // Check if player is on his own trail
+      if (cell.trailsBy && cell.trailsBy === player.id) this.killPlayer(player);
+      // Check if player is on his own territory
+      if (cell.territoryOccupiedBy !== player.id) {
+        this.gameBoard.setTrail(player);
+      } else {
+        //Calculer le nouveau territoire
+        this.log("Calculer le nouveau territoire");
+      }
     });
 
     // Emit message to informe client game was updated
