@@ -156,11 +156,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.calculateAimedPosition();
 
-    this.board.setTrailsBy(
-      this.boardPosition.x,
-      this.boardPosition.y,
-      this.color
-    );
+    this.board.setTrailsBy(this.boardPosition, this.color, this.id);
   }
 
   handleMovements(delta: number) {

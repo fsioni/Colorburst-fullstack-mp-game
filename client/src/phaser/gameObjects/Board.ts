@@ -59,11 +59,12 @@ export default class Board {
             };
             if (cell.trailsBy) {
               const color = colors[cell.trailsBy] || 0;
-              this.setTrailsBy(i, j, color);
+              this.setTrailsBy({ x: i, y: j }, color);
             } else if (cell.territoryOccupiedBy) {
               const color = colors[cell.territoryOccupiedBy] || 0;
-              this.setTerritoryOccupied(i, j, color);
+              this.setTerritoryOccupied(i, j, color, cell.territoryOccupiedBy);
             } else {
+              this.clearData(i, j);
               this.setCell(i, j, 0);
             }
           }
@@ -72,11 +73,29 @@ export default class Board {
     );
   }
 
-  setTrailsBy(i: number, j: number, color: number) {
-    this.setCell(i, j, color * 2 + 2);
+  clearData(i: number, j: number) {
+    this.cells[i][j].occupedBy = null;
   }
 
-  setTerritoryOccupied(i: number, j: number, color: number) {
+  setTrailsBy(
+    position: { x: number; y: number },
+    color: number,
+    player: string | null = null
+  ) {
+    const { x, y } = position;
+    const cell = this.cells[x][y];
+    if (!cell) return;
+    if (cell.occupedBy === player) return;
+    this.setCell(x, y, color * 2 + 2);
+  }
+
+  setTerritoryOccupied(
+    i: number,
+    j: number,
+    color: number,
+    player: string | null = null
+  ) {
+    this.cells[i][j].occupedBy = player;
     this.setCell(i, j, color * 2 + 1);
   }
 }
