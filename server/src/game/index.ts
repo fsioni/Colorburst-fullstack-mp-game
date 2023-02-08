@@ -155,9 +155,6 @@ export default class Game {
       // add score to killer
     }
   }
-  private setGainedTerritory(player: Player): void {
-    //TODO
-  }
 
   private movePlayers(): void {
     this.alivePlayers.forEach((player) => {
@@ -172,6 +169,17 @@ export default class Game {
       const cell = this.gameBoard.getCell(player.position);
       if (!cell) return;
 
+      // Si il marche sur la queue d'un autre joueur
+      if (cell.trailsBy !== player.id) {
+        const toKill = this.players.find((p) => p.id === cell.trailsBy);
+        if (toKill) this.killPlayer(toKill, player);
+      }
+
+      // Si il se marche sur lui même
+      if (cell.trailsBy === player.id) {
+        this.killPlayer(player, player);
+      }
+
       // Check if player is on his own territory
       if (cell.territoryOccupiedBy !== player.id) {
         this.gameBoard.setTrail(player);
@@ -179,10 +187,10 @@ export default class Game {
       }
       // Si le joueur reviens dans sa zone
       else if (player.outOfHisTerritory) {
-        this.gameBoard.paintBoard(player);
+        // On occupe les case dans la zone crée
         player.outOfHisTerritory = false;
         this.sendGameData();
-      } else this.killPlayer(player);
+      }
     });
 
     // Emit message to informe client game was updated

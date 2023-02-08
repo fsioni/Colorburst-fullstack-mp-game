@@ -21,10 +21,6 @@ export default class Board {
     }
   }
 
-  paintBoard(player: Player): void {
-    // Jsp frr
-  }
-
   // Function to occupe the cells around the player
   // If size is 2, it will occupe 5*5 cells
   occupeCellsSpawn(playerPosition: playerPosition, playerId: string): void {
