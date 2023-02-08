@@ -14,7 +14,7 @@ export default class Player {
   score = 0;
   isAlive = false;
   socket: Socket;
-
+  outOfHisTerritory = false;
   constructor(socket: Socket) {
     this.socket = socket;
     this.id = socket.id;

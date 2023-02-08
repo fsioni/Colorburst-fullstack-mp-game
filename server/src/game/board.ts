@@ -16,13 +16,13 @@ export default class Board {
     for (let i = 0; i < this.boardSize; i++) {
       this.boardCells[i] = [];
       for (let j = 0; j < this.boardSize; j++) {
-        this.boardCells[i][j] = new Cell();
+        this.boardCells[i][j] = new Cell(i, j);
       }
     }
   }
 
-  unionFind(): void {
-    throw new Error("not Implemented");
+  paintBoard(player: Player): void {
+    // Jsp frr
   }
 
   // Function to occupe the cells around the player

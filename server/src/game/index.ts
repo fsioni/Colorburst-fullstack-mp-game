@@ -174,8 +174,16 @@ export default class Game {
           this.killPlayer(player);
 
         // Check if player is on his own territory
-        if (cell.territoryOccupiedBy !== player.id)
+        if (cell.territoryOccupiedBy !== player.id) {
           this.gameBoard.setTrail(player);
+          player.outOfHisTerritory = true;
+        }
+        // Si le joueur reviens dans sa zone
+        else if (player.outOfHisTerritory) {
+          this.gameBoard.paintBoard(player);
+          player.outOfHisTerritory = false;
+          this.sendGameData();
+        }
       } else this.killPlayer(player);
     });
 
