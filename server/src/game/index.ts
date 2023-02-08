@@ -155,35 +155,33 @@ export default class Game {
       // add score to killer
     }
   }
+  private setGainedTerritory(player: Player): void {
+    //TODO
+  }
 
   private movePlayers(): void {
     this.alivePlayers.forEach((player) => {
       player.Move();
 
       // Check if player is out of bounds
-      if (this.gameBoard.isInBoard(player)) {
-        const cell = this.gameBoard.getCell(player.position);
-        if (!cell) return;
-        if (cell.trailsBy && cell.trailsBy !== player.id) {
-          const playerToKill = this.players.find((p) => p.id === cell.trailsBy);
-          if (playerToKill) this.killPlayer(playerToKill, player);
-        }
+      if (!this.gameBoard.isInBoard(player)) {
+        this.killPlayer(player);
+        return;
+      }
 
-        // Check if player is on his own trail
-        if (cell.trailsBy && cell.trailsBy === player.id)
-          this.killPlayer(player);
+      const cell = this.gameBoard.getCell(player.position);
+      if (!cell) return;
 
-        // Check if player is on his own territory
-        if (cell.territoryOccupiedBy !== player.id) {
-          this.gameBoard.setTrail(player);
-          player.outOfHisTerritory = true;
-        }
-        // Si le joueur reviens dans sa zone
-        else if (player.outOfHisTerritory) {
-          this.gameBoard.paintBoard(player);
-          player.outOfHisTerritory = false;
-          this.sendGameData();
-        }
+      // Check if player is on his own territory
+      if (cell.territoryOccupiedBy !== player.id) {
+        this.gameBoard.setTrail(player);
+        player.outOfHisTerritory = true;
+      }
+      // Si le joueur reviens dans sa zone
+      else if (player.outOfHisTerritory) {
+        this.gameBoard.paintBoard(player);
+        player.outOfHisTerritory = false;
+        this.sendGameData();
       } else this.killPlayer(player);
     });
 
