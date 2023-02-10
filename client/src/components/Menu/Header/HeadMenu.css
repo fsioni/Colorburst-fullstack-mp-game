@@ -2,7 +2,6 @@
 
 .header-container {
   display: flex;
-  width: 100%;
   justify-content: space-around;
   align-items: center;
   border-bottom: solid 3px black;
@@ -14,7 +13,7 @@
   color: #ffa01b;
   position: relative;
   text-shadow: -6px 6px 0 #e8476a, -9px 9px 0 purple;
-  font-size: 10vmin;
+  font-size: 50px;
 }
 
 .game-tile:after {
@@ -34,4 +33,10 @@
 .game-tile:hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+@media only screen and (max-width: 550px) {
+  .game-tile {
+    font-size: 40px;
+  }
 }

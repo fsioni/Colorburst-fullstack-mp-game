@@ -3,12 +3,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
 .inputFeild-container {
-  background-color: #f06220;
+  background-color: #ffa01b;
   position: relative;
   padding: 40px;
   border-radius: 7px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
+    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
 }
 
 .input-form {

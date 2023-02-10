@@ -1,17 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+
 .connexion-area-container {
-  width: 90px;
+  margin-top: 4px;
+  width: 125px;
   display: flex;
+  justify-content: space-between;
 }
 
 .connexion-button {
-  font-family: monospace;
-  font-size: 0.8rem;
-  color: #000000;
+  font-family: "Electrolize", sans-serif;
+  font-size: 13px;
+  color: white;
   text-transform: uppercase;
   padding: 10px 20px;
   border-radius: 10px;
-  border: 2px solid #000000;
-  box-shadow: 3px 3px #020202;
+  background-color: #ffa01b;
+  border: 2px solid #e8476a;
+  box-shadow: 3px 3px purple;
   cursor: pointer;
 }
 
@@ -21,29 +26,37 @@
 }
 
 .icon-acount {
-  font-size: 25px;
-  color: black;
+  font-size: 22px;
+  color: #fff2ec;
   cursor: pointer;
-  padding: 10px;
+  padding: 13px 15px 11px 14px;
+  box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
+    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
+  border-radius: 5px;
+  background-color: #ffa01b;
 }
 
 .icon-logout {
-  font-size: 25px;
-  color: black;
+  font-size: 22px;
+  color: #fff2ec;
   cursor: pointer;
-  padding: 10px;
+  padding: 13px 15px 11px 14px;
+  box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
+    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
+  border-radius: 5px;
+  background-color: #ffa01b;
 }
 
 .icon-acount:hover {
   transform: scale(1.05);
-  color: rgb(34, 34, 34);
+  color: rgb(185, 185, 185);
   cursor: pointer;
   padding: 10px;
 }
 
 .icon-logout:hover {
   transform: scale(1.05);
-  color: rgb(34, 34, 34);
+  color: rgb(185, 185, 185);
   cursor: pointer;
   padding: 10px;
 }
@@ -56,4 +69,21 @@
 .icon-logout:active {
   transform: scale(0.8);
   cursor: pointer;
+}
+
+@media only screen and (max-width: 550px) {
+  .connexion-area-container {
+    justify-content: space-evenly;
+  }
+  .connexion-button {
+    font-size: 8px;
+  }
+  .icon-logout {
+    font-size: 16px;
+    padding: 10px 12px 8px 11px;
+  }
+  .icon-acount {
+    font-size: 16px;
+    padding: 10px 12px 8px 11px;
+  }
 }
