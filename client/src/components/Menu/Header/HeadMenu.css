@@ -12,7 +12,6 @@
 .game-tile {
   font-family: "Wendy One", sans-serif;
   color: #ffa01b;
-  cursor: pointer;
   position: relative;
   text-shadow: -6px 6px 0 #e8476a, -9px 9px 0 purple;
   font-size: 10vmin;

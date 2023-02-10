@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
-import io from "socket.io-client";
-const socket = io("http://localhost:3000");
+//import io from "socket.io-client";
+//const socket = io("http://localhost:3000");
 
 import "./App.css";
 import HeadMenu from "./components/Menu/Header/HeadMenu";
@@ -13,9 +13,11 @@ const App: FC = () => {
   return (
     <div className="App">
       <HeadMenu />
-      <div className="main-container">
-        <Rooms />
+      <div className="inputF-container">
         <InputFeild />
+      </div>
+      <div className="statsAndRooms-container">
+        <Rooms />
         <Statistics />
       </div>
     </div>

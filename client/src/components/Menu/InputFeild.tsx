@@ -25,9 +25,17 @@ const InputFeild = ({ username, isLoged }: Props): JSX.Element => {
         ref={inputRef}
         type="input"
         value={username}
-        placeholder={isLoged === -1 ? "C'est quoi ton petit nom 🤔" : username}
+        placeholder={isLoged === -1 ? "Username 🤔" : username}
         className="input-feild-box"
       />
+      <select id="gameMode" className="input-select">
+        <option key="normal" value="normal" className="input-select-option">
+          Normal
+        </option>
+        <option key="hardcore" value="hardcore" className="input-select-option">
+          Hardcore
+        </option>
+      </select>
       <button className="input-feild-submit" type="submit">
         GO
       </button>

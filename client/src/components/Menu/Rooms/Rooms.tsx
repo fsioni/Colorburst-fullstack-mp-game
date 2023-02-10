@@ -4,6 +4,9 @@ import { FaGamepad } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
 
 import "./Rooms.css";
+import jsonListRoom from "../../../data/roomList.json";
+import SingleRoom from "./SingleRoom";
+import Room from "./RoomModel";
 
 const Rooms: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -13,9 +16,18 @@ const Rooms: FC = () => {
         <CgClose />
       </span>
       <h3 className="menu-stat-tile">Crée / rejoindre une game 🕹️</h3>
-      <p>Futur room joiniable 1</p>
-      <p>Futur room joiniable 2</p>
-      <p>Futur room joiniable 3</p>
+      {jsonListRoom.roomList.map((room) => (
+        <div key={room.roomId}>
+          <SingleRoom
+            roomId={room.roomId}
+            roomName={room.roomName}
+            nbPlayers={room.nbPlayers}
+            playersMax={room.playersMax}
+            isPrivate={room.isPrivate}
+            password={room.password}
+          />
+        </div>
+      ))}
     </div>
   ) : (
     <div className="room-container-close">
