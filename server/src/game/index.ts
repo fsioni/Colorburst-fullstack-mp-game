@@ -16,13 +16,14 @@ export default class Game {
   isJoinable: boolean;
   gameID: string;
   nextSkin = 0;
+  interval: NodeJS.Timeout;
   constructor(socketServer: Server, settings: Settings) {
     this.socketServer = socketServer;
     this.gameSettings = settings;
     this.gameBoard = new Board(this.boardSize);
     this.isJoinable = true;
     this.gameID = Math.random().toString(36).substring(7);
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.movePlayers();
     }, 500);
   }
@@ -148,6 +149,7 @@ export default class Game {
   private killPlayer(player: Player, killer: Player | null = null): void {
     player.socket.emit("gameOver");
     player.isAlive = false;
+    player.outOfHisTerritory = false;
     this.gameBoard.freeCells(player.id);
     this.spawnPlayer(player);
 
@@ -188,6 +190,8 @@ export default class Game {
       // Si le joueur reviens dans sa zone
       else if (player.outOfHisTerritory) {
         // On occupe les case dans la zone crée
+        this.gameBoard.occupeCells(player);
+        // clearInterval(this.interval);
         player.outOfHisTerritory = false;
         this.sendGameData();
       }

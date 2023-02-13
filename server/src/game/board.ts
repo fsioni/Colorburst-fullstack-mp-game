@@ -1,3 +1,4 @@
+import ZoneCalculator from "./zoneCalculator";
 import Cell from "./cell";
 import Player from "./player";
 import { playerPosition } from "./interfaces";
@@ -5,7 +6,6 @@ import { playerPosition } from "./interfaces";
 export default class Board {
   boardCells: Cell[][];
   boardSize: number;
-
   constructor(boardSize: number) {
     this.boardCells = [];
     this.boardSize = boardSize;
@@ -35,6 +35,11 @@ export default class Board {
     }
   }
 
+  occupeCells(player: Player): void {
+    const zoneOccupator = new ZoneCalculator(this.boardCells, player.id);
+    zoneOccupator.fillZone();
+  }
+
   freeCells(playerId: string): void {
     const toFree = this.boardCells.flat().filter((cell) => {
       return (
@@ -50,12 +55,13 @@ export default class Board {
 
   getCell(position: playerPosition): Cell | null {
     const { x, y } = position;
-
     return this.boardCells[x][y];
   }
 
   setTrail(player: Player): void {
     const { x, y } = player.position;
+    const cell = this.getCell(player.position);
+    if (cell?.territoryOccupiedBy === player.id) return;
     this.boardCells[x][y].trailsBy = player.id;
   }
 
