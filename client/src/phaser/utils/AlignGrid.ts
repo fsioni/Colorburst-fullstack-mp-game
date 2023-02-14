@@ -7,18 +7,18 @@ export interface gridConfig {
 const cellSize: { x: number; y: number } = { x: 142, y: 142 };
 
 export class AlignGrid {
-  h: number;
-  w: number;
-  rows: number;
-  cols: number;
-  cw: number;
-  ch: number;
-  scene: Phaser.Scene;
-  graphics: Phaser.GameObjects.Graphics;
+  h = 0;
+  w = 0;
+  rows = 0;
+  cols = 0;
+  cw = 0;
+  ch = 0;
+  scene: Phaser.Scene | undefined;
+  graphics: Phaser.GameObjects.Graphics | undefined;
 
   constructor(config: gridConfig) {
     if (!config.scene) {
-      console.log("missing scene!");
+      console.error("missing scene!");
       return;
     }
 
@@ -54,6 +54,7 @@ export class AlignGrid {
   //mostly for planning and debugging this will
   //create a visual representation of the grid
   show(a = 1) {
+    if (!this.checkIfSceneIsSet()) return;
     this.graphics = this.scene.add.graphics();
     this.graphics.lineStyle(4, 0xff0000, a);
     //
@@ -77,6 +78,7 @@ export class AlignGrid {
   showNumbers(a = 1) {
     this.show(a);
     let n = 0;
+    if (!this.checkIfSceneIsSet()) return;
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         const numText = this.scene.add.text(0, 0, `${n}`, {
@@ -95,5 +97,13 @@ export class AlignGrid {
     const y2 = this.ch * yy + this.ch / 2;
     const obj: { x: number; y: number } = { x: x2, y: y2 };
     return obj;
+  }
+
+  checkIfSceneIsSet() {
+    if (!this.scene) {
+      console.error("missing scene!");
+      return false;
+    }
+    return true;
   }
 }
