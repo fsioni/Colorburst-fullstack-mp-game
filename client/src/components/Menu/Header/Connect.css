@@ -16,7 +16,8 @@
   border-radius: 10px;
   background-color: #ffa01b;
   border: 2px solid #e8476a;
-  box-shadow: 3px 3px purple;
+  box-shadow: purple 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
+    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
   cursor: pointer;
 }
 
@@ -25,7 +26,7 @@
   transform: translate(3px, 3px);
 }
 
-.icon-acount {
+.icon-acount-container {
   font-size: 22px;
   color: #fff2ec;
   cursor: pointer;
@@ -36,7 +37,7 @@
   background-color: #ffa01b;
 }
 
-.icon-logout {
+.icon-logout-container {
   font-size: 22px;
   color: #fff2ec;
   cursor: pointer;
@@ -48,17 +49,21 @@
 }
 
 .icon-acount:hover {
-  transform: scale(1.05);
   color: rgb(185, 185, 185);
   cursor: pointer;
-  padding: 10px;
+}
+
+.icon-acount-container:hover {
+  transform: scale(1.04);
 }
 
 .icon-logout:hover {
-  transform: scale(1.05);
   color: rgb(185, 185, 185);
   cursor: pointer;
-  padding: 10px;
+}
+
+.icon-logout-container:hover {
+  transform: scale(1.04);
 }
 
 .icon-acount:active {
@@ -68,7 +73,7 @@
 
 .icon-logout:active {
   transform: scale(0.8);
-  cursor: pointer;
+  color: rgb(34, 34, 34);
 }
 
 @media only screen and (max-width: 550px) {
@@ -78,11 +83,11 @@
   .connexion-button {
     font-size: 8px;
   }
-  .icon-logout {
+  .icon-logout-container {
     font-size: 16px;
     padding: 10px 12px 8px 11px;
   }
-  .icon-acount {
+  .icon-acount-container {
     font-size: 16px;
     padding: 10px 12px 8px 11px;
   }

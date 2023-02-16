@@ -31,11 +31,11 @@ const Connect: FC = (): JSX.Element => {
     </div>
   ) : (
     <div className="connexion-area-container">
-      <span className="icon-acount">
-        <FaUserAlt />
+      <span className="icon-acount-container">
+        <FaUserAlt className="icon-acount" />
       </span>
-      <span className="icon-logout" onClick={() => setIsLoged(-1)}>
-        <RxExit />
+      <span className="icon-logout-container" onClick={() => setIsLoged(-1)}>
+        <RxExit className="icon-logout" />
       </span>
     </div>
   );
