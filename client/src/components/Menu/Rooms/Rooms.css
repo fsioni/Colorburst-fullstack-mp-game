@@ -1,12 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+
 .room-container-open {
-  background-color: green;
+  background-color: #e8476a;
+  color: whitesmoke;
+  font-family: "Electrolize", sans-serif;
   display: flex;
   position: relative;
   flex-direction: column;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  width: 300px;
+  box-shadow: purple 0px 2px 4px, rgba(255, 160, 27, 0.3) 0px 7px 13px -3px,
+    rgba(255, 160, 27, 0.3) 0px -3px 0px inset;
+  border-radius: 5px;
+  width: 375px;
   padding: 20px;
+  margin-bottom: 30px;
 }
 
 .close-icon {
@@ -42,4 +48,50 @@
 
 .room-icon:active {
   transform: scale(0.8);
+}
+
+.join-container {
+  background-color: cadetblue;
+  width: 100px;
+  padding: 8px 0px 8px 0px;
+  position: absolute;
+  left: 280px;
+  top: 110px;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  cursor: pointer;
+}
+
+.create-container {
+  background-color: rgb(106, 189, 106);
+  width: 100px;
+  padding: 8px 0px 8px 0px;
+  position: absolute;
+  left: 280px;
+  top: 175px;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 550px) {
+  .close-icon-svg {
+    visibility: hidden;
+  }
+  .close-icon {
+    visibility: hidden;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .close-icon-svg {
+    visibility: hidden;
+  }
+  .close-icon {
+    visibility: hidden;
+  }
 }

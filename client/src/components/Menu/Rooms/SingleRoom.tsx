@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import "./SingleRoom.css";
+import { TfiLock } from "react-icons/tfi";
 
 interface Props {
   roomId: number;
@@ -9,6 +10,10 @@ interface Props {
   isPrivate: boolean;
   password: number | null | undefined;
 }
+
+const isFull = (nbPlayers: number, playersMax: number): boolean => {
+  return nbPlayers - playersMax === 0;
+};
 
 const singleRoom: FC<Props> = ({
   roomId,
@@ -20,7 +25,13 @@ const singleRoom: FC<Props> = ({
 }) => {
   return (
     <div className="single-room-container">
-      {roomName} /{nbPlayers} {}
+      <div className="room-name">{roomName}</div>
+      {isFull(nbPlayers, playersMax) ? (
+        <div className="room-nbPlayers-Full">FULL</div>
+      ) : (
+        <div className="room-nbPlayers">{nbPlayers + "/" + playersMax}</div>
+      )}
+      <div className="room-private">{isPrivate ? <TfiLock /> : ""}</div>
     </div>
   );
 };

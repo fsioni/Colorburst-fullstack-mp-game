@@ -13,9 +13,9 @@ const Rooms: FC = () => {
   return isOpen ? (
     <div className="room-container-open">
       <span onClick={() => setIsOpen(false)} className="close-icon">
-        <CgClose />
+        <CgClose className="close-icon-svg" />
       </span>
-      <h3 className="menu-stat-tile">Crée / rejoindre une game 🕹️</h3>
+      <h2 className="menu-stat-tile">🕹️ GAME 🕹️</h2>
       {jsonListRoom.roomList.map((room) => (
         <div key={room.roomId}>
           <SingleRoom
@@ -28,6 +28,8 @@ const Rooms: FC = () => {
           />
         </div>
       ))}
+      <div className="join-container">JOIN</div>
+      <div className="create-container">CREATE</div>
     </div>
   ) : (
     <div className="room-container-close">

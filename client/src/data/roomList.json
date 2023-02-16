@@ -34,7 +34,7 @@
     {
       "roomId": 1,
       "roomName": "Lagavame",
-      "nbPlayers": 10,
+      "nbPlayers": 50,
       "playersMax": 50,
       "isPrivate": true,
       "password": 69200
