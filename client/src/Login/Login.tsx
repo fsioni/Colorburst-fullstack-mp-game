@@ -5,20 +5,28 @@ import React from "react";
 import app from "../Firebase";
 import "./Login.css";
 
-const auth = getAuth(app);
-const db = getFirestore(app);
-const users = collection(db, "users");
-// Sign in with Google
-const googleProvider = new GoogleAuthProvider();
-const signInWithGoogle = async () => {
-  const data = await signInWithPopup(auth, googleProvider);
-};
-
-const signout = () => auth.signOut();
-
-// Render
 export default function Login() {
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const users = collection(db, "users");
+  let idToken;
+  // Sign in with Google
+  const googleProvider = new GoogleAuthProvider();
+  const signInWithGoogle = async () => {
+    const data = await signInWithPopup(auth, googleProvider);
+    auth.currentUser?.getIdToken(true).then(function (token) {
+      idToken = token;
+      console.log(idToken);
+    });
+  };
+
   const [user, loading, error] = useAuthState(auth);
+  const signout = () => auth.signOut();
+
+  const startGame = () => {
+    console.log("Start game with userID : " + user?.uid);
+  };
+
   console.log("Rendered");
   return (
     <div>
@@ -27,9 +35,15 @@ export default function Login() {
           <img src="./ress/google.webp" /> Sign up with Google
         </button>
       ) : null}
-      {user ? <span>Hi {user.displayName}</span> : null}
-      <br />
-      {user ? <button onClick={signout}>Sign out</button> : null}
+
+      {user ? (
+        <div>
+          <span>Hi {user.displayName}</span>
+          <button onClick={signout}>Sign out</button>
+          <br />
+          <button onClick={startGame}>Launch game</button>
+        </div>
+      ) : null}
     </div>
   );
 }
