@@ -1,6 +1,6 @@
 .App {
-  width: auto;
-  background-color: rgb(37, 34, 34);
+  width: 100%;
+  height: 100%;
 }
 
 .inputF-container {
@@ -14,10 +14,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 860px) {
   .statsAndRooms-container {
     display: flex;
     flex-direction: column;

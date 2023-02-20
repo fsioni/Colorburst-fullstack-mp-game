@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
-.room-container-open {
+.room-container {
   background-color: #e8476a;
   color: whitesmoke;
   font-family: "Electrolize", sans-serif;
@@ -11,48 +11,22 @@
     rgba(255, 160, 27, 0.3) 0px -3px 0px inset;
   border-radius: 5px;
   width: 375px;
-  padding: 20px;
-  margin-bottom: 30px;
+  padding: 20px 20px 20px 20px;
+  margin-bottom: 5%;
 }
 
-.close-icon {
-  position: absolute;
-  right: 10px;
-  font-size: x-large;
-  cursor: pointer;
+.menu-game-title {
+  text-align: center;
+  margin-bottom: 6%;
+  margin-top: 1%;
 }
 
-.close-icon:hover {
-  color: rgb(255, 0, 0);
-}
-
-.room-container-close {
-  display: flex;
-  background-color: green;
-  min-width: 55px;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.room-icon {
-  font-size: 50px;
-  cursor: pointer;
-  align-items: center;
-}
-
-.room-icon:hover {
-  color: rgb(35, 35, 35);
-  transform: scale(1.04);
-}
-
-.room-icon:active {
-  transform: scale(0.8);
-}
-
-.join-container {
+.join-button {
   background-color: cadetblue;
+  border: none;
   width: 100px;
+  color: antiquewhite;
+
   padding: 8px 0px 8px 0px;
   position: absolute;
   left: 280px;
@@ -64,10 +38,12 @@
   cursor: pointer;
 }
 
-.create-container {
+.create-button {
   background-color: rgb(106, 189, 106);
   width: 100px;
   padding: 8px 0px 8px 0px;
+  border: none;
+  color: antiquewhite;
   position: absolute;
   left: 280px;
   top: 175px;
@@ -79,19 +55,7 @@
 }
 
 @media only screen and (max-width: 550px) {
-  .close-icon-svg {
-    visibility: hidden;
-  }
-  .close-icon {
-    visibility: hidden;
-  }
 }
 
 @media only screen and (max-width: 550px) {
-  .close-icon-svg {
-    visibility: hidden;
-  }
-  .close-icon {
-    visibility: hidden;
-  }
 }

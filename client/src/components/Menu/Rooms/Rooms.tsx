@@ -1,21 +1,15 @@
 import React from "react";
-import { FC, useState } from "react";
-import { FaGamepad } from "react-icons/fa";
-import { CgClose } from "react-icons/cg";
+import { FC } from "react";
 
 import "./Rooms.css";
 import jsonListRoom from "../../../data/roomList.json";
 import SingleRoom from "./SingleRoom";
-import Room from "./RoomModel";
+//import Room from "./RoomModel"; A utiliser plus tard avec les props
 
 const Rooms: FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  return isOpen ? (
-    <div className="room-container-open">
-      <span onClick={() => setIsOpen(false)} className="close-icon">
-        <CgClose className="close-icon-svg" />
-      </span>
-      <h2 className="menu-stat-tile">🕹️ GAME 🕹️</h2>
+  return (
+    <div className="room-container">
+      <h2 className="menu-game-title">🕹️ GAME 🕹️</h2>
       {jsonListRoom.roomList.map((room) => (
         <div key={room.roomId}>
           <SingleRoom
@@ -28,14 +22,8 @@ const Rooms: FC = () => {
           />
         </div>
       ))}
-      <div className="join-container">JOIN</div>
-      <div className="create-container">CREATE</div>
-    </div>
-  ) : (
-    <div className="room-container-close">
-      <span onClick={() => setIsOpen(true)} className="room-icon">
-        <FaGamepad />
-      </span>
+      <button className="join-button">JOIN</button>
+      <button className="create-button">CREATE</button>
     </div>
   );
 };
