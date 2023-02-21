@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "postdev": "cd ../crawlavers-backend && npm run start",
     "build": "tsc && vite build",
     "format": "npx prettier --write .",
@@ -12,7 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "buffer": "^6.0.3",
     "dotenv": "^16.0.3",
+    "phaser": "^3.55.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
@@ -26,6 +28,7 @@
     "@vitejs/plugin-react": "^3.0.0",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-react": "^7.32.1",
     "lint-staged": "^13.1.0",
     "prettier": "2.8.3",
