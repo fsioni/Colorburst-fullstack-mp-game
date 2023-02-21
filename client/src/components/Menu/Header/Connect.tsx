@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useState, useEffect, FC } from "react";
+import ConnectionModal from "./ConnectionModal";
 import { FaUserAlt } from "react-icons/fa";
 import { RxExit } from "react-icons/rx";
 import "./Connect.css";
@@ -14,6 +15,8 @@ const Connect: FC = (): JSX.Element => {
     savedLoging ? JSON.parse(savedLoging) : -1
   );
 
+  const [isConnectionModalOpen, setIsConnectionModalOpen] = useState(false);
+
   useEffect(() => {
     // met à jour la localStorage pour enregister la connexion
     localStorage.setItem("isLoged", JSON.stringify(isLoged));
@@ -24,10 +27,17 @@ const Connect: FC = (): JSX.Element => {
       <button
         className="connexion-button"
         // A changer renvoie l'id du joueur connecté
-        onClick={() => setIsLoged(getRandomInt(100))}
+        onClick={() => setIsConnectionModalOpen(true)}
       >
         Login
       </button>
+      {isConnectionModalOpen && (
+        <ConnectionModal
+          setIsOpen={function (isOpen: boolean): void {
+            setIsConnectionModalOpen(isOpen);
+          }}
+        />
+      )}
     </div>
   ) : (
     <div className="connexion-area-container">
