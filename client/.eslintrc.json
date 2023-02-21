@@ -16,7 +16,9 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint", "html"],
-  "rules": {},
+  "rules": {
+    "react/react-in-jsx-scope": "off"
+  },
 
   "settings": {
     "react": {
