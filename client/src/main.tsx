@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/App";
-
-import "./phaser/game.ts";
+import Game from "./components/Game";
 
 ReactDOM.createRoot(document.getElementById("react") as HTMLElement).render(
-  <React.StrictMode>
+  <div id="mainDiv">
     <App />
-  </React.StrictMode>
+    <Game />
+  </div>
 );
