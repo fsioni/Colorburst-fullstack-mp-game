@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from "react";
 import { FC, useRef } from "react";
-import "./InputFeild.css";
+import "./InputField.css";
 
 interface Props {
   // TODO 1 fct aléatoire que ne s'affiche pas si il est log
