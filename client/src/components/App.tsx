@@ -1,5 +1,23 @@
-import React from "react";
+import React, { FC } from "react";
+import "./App.css";
+import HeadMenu from "./Menu/Header/HeadMenu";
+import InputField from "./Menu/InputField";
+import Rooms from "./Menu/Rooms/Rooms";
+import Statistics from "./Menu/Stats/Statistics";
 
-export default function App() {
-  return <div>App</div>;
-}
+const App: FC = () => {
+  return (
+    <div className="App">
+      <HeadMenu />
+      <div className="inputF-container">
+        <InputField />
+      </div>
+      <div className="statsAndRooms-container">
+        <Rooms />
+        <Statistics />
+      </div>
+    </div>
+  );
+};
+
+export default App;

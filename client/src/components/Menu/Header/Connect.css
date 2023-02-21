@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+
+.connexion-area-container {
+  margin-top: 4px;
+  width: 125px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.connexion-button {
+  font-family: "Electrolize", sans-serif;
+  font-size: 13px;
+  color: white;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #ffa01b;
+  border: 2px solid #e8476a;
+  box-shadow: purple 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
+    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
+  cursor: pointer;
+}
+
+.menu-connexion-button:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+
+.icon-acount-container {
+  font-size: 22px;
+  color: #fff2ec;
+  cursor: pointer;
+  padding: 13px 15px 11px 14px;
+  box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
+    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
+  border-radius: 5px;
+  background-color: #ffa01b;
+}
+
+.icon-logout-container {
+  font-size: 22px;
+  color: #fff2ec;
+  cursor: pointer;
+  padding: 13px 15px 11px 14px;
+  box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
+    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
+  border-radius: 5px;
+  background-color: #ffa01b;
+}
+
+.icon-acount:hover {
+  color: rgb(185, 185, 185);
+  cursor: pointer;
+}
+
+.icon-acount-container:hover {
+  transform: scale(1.04);
+}
+
+.icon-logout:hover {
+  color: rgb(185, 185, 185);
+  cursor: pointer;
+}
+
+.icon-logout-container:hover {
+  transform: scale(1.04);
+}
+
+.icon-acount:active {
+  transform: scale(0.8);
+  color: rgb(34, 34, 34);
+}
+
+.icon-logout:active {
+  transform: scale(0.8);
+  color: rgb(34, 34, 34);
+}
+
+@media only screen and (max-width: 550px) {
+  .connexion-area-container {
+    justify-content: space-evenly;
+  }
+  .connexion-button {
+    font-size: 8px;
+  }
+  .icon-logout-container {
+    font-size: 16px;
+    padding: 10px 12px 8px 11px;
+  }
+  .icon-acount-container {
+    font-size: 16px;
+    padding: 10px 12px 8px 11px;
+  }
+}
