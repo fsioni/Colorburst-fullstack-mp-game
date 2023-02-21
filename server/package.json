@@ -18,6 +18,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "firebase": "^9.16.0",
+    "firebase-admin": "^11.5.0",
     "socket.io": "^4.5.4",
     "socket.io-cookie": "^0.0.1"
   },
