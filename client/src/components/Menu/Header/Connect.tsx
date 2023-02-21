@@ -1,28 +1,20 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState, useEffect, FC } from "react";
+import { useState, FC } from "react";
 import ConnectionModal from "./ConnectionModal";
 import { FaUserAlt } from "react-icons/fa";
 import { RxExit } from "react-icons/rx";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import app from "../../../Firebase";
 import "./Connect.css";
 
-const getRandomInt = (maximum: number): number => {
-  return Math.floor(Math.random() * maximum);
-};
-
 const Connect: FC = (): JSX.Element => {
-  const savedLoging: string | null = localStorage.getItem("isLoged");
-  const [isLoged, setIsLoged] = useState<number>(
-    savedLoging ? JSON.parse(savedLoging) : -1
-  );
+  const auth = getAuth(app);
+  const [user, loading, error] = useAuthState(auth);
 
   const [isConnectionModalOpen, setIsConnectionModalOpen] = useState(false);
 
-  useEffect(() => {
-    // met à jour la localStorage pour enregister la connexion
-    localStorage.setItem("isLoged", JSON.stringify(isLoged));
-  }, [isLoged]);
-
-  return isLoged === -1 ? (
+  return !user ? (
     <div className="connexion-area-container">
       <button
         className="connexion-button"
@@ -44,7 +36,13 @@ const Connect: FC = (): JSX.Element => {
       <span className="icon-acount-container">
         <FaUserAlt className="icon-acount" />
       </span>
-      <span className="icon-logout-container" onClick={() => setIsLoged(-1)}>
+      <span
+        className="icon-logout-container"
+        onClick={() => {
+          auth.signOut();
+          setIsConnectionModalOpen(false);
+        }}
+      >
         <RxExit className="icon-logout" />
       </span>
     </div>

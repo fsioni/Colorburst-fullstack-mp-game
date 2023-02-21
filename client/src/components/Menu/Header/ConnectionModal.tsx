@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import "./ConnectionModal.css";
 import { RiCloseLine } from "react-icons/ri";
+import Login from "../../Login/Login";
 
 interface Props {
   setIsOpen: (isOpen: boolean) => void;
@@ -18,10 +19,10 @@ const ConnectionModal: FC<Props> = ({ setIsOpen }): JSX.Element => {
           <button className="closeBtn" onClick={() => setIsOpen(false)}>
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
-          <div className="modalContent">Connection buttons</div>
+          <div className="modalContent">Choose your connection method</div>
           <div className="modalActions">
             <div className="actionsContainer">
-              <button className="actionBtn">Login</button>
+              <Login />
             </div>
           </div>
         </div>
