@@ -5,6 +5,8 @@ import * as socketio from "socket.io";
 import dotenv from "dotenv";
 import Game from "./game";
 
+import gameRouter from "./api/game";
+
 const log = (...text: string[]) => console.log(`[Server] ${text.join(" ")}`);
 
 dotenv.config({ path: "config_var.env" });
@@ -20,6 +22,8 @@ app.use(express.json());
 app.get("/", (_req, res) => {
   res.send({ uptime: process.uptime() });
 });
+
+app.use("/api/game", gameRouter);
 
 const server: http.Server = http.createServer(app);
 const io: socketio.Server = new socketio.Server(server, {

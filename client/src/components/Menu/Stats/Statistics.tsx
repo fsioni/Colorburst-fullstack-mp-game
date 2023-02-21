@@ -1,6 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { FC, useState } from "react";
-import { GiPodium } from "react-icons/gi";
+import { FC } from "react";
 import "./Statistics.css";
 
 const Statistics: FC = () => {
