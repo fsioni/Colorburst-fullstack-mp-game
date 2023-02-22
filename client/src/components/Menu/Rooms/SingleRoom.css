@@ -10,6 +10,23 @@
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
     rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  user-select: none;
+}
+
+.single-room-container:hover {
+  background-color: #be8b95;
+  color: whitesmoke;
+  translate: 4px;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
 }
 
 .room-private {
