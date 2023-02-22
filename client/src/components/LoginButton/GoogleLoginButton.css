@@ -11,7 +11,7 @@
   display: flex;
   line-height: 20px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
-  transition-duration: 0.5s;
+  transition-duration: 0.2s;
   transition-property: background-color;
 }
 
