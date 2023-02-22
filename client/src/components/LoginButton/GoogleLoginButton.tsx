@@ -1,7 +1,7 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
 import app from "../../Firebase";
-import "./Login.css";
+import "./GoogleLoginButton.css";
 
 const auth = getAuth(app);
 // Sign in with Google
@@ -11,7 +11,7 @@ const signInWithGoogle = async () => {
 };
 
 // Render
-export default function Login() {
+export default function GoogleLoginButton() {
   return (
     <div>
       <button onClick={signInWithGoogle} className="signWithGoogle">
