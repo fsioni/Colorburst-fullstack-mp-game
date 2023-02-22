@@ -26,7 +26,6 @@
   border: none;
   width: 100px;
   color: antiquewhite;
-
   padding: 8px 0px 8px 0px;
   position: absolute;
   left: 280px;
@@ -36,6 +35,34 @@
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   cursor: pointer;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.join-button:hover {
+  background-color: #a0c4c9;
+  color: rgb(247, 240, 231);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
+    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+
+.join-button:active,
+.create-button:active {
+  scale: 0.9;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
 }
 
 .create-button {
@@ -52,6 +79,24 @@
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   cursor: pointer;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.create-button:hover {
+  background-color: rgb(154, 207, 154);
+  color: rgb(247, 240, 231);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
+    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
 }
 
 @media only screen and (max-width: 550px) {
