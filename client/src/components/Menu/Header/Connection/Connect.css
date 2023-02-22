@@ -49,17 +49,7 @@
   transform: translate(3px, 3px);
 }
 
-.icon-acount-container {
-  font-size: 22px;
-  color: #fff2ec;
-  cursor: pointer;
-  padding: 13px 15px 11px 14px;
-  box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
-    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
-  border-radius: 5px;
-  background-color: #ffa01b;
-}
-
+.icon-account-container,
 .icon-logout-container {
   font-size: 22px;
   color: #fff2ec;
@@ -68,35 +58,35 @@
   box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
     rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
   border-radius: 5px;
+  border: 2px solid #e8476a;
   background-color: #ffa01b;
 }
 
-.icon-acount:hover {
-  color: rgb(185, 185, 185);
-  cursor: pointer;
-}
-
-.icon-acount-container:hover {
-  transform: scale(1.04);
-}
-
-.icon-logout:hover {
-  color: rgb(185, 185, 185);
-  cursor: pointer;
-}
-
+.icon-account-container:hover,
 .icon-logout-container:hover {
+  color: rgb(185, 185, 185);
+  cursor: pointer;
+}
+
+.icon-account-container:hover,
+.icon-logout-container:hover {
+  background-color: #de860c;
+  color: #dbcfcf;
   transform: scale(1.04);
+  -webkit-transform: scale(1.04);
+  -moz-transform: scale(1.04);
+  -ms-transform: scale(1.04);
+  -o-transform: scale(1.04);
 }
 
-.icon-acount:active {
-  transform: scale(0.8);
+.icon-account-container:active,
+.icon-logout-container:active {
+  transform: scale(0.95);
   color: rgb(34, 34, 34);
-}
-
-.icon-logout:active {
-  transform: scale(0.8);
-  color: rgb(34, 34, 34);
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  -o-transform: scale(0.95);
 }
 
 @media only screen and (max-width: 550px) {
@@ -110,7 +100,7 @@
     font-size: 16px;
     padding: 10px 12px 8px 11px;
   }
-  .icon-acount-container {
+  .icon-account-container {
     font-size: 16px;
     padding: 10px 12px 8px 11px;
   }

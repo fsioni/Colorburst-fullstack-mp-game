@@ -33,10 +33,10 @@ const Connect: FC = (): JSX.Element => {
     </div>
   ) : (
     <div className="connexion-area-container">
-      <span className="icon-acount-container">
-        <FaUserAlt className="icon-acount" />
-      </span>
-      <span
+      <button className="icon-account-container">
+        <FaUserAlt className="icon-account" />
+      </button>
+      <button
         className="icon-logout-container"
         onClick={() => {
           auth.signOut();
@@ -44,7 +44,7 @@ const Connect: FC = (): JSX.Element => {
         }}
       >
         <RxExit className="icon-logout" />
-      </span>
+      </button>
     </div>
   );
 };
