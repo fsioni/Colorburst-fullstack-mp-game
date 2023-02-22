@@ -19,6 +19,29 @@
   box-shadow: purple 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
     rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.connexion-button:hover {
+  color: rgb(215, 215, 215);
+  transform: scale(1.04);
+  background-color: #ef971c;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.connexion-button:active {
+  transform: scale(0.9);
+  color: rgb(240, 240, 240);
+  transition: 0.2s;
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
 }
 
 .menu-connexion-button:active {
