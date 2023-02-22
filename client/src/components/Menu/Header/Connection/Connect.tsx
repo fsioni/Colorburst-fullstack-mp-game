@@ -21,7 +21,7 @@ const Connect: FC = (): JSX.Element => {
         // A changer renvoie l'id du joueur connecté
         onClick={() => setIsConnectionModalOpen(true)}
       >
-        Login
+        Log in
       </button>
       {isConnectionModalOpen && (
         <ConnectionModal
