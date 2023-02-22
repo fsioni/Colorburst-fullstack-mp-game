@@ -10,11 +10,11 @@ interface Props {
   isLoged: number;
 }
 
-const InputFeild = ({ username, isLoged }: Props): JSX.Element => {
+const InputField = ({ username, isLoged }: Props): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>(null);
   isLoged = -1;
   return (
-    <div className="inputFeild-container">
+    <div className="inputField-container">
       <form
         className="input-form"
         onSubmit={() => {
@@ -26,7 +26,7 @@ const InputFeild = ({ username, isLoged }: Props): JSX.Element => {
         type="input"
         value={username}
         placeholder={isLoged === -1 ? "Username 🤔" : username}
-        className="input-feild-box"
+        className="input-field-box"
       />
       <select id="gameMode" className="input-select">
         <option key="normal" value="normal" className="input-select-option">
@@ -36,11 +36,11 @@ const InputFeild = ({ username, isLoged }: Props): JSX.Element => {
           Hardcore
         </option>
       </select>
-      <button className="input-feild-submit" type="submit">
+      <button className="input-field-submit" type="submit">
         GO
       </button>
     </div>
   );
 };
 
-export default InputFeild;
+export default InputField;

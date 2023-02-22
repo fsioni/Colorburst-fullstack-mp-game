@@ -2,7 +2,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap'); */
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
-.inputFeild-container {
+.inputField-container {
   background-color: #ffa01b;
   position: relative;
   padding: 40px;
@@ -15,7 +15,7 @@
   visibility: hidden;
 }
 
-.input-feild-box {
+.input-field-box {
   position: inherit;
   bottom: 20px;
   width: 80%;
@@ -31,7 +31,7 @@
   font-family: "Electrolize", sans-serif;
 }
 
-.input-feild-box:focus {
+.input-field-box:focus {
   box-shadow: 0 0 10px 1000px rgb(0, 0, 0, 0.5);
   outline: none;
 }
@@ -57,7 +57,7 @@
   scroll-behavior: smooth;
 }
 
-.input-feild-submit {
+.input-field-submit {
   padding: 9px 8px;
   border: none;
   outline: none;
@@ -77,7 +77,7 @@
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-.input-feild-submit:before {
+.input-field-submit:before {
   content: "";
   background: linear-gradient(
     45deg,
@@ -117,7 +117,7 @@
   }
 }
 
-.input-feild-submit:after {
+.input-field-submit:after {
   z-index: -1;
   content: "";
   position: absolute;
