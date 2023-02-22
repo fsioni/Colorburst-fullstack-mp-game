@@ -5,7 +5,7 @@ import "./HeadMenu.css";
 const HeadMenu = () => {
   return (
     <div className="header-container">
-      <h1 className="game-tile">ColorBurst</h1>
+      <h1 className="game-title">ColorBurst</h1>
       <Connect />
     </div>
   );
