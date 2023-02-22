@@ -9,7 +9,7 @@ import SingleRoom from "./SingleRoom";
 const Rooms: FC = () => {
   return (
     <div className="room-container">
-      <h2 className="menu-game-title">🕹️ GAME 🕹️</h2>
+      <h2 className="menu-game-title">🕹️ ROOMS 🕹️</h2>
       {jsonListRoom.roomList.map((room) => (
         <div key={room.roomId}>
           <SingleRoom
