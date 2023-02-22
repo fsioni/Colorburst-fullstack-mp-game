@@ -12,8 +12,9 @@
 }
 
 .signWithGoogle img {
-  filter: brightness(0) invert(1);
+  filter: drop-shadow(1px 1px 3px #13137a);
   width: 20px;
   height: 20px;
   margin-right: 10px;
+  -webkit-filter: drop-shadow(1px 1px 3px #13137a);
 }
