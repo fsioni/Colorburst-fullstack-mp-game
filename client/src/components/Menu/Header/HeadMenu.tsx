@@ -1,5 +1,5 @@
 import React from "react";
-import Connect from "./Connect";
+import Connect from "./Connection/Connect";
 import "./HeadMenu.css";
 
 const HeadMenu = () => {

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import "./ConnectionModal.css";
 import { RiCloseLine } from "react-icons/ri";
-import Login from "../../Login/Login";
+import GoogleLoginButton from "../../../LoginButton/GoogleLoginButton";
 
 interface Props {
   setIsOpen: (isOpen: boolean) => void;
@@ -22,7 +22,7 @@ const ConnectionModal: FC<Props> = ({ setIsOpen }): JSX.Element => {
           <div className="modalContent">Choose your connection method</div>
           <div className="modalActions">
             <div className="actionsContainer">
-              <Login />
+              <GoogleLoginButton />
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { RxExit } from "react-icons/rx";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import app from "../../../Firebase";
+import app from "../../../../Firebase";
 import "./Connect.css";
 
 const Connect: FC = (): JSX.Element => {
