@@ -24,6 +24,7 @@
 
 .connexion-button:hover {
   color: rgb(215, 215, 215);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
   transform: scale(1.04);
   background-color: #ef971c;
   font-weight: 700;
@@ -65,7 +66,13 @@
 .icon-account-container:hover,
 .icon-logout-container:hover {
   color: rgb(185, 185, 185);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  transition: 0.2s;
   cursor: pointer;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
 }
 
 .icon-account-container:hover,
