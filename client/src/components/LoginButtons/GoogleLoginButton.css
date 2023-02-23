@@ -17,12 +17,15 @@
 
 .signWithGoogle:hover {
   background-color: #2055b0;
-  transition-duration: 0.5s;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  scale: 1.05;
+  transition-duration: 0.2s;
   transition-property: background-color;
   color: rgb(211, 211, 211);
 }
 
 .signWithGoogle:active {
+  scale: 0.9;
   background-color: #3e6bb9;
   transition-duration: 0.5s;
   transition-property: background-color;
