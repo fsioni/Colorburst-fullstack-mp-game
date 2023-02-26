@@ -4,7 +4,7 @@ import * as http from "http";
 import * as socketio from "socket.io";
 import dotenv from "dotenv";
 import Game from "./game";
-
+// Import the game route file
 import gameRouter from "./api/game";
 
 const log = (...text: string[]) => console.log(`[Server] ${text.join(" ")}`);
@@ -23,7 +23,9 @@ app.get("/", (_req, res) => {
   res.send({ uptime: process.uptime() });
 });
 
-app.use("/api/game", gameRouter);
+app.use("/rooms", gameRouter);
+// Alowed fetch and parse
+app.use(express.json());
 
 const server: http.Server = http.createServer(app);
 const io: socketio.Server = new socketio.Server(server, {

@@ -1,43 +1,41 @@
-{
-  "roomList": [
-    {
-      "roomId": 1,
-      "roomName": "nom1",
-      "nbPlayers": 10,
-      "playersMax": 20,
-      "isPrivate": true,
-      "password": 69
-    },
-    {
-      "roomId": 2,
-      "roomName": "alloooooooo",
-      "nbPlayers": 1,
-      "playersMax": 15,
-      "isPrivate": false
-    },
-    {
-      "roomId": 3,
-      "roomName": "La J",
-      "nbPlayers": 1,
-      "playersMax": 5,
-      "isPrivate": false,
-      "password": null
-    },
-    {
-      "roomId": 5,
-      "roomName": "C'est troop le S",
-      "nbPlayers": 100,
-      "playersMax": 200,
-      "isPrivate": false,
-      "password": null
-    },
-    {
-      "roomId": 1,
-      "roomName": "Lagavame",
-      "nbPlayers": 50,
-      "playersMax": 50,
-      "isPrivate": true,
-      "password": 69200
-    }
-  ]
-}
+[
+  {
+    "roomId": 1,
+    "roomName": "Barthelimi",
+    "nbPlayers": 10,
+    "playersMax": 20,
+    "isPrivate": true,
+    "password": 69
+  },
+  {
+    "roomId": 2,
+    "roomName": "alloooooooo",
+    "nbPlayers": 1,
+    "playersMax": 15,
+    "isPrivate": false
+  },
+  {
+    "roomId": 3,
+    "roomName": "La J",
+    "nbPlayers": 1,
+    "playersMax": 5,
+    "isPrivate": false,
+    "password": null
+  },
+  {
+    "roomId": 5,
+    "roomName": "C'est troop le S",
+    "nbPlayers": 100,
+    "playersMax": 200,
+    "isPrivate": false,
+    "password": null
+  },
+  {
+    "roomId": 1,
+    "roomName": "Lagavame",
+    "nbPlayers": 50,
+    "playersMax": 50,
+    "isPrivate": true,
+    "password": 69200
+  }
+]
