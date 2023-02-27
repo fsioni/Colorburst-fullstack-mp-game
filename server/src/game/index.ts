@@ -136,8 +136,18 @@ export default class Game {
   }
 
   private sendMapToPlayers(): void {
+    // Translate boardCells to a smaller array
+    const map = this.boardCells.map((row) =>
+      row.map((cell) => {
+        if (cell.trailsBy && cell.territoryOccupiedBy)
+          return [cell.territoryOccupiedBy, cell.trailsBy];
+        if (cell.trailsBy) return [null, cell.trailsBy];
+        if (cell.territoryOccupiedBy) return [cell.territoryOccupiedBy];
+        return null;
+      })
+    );
     this.alivePlayers.forEach((player) => {
-      player.socket.emit("map", this.boardCells);
+      player.socket.emit("map", map);
     });
   }
 
