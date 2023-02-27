@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import Player from "../gameObjects/Player";
 import Board from "../gameObjects/Board";
 import io from "socket.io-client";
+import { Buffer } from "buffer";
 
 const Socketorigin =
   window.location.origin.split(":")[0] +
@@ -17,12 +18,10 @@ export class FirstGameScene extends Phaser.Scene {
 
   constructor() {
     super("FirstGameScene");
-    console.log("FirstGameScene.constructor()");
     this.players = [];
   }
 
   preload() {
-    console.log("FirstGameScene.preload");
     this.load.spritesheet("playerHeads", "src/assets/img/player_heads.png", {
       frameWidth: 142,
       frameHeight: 183,
@@ -46,6 +45,8 @@ export class FirstGameScene extends Phaser.Scene {
       (
         data: { playerID: string; x: number; y: number; direction: number }[]
       ) => {
+        const packetSize = Buffer.byteLength(JSON.stringify(data));
+        console.log(`[playersPositions] Packet size: ${packetSize} bytes`);
         if (this.player?.id) {
           const dataThisPlayer = data.find(
             (p: { playerID: string }) => p.playerID === this.player?.id
@@ -94,15 +95,12 @@ export class FirstGameScene extends Phaser.Scene {
 
   handlePlayersList() {
     this.socket.on("playersList", (data: { id: string; color: number }[]) => {
-      //console.log(data);
-      //add players that are not in the players array
+      const packetSize = Buffer.byteLength(JSON.stringify(data));
+      console.log(`[playersList] Packet size: ${packetSize} bytes`);
 
       data.forEach((p) => {
         if (!this.players.find((player: Player) => player.id === p.id)) {
           if (!this.board) return;
-          console.log(
-            "Socket ID" + this.socket?.id + " this Player ID " + p.id
-          );
 
           if (p.id === this.socket?.id && this.player === null) {
             this.player = this.add.existing(
@@ -110,16 +108,12 @@ export class FirstGameScene extends Phaser.Scene {
             );
             this.player.setFrame(p.color);
             this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
-            console.log("Nouveau joueur jouable ajouté");
           } else {
             //check if it is the player
             if (this.player?.id === p.id) return;
             const newPlayer = new Player(this, p.id, this.board, p.color);
             newPlayer.setFrame(p.color);
             this.players.push(this.add.existing(newPlayer));
-            console.log("ID : " + p.id);
-
-            console.log("Nouveau joueur non-jouable ajouté");
           }
         }
       });
@@ -128,7 +122,6 @@ export class FirstGameScene extends Phaser.Scene {
 
   handlePositionUpdated() {
     this.socket?.on("gameUpdated", () => {
-      console.log("gameUpdated");
       this.player?.calculateBoardPosition();
 
       this.players.forEach((player) => {
