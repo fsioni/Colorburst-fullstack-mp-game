@@ -1,13 +1,19 @@
-import * as express from "express";
+import express, { Express } from "express";
 import cors from "cors";
 import * as http from "http";
 import * as socketio from "socket.io";
 import dotenv from "dotenv";
 import { db, getUsers } from "./database/index";
-dotenv.config({ path: "config_var.env" });
-const port = process.env.PORT;
+import Game from "./game";
 
-const app = express.default();
+const log = (...text: string[]) => console.log(`[Server] ${text.join(" ")}`);
+
+dotenv.config({ path: "config_var.env" });
+const port: number | undefined = process.env.PORT
+  ? Number(process.env.PORT)
+  : undefined;
+
+const app: Express = express();
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
@@ -16,21 +22,25 @@ app.get("/", (_req, res) => {
   res.send({ uptime: process.uptime() });
 });
 
-const server = http.createServer(app);
-const io = new socketio.Server(server, {
+const server: http.Server = http.createServer(app);
+const io: socketio.Server = new socketio.Server(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
+const game = new Game(io, {
+  boardSize: 20,
+  nbPlayersMax: 0,
+  isPrivate: false,
+  invitationCode: null,
+});
+
 io.on("connection", (socket) => {
-  // Get session id
-  console.log("📈 [server] New client connected", socket.id);
-  socket.on("disconnect", () => {
-    console.log("📉 [server] Client disconnected", socket.id);
-  });
+  // Join the game
+  game.join(socket);
 });
 
 server.listen(port, () => {
-  console.log(`⚡️ [server]: Server is running at http://localhost:${port}`);
+  log(`⚡️ Server is running at http://localhost:${port}`);
 });
 
 getUsers().then((users) => {

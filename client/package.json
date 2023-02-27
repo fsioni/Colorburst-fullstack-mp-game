@@ -12,8 +12,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "buffer": "^6.0.3",
     "dotenv": "^16.0.3",
     "firebase": "^9.16.0",
+    "phaser": "^3.55.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
@@ -38,12 +40,10 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "npx eslint ./src",
-      "npx prettier --write .",
-      "git add"
+      "npx prettier --write ."
     ],
     "*.{html,css,md,json}": [
-      "npx prettier --write .",
-      "git add"
+      "npx prettier --write ."
     ]
   }
 }

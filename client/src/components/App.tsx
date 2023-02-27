@@ -10,7 +10,7 @@ const App: FC = () => {
     <div className="App">
       <HeadMenu />
       <div className="inputF-container">
-        <InputField />
+        <InputField username={""} isLoged={0} />
       </div>
       <div className="statsAndRooms-container">
         <Rooms />
