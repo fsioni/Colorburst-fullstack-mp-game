@@ -1,10 +1,8 @@
 import Board from "./board";
 import Player from "./player";
-
-import Settings from "./settings";
 import { Server, Socket } from "socket.io";
 import Cell from "./cell";
-import { playerPosition } from "./interfaces";
+import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
 
 const skinsCount = 5;
 
@@ -17,9 +15,14 @@ export default class Game {
   gameID: string;
   nextSkin = 0;
   interval: NodeJS.Timeout;
-  constructor(socketServer: Server, settings: Settings) {
+  constructor(socketServer: Server, settings: CreateGameSettings) {
     this.socketServer = socketServer;
-    this.gameSettings = settings;
+    this.gameSettings = {
+      boardSize: settings.boardSize || 80,
+      nbPlayersMax: settings.nbPlayersMax || 10,
+      isPrivate: settings.isPrivate || false,
+      invitationCode: settings.invitationCode || null,
+    };
     this.gameBoard = new Board(this.boardSize);
     this.isJoinable = true;
     this.gameID = Math.random().toString(36).substring(7);
@@ -34,6 +37,26 @@ export default class Game {
 
   get boardCells(): Cell[][] {
     return this.gameBoard.boardCells;
+  }
+
+  get nbPlayersMax(): number {
+    return this.gameSettings.nbPlayersMax;
+  }
+
+  get isPrivate(): boolean {
+    return this.gameSettings.isPrivate;
+  }
+
+  get invitationCode(): string | null {
+    return this.gameSettings.invitationCode;
+  }
+
+  get alivePlayersCount(): number {
+    return this.alivePlayers.length;
+  }
+
+  get connectedPlayersCount(): number {
+    return this.players.length;
   }
 
   async join(playerSocket: Socket): Promise<void> {
@@ -58,6 +81,14 @@ export default class Game {
 
     // On envoie la liste des joueurs pour la couleur :)
     setTimeout(() => this.sendPlayersList(), 500);
+    // On envoie aussi les settings de la partie
+    this.sendGameSettings();
+  }
+
+  private sendGameSettings(): void {
+    this.socketServer.to(this.gameID).emit("gameSettings", {
+      boardSize: this.boardSize,
+    });
   }
 
   private sendPlayersList(): void {
