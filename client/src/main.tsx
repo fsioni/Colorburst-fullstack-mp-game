@@ -5,7 +5,7 @@ import Game from "./components/Game";
 
 ReactDOM.createRoot(document.getElementById("react") as HTMLElement).render(
   <div id="mainDiv">
-    <App />
-    {/* <Game /> */}
+    {/* <App /> */}
+    <Game />
   </div>
 );

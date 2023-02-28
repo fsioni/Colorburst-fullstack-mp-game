@@ -4,7 +4,7 @@ import * as http from "http";
 import * as socketio from "socket.io";
 import dotenv from "dotenv";
 import { db, getUsers } from "./database/index";
-import Game from "./game";
+import GameManager from "./GameManager";
 
 const log = (...text: string[]) => console.log(`[Server] ${text.join(" ")}`);
 
@@ -27,20 +27,18 @@ const io: socketio.Server = new socketio.Server(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
-const game = new Game(io, {
-  boardSize: 20,
-  nbPlayersMax: 0,
-  isPrivate: false,
-  invitationCode: null,
-});
+const gameManager = new GameManager(io);
+gameManager.createGame({ boardSize: 20 });
 
 io.on("connection", (socket) => {
   // Join the game
-  game.join(socket);
+  console.log("New player connected");
+  gameManager.getGame(gameManager.gamesList[0].gameID)?.join(socket);
 });
 
 server.listen(port, () => {
   log(`⚡️ Server is running at http://localhost:${port}`);
+  setTimeout(() => console.log(gameManager.gamesList), 1000);
 });
 
 getUsers().then((users) => {
