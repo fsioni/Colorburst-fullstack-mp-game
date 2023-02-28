@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { config } from "../phaser/config";
+import HeadMenu from "./Menu/Header/HeadMenu";
 
 function Game() {
   const [game, setGame] = useState<Phaser.Game>();
@@ -8,7 +9,12 @@ function Game() {
     setGame(new Phaser.Game(config));
   }, []);
 
-  return <div id="phaser"></div>;
+  return (
+    <>
+      <HeadMenu />
+      <div id="phaser"></div>
+    </>
+  );
 }
 
 export default Game;
