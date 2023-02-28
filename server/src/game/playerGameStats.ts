@@ -1,15 +1,31 @@
 import { Stats } from "../enums/Stats";
 export default class name {
-  kills: number;
-  killed: number;
-  blocksCaptured: number;
-  blocksTravelled: number;
+  private kills: number;
+  private killed: number;
+  private blocksCaptured: number;
+  private blocksTravelled: number;
 
   constructor() {
     this.kills = 0;
     this.killed = 0;
     this.blocksCaptured = 0;
     this.blocksTravelled = 0;
+  }
+
+  get _kills(): number {
+    return this.kills;
+  }
+
+  get _killed(): number {
+    return this.killed;
+  }
+
+  get _blocksCaptured(): number {
+    return this.blocksCaptured;
+  }
+
+  get _blocksTravelled(): number {
+    return this.blocksTravelled;
   }
 
   Add(type: Stats, amount: number): void {
