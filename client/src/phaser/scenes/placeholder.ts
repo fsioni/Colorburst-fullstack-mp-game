@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import Player from "../gameObjects/Player";
 import Board from "../gameObjects/Board";
 import io from "socket.io-client";
+import { getAuth } from "firebase/auth";
+import app from "../../Firebase";
 
 const Socketorigin =
   window.location.origin.split(":")[0] +
@@ -10,7 +12,7 @@ const Socketorigin =
   ":3040";
 
 export class FirstGameScene extends Phaser.Scene {
-  socket = io(Socketorigin);
+  socket;
   player: Player | null = null;
   players: Player[];
   board?: Board;
@@ -19,6 +21,16 @@ export class FirstGameScene extends Phaser.Scene {
     super("FirstGameScene");
     console.log("FirstGameScene.constructor()");
     this.players = [];
+    getAuth(app)
+      .currentUser?.getIdToken()
+      .then((_token) => {
+        console.log(_token);
+        this.socket = io(Socketorigin, {
+          auth: {
+            token: _token,
+          },
+        });
+      });
   }
 
   preload() {
