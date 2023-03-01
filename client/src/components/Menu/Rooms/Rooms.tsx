@@ -4,11 +4,12 @@ import { FC, useState, useEffect } from "react";
 import "./Rooms.css";
 import jsonListRoom from "../../../data/roomList.json";
 import SingleRoom from "./SingleRoom";
-import Room from "./RoomModel";
-//import Room from "./RoomModel"; A utiliser plus tard avec les props
+import Room from "./RoomModel"; // a utiliser pour les props
+import CreateModal from "./CreateModal";
 
 const Rooms: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -45,6 +46,7 @@ const Rooms: FC = () => {
       >
         CREATE
       </button>
+      <CreateModal />
     </div>
   );
 };
