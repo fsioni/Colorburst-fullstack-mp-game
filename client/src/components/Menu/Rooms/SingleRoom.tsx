@@ -25,13 +25,23 @@ const singleRoom: FC<Props> = ({
 }) => {
   return (
     <div className="single-room-container">
-      <div className="room-name">{roomName}</div>
-      {isFull(nbPlayers, playersMax) ? (
-        <div className="room-nbPlayers-Full">FULL</div>
-      ) : (
-        <div className="room-nbPlayers">{nbPlayers + "/" + playersMax}</div>
-      )}
-      <div className="room-private">{isPrivate ? <TfiLock /> : ""}</div>
+      <div className="room-name">
+        {roomName}
+        {isPrivate ? (
+          <span className="lock-icon">
+            <TfiLock />
+          </span>
+        ) : (
+          ""
+        )}
+      </div>
+      <div className="players-number">
+        {isFull(nbPlayers, playersMax) ? (
+          <div className="nbPlayers-Full">FULL</div>
+        ) : (
+          <div className="nbPlayers">{nbPlayers + "/" + playersMax}</div>
+        )}
+      </div>
     </div>
   );
 };
