@@ -1,50 +1,59 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Kavoon&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap'); */
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
-.inputFeild-container {
+.inputField-main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 69%;
+  max-width: 400px;
+  max-height: 125px;
   background-color: #ffa01b;
-  position: relative;
-  padding: 40px;
+  padding: 3%;
   border-radius: 7px;
   box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
     rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
+}
+
+.inputField {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1%;
 }
 
 .input-form {
   visibility: hidden;
 }
 
-.input-feild-box {
-  position: inherit;
-  bottom: 20px;
-  width: 80%;
+.input-field-box {
+  width: 75%;
   border-radius: 50px;
-  padding: 13px 30px;
+  padding: 3%;
   font-size: 17px;
   border: none;
   transition: 0.2s;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  margin-top: 5px;
-  margin-top: 10px;
   font-family: "Electrolize", sans-serif;
 }
 
-.input-feild-box:focus {
+.input-field-box:focus {
   box-shadow: 0 0 10px 1000px rgb(0, 0, 0, 0.5);
   outline: none;
 }
 
+.mode-and-go {
+  display: flex;
+  padding: 3%;
+  width: 60%;
+  justify-content: space-around;
+}
+
 .input-select {
-  width: 120px;
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  padding: 8px;
-  position: absolute;
-  top: 88px;
-  left: 70px;
+  padding: 3%;
   font-family: "Electrolize", sans-serif;
   color: rgb(43, 43, 43);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
@@ -57,76 +66,13 @@
   scroll-behavior: smooth;
 }
 
-.input-feild-submit {
-  padding: 9px 8px;
+.input-field-submit {
   border: none;
   outline: none;
-  color: rgb(43, 43, 43);
+  color: rgba(43, 43, 43, 0.963);
   background: #ffffff;
-  cursor: pointer;
-  position: absolute;
-  right: 88px;
-  bottom: 14px;
-  z-index: 0;
   border-radius: 15px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
   font-family: "Electrolize", sans-serif;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-}
-
-.input-feild-submit:before {
-  content: "";
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000
-  );
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing-button-85 20s linear infinite;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
-}
-
-@keyframes glowing-button-85 {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 400% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
-
-.input-feild-submit:after {
-  z-index: -1;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #ffffff;
-  left: 0;
-  top: 0;
-  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }

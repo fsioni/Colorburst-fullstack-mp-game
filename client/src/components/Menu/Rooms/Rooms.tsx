@@ -10,10 +10,15 @@ import CreateModal from "./CreateModal";
 const Rooms: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [open, setOpen] = useState<boolean>(false);
+  const apiOrigin =
+    window.location.origin.split(":")[0] +
+    ":" +
+    window.location.origin.split(":")[1] +
+    ":3040";
 
   useEffect(() => {
     const fetchRooms = async () => {
-      const rooms = await fetch("http://localhost:3040/rooms");
+      const rooms = await fetch(apiOrigin + "/rooms");
       const jsonRooms = await rooms.json();
       setRooms(jsonRooms);
     };
