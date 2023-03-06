@@ -83,12 +83,6 @@ export default class Game {
     setTimeout(() => this.sendPlayersList(), 500);
   }
 
-  private sendGameSettings(): void {
-    this.socketServer.to(this.gameID).emit("gameSettings", {
-      boardSize: this.boardSize,
-    });
-  }
-
   private sendPlayersList(): void {
     console.log("sendPlayersList");
     this.socketServer.to(this.gameID).emit(
@@ -158,8 +152,9 @@ export default class Game {
     });
 
     player.on("playerReady", () => {
-      // On envoie les settings de la partie
-      this.sendGameSettings();
+      player.emit("gameSettings", {
+        boardSize: this.boardSize,
+      });
     });
   }
 
