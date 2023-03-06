@@ -217,7 +217,7 @@ export default class Game {
       // Save stats
       player.gameStats.Add(Stats.BLOCK_CAPTURED, 9);
       player.gameStats.Add(Stats.BLOCK_TRAVELLED, 43);
-      saveUserStats(player.uid, player.gameStats, docName);
+      saveUserStats(player.uid, player.pseudo, player.gameStats, docName);
     });
   }
 }

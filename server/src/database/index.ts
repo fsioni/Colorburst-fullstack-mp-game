@@ -32,7 +32,7 @@ const checkIfUserExists = async (playerId: string) => {
   return doc.exists;
 };
 
-const saveUser = async (playerId: string) => {
+const saveUser = async (playerId: string, pseudo: string) => {
   const userExists = await checkIfUserExists(playerId);
   if (!userExists) {
     await usersRef.doc(playerId).set({});
@@ -46,12 +46,18 @@ const saveUser = async (playerId: string) => {
 
 const saveUserStats = async (
   playerUID: string,
+  pseudo: string,
   user: PlayerGameStats,
   docName: string
 ) => {
-  if (!playerUID) return;
+  if (!playerUID) return; //si le joueur a un compte
 
-  saveUser(playerUID);
+  saveUser(playerUID, pseudo);
+  console.log(playerUID);
+
+  if (!(await statRef.doc(docName).get()).exists) {
+    statRef.doc(docName).set({});
+  }
 
   await statRef.doc(docName).update({
     [playerUID]: {
