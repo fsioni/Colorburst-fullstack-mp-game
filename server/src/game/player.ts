@@ -6,7 +6,7 @@ import PlayerGameStats from "./playerGameStats";
 
 export default class Player {
   id: string;
-  uid: string;
+  token: string;
   pseudo = "";
   direction = Direction.Up;
   position = { x: 0, y: 0 } as playerPosition;
@@ -19,7 +19,7 @@ export default class Player {
   constructor(socket: Socket) {
     this.socket = socket;
     this.id = socket.id;
-    this.uid = "";
+    this.token = "";
     this.gameStats = new PlayerGameStats();
   }
 

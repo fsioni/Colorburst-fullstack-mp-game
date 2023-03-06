@@ -49,7 +49,7 @@ export default class Game {
     // Création du joueur
     const player = new Player(playerSocket);
     player.color = this.nextSkin;
-    player.uid = playerSocket.handshake.auth.token;
+    player.token = playerSocket.handshake.auth.token;
     //console.log(player.uid);
     this.nextSkin = (this.nextSkin + 1) % skinsCount;
     this.players.push(player);
@@ -217,7 +217,7 @@ export default class Game {
       // Save stats
       player.gameStats.Add(Stats.BLOCK_CAPTURED, 9);
       player.gameStats.Add(Stats.BLOCK_TRAVELLED, 43);
-      saveUserStats(player.uid, player.pseudo, player.gameStats, docName);
+      saveUserStats(player.token, player.pseudo, player.gameStats, docName);
     });
   }
 }
