@@ -11,6 +11,7 @@ include:
 stages:
 - test
 - clean
+- build
 sast:
   stage: test
 
