@@ -10,5 +10,102 @@ include:
 - template: Security/SAST.gitlab-ci.yml
 stages:
 - test
+- clean
 sast:
   stage: test
+
+lint_job:
+  image: node:16.17.0-alpine
+  stage: clean
+  tags:
+    - docker
+  rules:
+    - if: $CI_COMMIT_BRANCH
+  variables:
+    LINT_COMMIT_MESSAGE: "style: lint code by CI"
+  before_script:
+    ##
+    ## Install ssh-agent if not already installed, it is required by Docker.
+    ## (change apt-get to yum if you use an RPM-based image)
+    ##
+    - 'which ssh-agent || ( apk --update add git openssh-client )'
+
+    ##
+    ## Run ssh-agent (inside the build environment)
+    ##
+    - eval "$(ssh-agent -s)"
+
+    ##
+    ## Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+    ## We're using tr to fix line endings which makes ed25519 keys work
+    ## without extra base64 encoding.
+    ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
+    ##
+    - echo "$CI_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+
+    ##
+    ## Create the SSH directory and give it the right permissions
+    ##
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+    ##
+    ## Alternatively, use ssh-keyscan to scan the keys of your private server.
+    ## Replace example.com with your private server's domain name. Repeat that
+    ## command if you have more than one server to connect to.
+    ##
+    - touch ~/.ssh/known_hosts
+    - ssh-keyscan $CI_SERVER_HOST >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+    ##
+    ## Optionally, if you will be using any Git commands, set the user name and
+    ## and email.
+    ##
+    - git config --global user.email "fares.sioni@etu.univ-lyon1.fr"
+    - git config --global user.name "CI Bot"
+  script:
+    - CI_JOB_SKIP_EXIT_CODE=0
+    - git remote set-url origin git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git
+    - git fetch
+    - git checkout -B $CI_COMMIT_REF_NAME
+    - |
+      if [ "$CI_COMMIT_MESSAGE" == "$LINT_COMMIT_MESSAGE" ] ; then
+          echo "Linting code is not required. Skipping this job!"
+          echo "SKIP_FUTURE_STAGES=false" > build.env
+          exit ${CI_JOB_SKIP_EXIT_CODE:-0}
+      fi
+    - yarn install --frozen-lockfile --prefer-offline --cache-folder .yarn
+    - echo "Linting Code"
+    - yarn lint --fix || true
+    - echo "Formatting Code"
+    - yarn format || true
+    - |
+      if GIT_CHANGES=$(git status --porcelain) && [ -z "$GIT_CHANGES" ]; then
+          echo "Nothing to lint. Skipping this job!"
+          echo "SKIP_FUTURE_STAGES=false" > build.env
+          exit ${CI_JOB_SKIP_EXIT_CODE:-0}
+      fi
+    - git add .
+    - git commit -m "$LINT_COMMIT_MESSAGE" -n
+    - git push -u origin $CI_COMMIT_REF_NAME
+    - echo "SKIP_FUTURE_STAGES=true" > build.env # Setting variable for stages so that we can skip them in the next stage
+    - echo "CI_JOB_SKIP_EXIT_CODE=20" >> build.env # Arbitrary exit code so that future jobs fail and don't waste runner resources
+    - exit $CI_JOB_SKIP_EXIT_CODE
+  artifacts:
+    expire_in: 1 hour
+    reports:
+      dotenv: build.env
+
+build_job:
+  stage: build
+  script:
+    - echo "Build Job"
+    - |
+      if [ "$SKIP_FUTURE_STAGES" == "true" ] ; then
+          echo "Skipping job due to variable"
+          exit ${CI_JOB_SKIP_EXIT_CODE:-0}
+      fi
+  needs:
+    - job: lint_job
+      artifacts: true
