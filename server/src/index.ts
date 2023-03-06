@@ -28,7 +28,7 @@ const io: socketio.Server = new socketio.Server(server, {
 });
 
 const gameManager = new GameManager(io);
-gameManager.createGame({ boardSize: 20 });
+gameManager.createGame({ boardSize: 80 });
 
 io.on("connection", (socket) => {
   // Join the game

@@ -81,8 +81,6 @@ export default class Game {
 
     // On envoie la liste des joueurs pour la couleur :)
     setTimeout(() => this.sendPlayersList(), 500);
-    // On envoie aussi les settings de la partie
-    this.sendGameSettings();
   }
 
   private sendGameSettings(): void {
@@ -157,6 +155,11 @@ export default class Game {
       if (!playerObject) return;
       playerObject.ChangeDirection(direction);
       this.sendGameData();
+    });
+
+    player.on("playerReady", () => {
+      // On envoie les settings de la partie
+      this.sendGameSettings();
     });
   }
 

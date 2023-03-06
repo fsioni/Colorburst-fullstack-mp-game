@@ -33,7 +33,12 @@ export class FirstGameScene extends Phaser.Scene {
   }
 
   create() {
-    this.board = new Board(this, 20, 20, this.socket);
+    this.socket.emit("playerReady");
+    this.socket.on("gameSettings", (data: { boardSize: number }) => {
+      console.log(data);
+      this.board = new Board(this, data.boardSize, data.boardSize, this.socket);
+    });
+    console.log("lalalalala");
     this.handleSocketEvents();
 
     this.cameras.main.setZoom(0.4);
