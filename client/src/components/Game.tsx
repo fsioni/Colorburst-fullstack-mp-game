@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { config } from "../phaser/config";
-import HeadMenu from "./Menu/Header/HeadMenu";
 
-function Game() {
+interface GameProps {
+  setGameStarted: (arg: boolean) => void;
+}
+
+const Game: FC<GameProps> = ({ setGameStarted }): JSX.Element => {
   const [game, setGame] = useState<Phaser.Game>();
 
   useEffect(() => {
@@ -11,10 +14,10 @@ function Game() {
 
   return (
     <>
-      <HeadMenu />
+      <button onClick={() => setGameStarted(false)}>Quit</button>
       <div id="phaser"></div>
     </>
   );
-}
+};
 
 export default Game;

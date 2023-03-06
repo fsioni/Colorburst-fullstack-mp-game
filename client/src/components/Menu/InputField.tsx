@@ -1,18 +1,53 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React from "react";
+import React, { useEffect } from "react";
+import {
+  getAuth,
+  onAuthStateChanged,
+  User as FirebaseUser,
+} from "firebase/auth";
 import { FC, useRef } from "react";
 import "./InputField.css";
 
-interface Props {
-  // TODO 1 fct aléatoire que ne s'affiche pas si il est log
-  username: string;
-  // TODO2 faire en sorte que le username ne sois pas modifiable si il est log
-  isLoged: number;
+interface InputFieldProps {
+  setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const InputField = ({ username, isLoged }: Props): JSX.Element => {
+const InputField: FC<InputFieldProps> = ({ setIsGameStarted }): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>(null);
-  isLoged = -1;
+
+  const [username, setUsername] = React.useState("");
+  const [isSync, setIsSync] = React.useState(false);
+  const [user, setUser] = React.useState<FirebaseUser | null>(null);
+
+  useEffect(() => {
+    if (isSync) return;
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, (_user) => {
+      if (_user) {
+        setUser(_user);
+        return;
+      } else {
+        setUser(null);
+      }
+      setIsSync(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setUsername(user.displayName || "");
+    } else {
+      setUsername("");
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = username;
+    }
+  }, [username]);
+
   return (
     <div className="inputField-container">
       <form
@@ -23,9 +58,9 @@ const InputField = ({ username, isLoged }: Props): JSX.Element => {
       />
       <input
         ref={inputRef}
-        type="input"
-        value={username}
-        placeholder={isLoged === -1 ? "Username 🤔" : username}
+        type="text"
+        placeholder="Username 🤔"
+        onChange={(e) => setUsername(e.target.value)}
         className="input-field-box"
       />
       <select id="gameMode" className="input-select">
@@ -36,7 +71,11 @@ const InputField = ({ username, isLoged }: Props): JSX.Element => {
           Hardcore
         </option>
       </select>
-      <button className="input-field-submit" type="submit">
+      <button
+        className="input-field-submit"
+        type="submit"
+        onClick={() => setIsGameStarted(true)}
+      >
         GO
       </button>
     </div>
