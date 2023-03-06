@@ -3,7 +3,7 @@ import { FC, useState, useEffect } from "react";
 
 import "./Rooms.css";
 import jsonListRoom from "../../../data/roomList.json";
-import SingleRoom from "./SingleRoom";
+import SingleRoom from "./SingleRoom/SingleRoom";
 import Room from "./RoomModel"; // a utiliser pour les props
 import CreateModal from "./CreateModal";
 

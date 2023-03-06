@@ -14,7 +14,7 @@ interface Room {
 gameRouteur.get("/", (req: any, res: any) => {
   res.json([
     {
-      roomId: 1,
+      roomId: 6001,
       roomName: "Barthelimi",
       nbPlayers: 10,
       playersMax: 20,
@@ -22,14 +22,14 @@ gameRouteur.get("/", (req: any, res: any) => {
       password: 69,
     },
     {
-      roomId: 2,
-      roomName: "alloooooooo",
+      roomId: 6002,
+      roomName: "alloooo",
       nbPlayers: 1,
       playersMax: 15,
       isPrivate: false,
     },
     {
-      roomId: 3,
+      roomId: 6003,
       roomName: "La J",
       nbPlayers: 1,
       playersMax: 5,
@@ -37,7 +37,7 @@ gameRouteur.get("/", (req: any, res: any) => {
       password: null,
     },
     {
-      roomId: 5,
+      roomId: 6004,
       roomName: "C'est troop le S",
       nbPlayers: 100,
       playersMax: 200,
@@ -45,7 +45,7 @@ gameRouteur.get("/", (req: any, res: any) => {
       password: null,
     },
     {
-      roomId: 1,
+      roomId: 6005,
       roomName: "Lagavame",
       nbPlayers: 50,
       playersMax: 50,
@@ -55,8 +55,7 @@ gameRouteur.get("/", (req: any, res: any) => {
   ]);
 });
 
-gameRouteur.param("/", (req, res, next, jsonFile) => {
-  const listOfRooms = jsonFile;
+gameRouteur.param("/", (req, res, next) => {
   console.log("okokkok");
   next();
 });

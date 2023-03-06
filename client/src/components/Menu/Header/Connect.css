@@ -1,10 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
 .connexion-area-container {
-  margin-top: 4px;
-  width: 125px;
+  width: 25%;
+  max-width: 150px;
   display: flex;
   justify-content: space-between;
+  margin-top: 1%;
 }
 
 .connexion-button {
@@ -12,13 +13,38 @@
   font-size: 13px;
   color: white;
   text-transform: uppercase;
-  padding: 10px 20px;
+  padding: 10%;
+  font-size: 13px;
   border-radius: 10px;
   background-color: #ffa01b;
   border: 2px solid #e8476a;
   box-shadow: purple 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
     rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.connexion-button:hover {
+  color: rgb(215, 215, 215);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  transform: scale(1.04);
+  background-color: #ef971c;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.connexion-button:active {
+  transform: scale(0.9);
+  color: rgb(240, 240, 240);
+  transition: 0.2s;
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
 }
 
 .menu-connexion-button:active {
@@ -26,69 +52,47 @@
   transform: translate(3px, 3px);
 }
 
-.icon-acount-container {
-  font-size: 22px;
-  color: #fff2ec;
-  cursor: pointer;
-  padding: 13px 15px 11px 14px;
-  box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
-    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
-  border-radius: 5px;
-  background-color: #ffa01b;
-}
-
+.icon-acount-container,
 .icon-logout-container {
+  display: flex;
+  padding: 11%;
   font-size: 22px;
   color: #fff2ec;
   cursor: pointer;
-  padding: 13px 15px 11px 14px;
   box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
     rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
   border-radius: 5px;
   background-color: #ffa01b;
-}
-
-.icon-acount:hover {
-  color: rgb(185, 185, 185);
-  cursor: pointer;
 }
 
 .icon-acount-container:hover {
   transform: scale(1.04);
 }
 
-.icon-logout:hover {
-  color: rgb(185, 185, 185);
-  cursor: pointer;
-}
-
-.icon-logout-container:hover {
-  transform: scale(1.04);
-}
-
-.icon-acount:active {
-  transform: scale(0.8);
-  color: rgb(34, 34, 34);
-}
-
-.icon-logout:active {
-  transform: scale(0.8);
-  color: rgb(34, 34, 34);
-}
-
-@media only screen and (max-width: 550px) {
+/* no less than 320px and no greater than 480px Mobiles*/
+@media (min-width: 320px) and (max-width: 480px) {
   .connexion-area-container {
     justify-content: space-evenly;
   }
   .connexion-button {
-    font-size: 8px;
+    font-size: 12px;
+    padding: 8%;
   }
-  .icon-logout-container {
-    font-size: 16px;
-    padding: 10px 12px 8px 11px;
-  }
+  .icon-logout-container,
   .icon-acount-container {
-    font-size: 16px;
-    padding: 10px 12px 8px 11px;
+    font-size: 13px;
+    padding: 9%;
   }
+}
+
+/* 481px - 768px tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+}
+
+/* small computers */
+@media (min-width: 769px) and (max-width: 1024px) {
+}
+
+/* large screen like TV */
+@media (max-width: 1201px) {
 }
