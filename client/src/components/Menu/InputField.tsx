@@ -4,6 +4,7 @@ import {
   getAuth,
   onAuthStateChanged,
   User as FirebaseUser,
+  updateProfile,
 } from "firebase/auth";
 import { FC, useRef } from "react";
 import "./InputField.css";
@@ -48,6 +49,19 @@ const InputField: FC<InputFieldProps> = ({ setIsGameStarted }): JSX.Element => {
     }
   }, [username]);
 
+  const onGoClick = () => {
+    setIsGameStarted(true);
+    if (!user) return;
+    if (!username) return;
+    if (username == user.displayName) return;
+
+    updateProfile(user, {
+      displayName: username,
+    }).then(() => {
+      console.log("Updated profile");
+    });
+  };
+
   return (
     <div className="inputField-container">
       <form
@@ -74,7 +88,7 @@ const InputField: FC<InputFieldProps> = ({ setIsGameStarted }): JSX.Element => {
       <button
         className="input-field-submit"
         type="submit"
-        onClick={() => setIsGameStarted(true)}
+        onClick={() => onGoClick()}
       >
         GO
       </button>
