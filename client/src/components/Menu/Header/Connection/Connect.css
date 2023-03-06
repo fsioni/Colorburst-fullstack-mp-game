@@ -61,6 +61,7 @@
   border-radius: 5px;
   border: 2px solid #e8476a;
   background-color: #ffa01b;
+  margin-left: auto;
 }
 
 .icon-account-container:hover,
