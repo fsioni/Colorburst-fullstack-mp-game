@@ -33,9 +33,10 @@ const Connect: FC = (): JSX.Element => {
     </div>
   ) : (
     <div className="connexion-area-container">
+      {/* 
       <button className="icon-account-container">
         <FaUserAlt className="icon-account" />
-      </button>
+      </button> */}
       <button
         className="icon-logout-container"
         onClick={() => {
