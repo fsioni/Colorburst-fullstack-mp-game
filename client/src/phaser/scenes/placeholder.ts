@@ -150,6 +150,10 @@ export class FirstGameScene extends Phaser.Scene {
   }
 
   handleSocketEvents() {
+    this.game?.events.on("destroy", () => {
+      console.log("destroy");
+      this.socket?.disconnect();
+    });
     this.handlePlayersList();
     this.handlePlayersPositions();
     this.handlePositionUpdated();

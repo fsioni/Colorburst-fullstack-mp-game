@@ -14,7 +14,14 @@ const Game: FC<GameProps> = ({ setGameStarted }): JSX.Element => {
 
   return (
     <>
-      <button onClick={() => setGameStarted(false)}>Quit</button>
+      <button
+        onClick={() => {
+          setGameStarted(false);
+          game?.destroy(true);
+        }}
+      >
+        Quit
+      </button>
       <div id="phaser"></div>
     </>
   );
