@@ -12,10 +12,8 @@ const signInWithGoogle = async () => {
 // Render
 export default function GoogleLoginButton() {
   return (
-    <div>
-      <button onClick={signInWithGoogle} className="signWithGoogle">
-        <img src="./ress/google.webp" /> Sign up with Google
-      </button>
-    </div>
+    <button onClick={signInWithGoogle} className="signWithGoogle">
+      <img src="./ress/google.webp" /> Sign up with Google
+    </button>
   );
 }
