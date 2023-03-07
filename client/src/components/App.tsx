@@ -8,6 +8,8 @@ import Game from "./Game";
 
 const App: FC = () => {
   const [isGameStarted, setIsGameStarted] = React.useState(false);
+  const [isConnectionModalOpen, setIsConnectionModalOpen] =
+    React.useState(false);
 
   return (
     <>
@@ -15,9 +17,15 @@ const App: FC = () => {
         <Game setGameStarted={setIsGameStarted} />
       ) : (
         <div className="App">
-          <HeadMenu />
+          <HeadMenu
+            isConnectionModalOpen={isConnectionModalOpen}
+            setIsConnectionModalOpen={setIsConnectionModalOpen}
+          />
           <div className="inputF-container">
-            <InputField setIsGameStarted={setIsGameStarted} />
+            <InputField
+              setIsGameStarted={setIsGameStarted}
+              setIsConnectionModalOpen={setIsConnectionModalOpen}
+            />
           </div>
           <div className="statsAndRooms-container">
             <Rooms />

@@ -8,17 +8,20 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import app from "../../../../Firebase";
 import "./Connect.css";
 
-const Connect: FC = (): JSX.Element => {
+interface ConnectProps {
+  isConnectionModalOpen: boolean;
+  setIsConnectionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Connect: FC<ConnectProps> = (props): JSX.Element => {
+  const { isConnectionModalOpen, setIsConnectionModalOpen } = props;
   const auth = getAuth(app);
   const [user, loading, error] = useAuthState(auth);
-
-  const [isConnectionModalOpen, setIsConnectionModalOpen] = useState(false);
 
   return !user ? (
     <div className="connexion-area-container">
       <button
         className="connexion-button"
-        // A changer renvoie l'id du joueur connecté
         onClick={() => setIsConnectionModalOpen(true)}
       >
         Log in

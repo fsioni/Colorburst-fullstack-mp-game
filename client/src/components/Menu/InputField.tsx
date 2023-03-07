@@ -11,9 +11,12 @@ import "./InputField.css";
 
 interface InputFieldProps {
   setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsConnectionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const InputField: FC<InputFieldProps> = ({ setIsGameStarted }): JSX.Element => {
+const InputField: FC<InputFieldProps> = (props): JSX.Element => {
+  const { setIsGameStarted, setIsConnectionModalOpen } = props;
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [username, setUsername] = React.useState("");
@@ -50,8 +53,11 @@ const InputField: FC<InputFieldProps> = ({ setIsGameStarted }): JSX.Element => {
   }, [username]);
 
   const onGoClick = () => {
+    if (!user) {
+      setIsConnectionModalOpen(true);
+      return;
+    }
     setIsGameStarted(true);
-    if (!user) return;
     if (!username) return;
     if (username == user.displayName) return;
 
