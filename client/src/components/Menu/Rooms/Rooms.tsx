@@ -5,7 +5,7 @@ import "./Rooms.css";
 import jsonListRoom from "../../../data/roomList.json";
 import SingleRoom from "./SingleRoom/SingleRoom";
 import Room from "./RoomModel"; // a utiliser pour les props
-import CreateModal from "./CreateModal";
+import CreateModal from "./Modals/CreateModal";
 
 const Rooms: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -70,9 +70,7 @@ const Rooms: FC = () => {
           )}
         </div>
       ) : (
-        <div className="create-room-container">
-          <CreateModal />
-        </div>
+        <CreateModal open={open} setOpen={setOpen} />
       )}
     </div>
   );

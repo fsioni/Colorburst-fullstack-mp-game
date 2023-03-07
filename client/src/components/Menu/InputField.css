@@ -51,6 +51,7 @@
 
 .input-select {
   cursor: pointer;
+  outline: none;
   border: none;
   border-radius: 5px;
   padding: 3%;

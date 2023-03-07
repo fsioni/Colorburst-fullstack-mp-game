@@ -87,6 +87,18 @@
 
 /* 481px - 768px tablet */
 @media (min-width: 481px) and (max-width: 768px) {
+  .connexion-area-container {
+    justify-content: space-evenly;
+  }
+  .connexion-button {
+    font-size: 13px;
+    padding: 8%;
+  }
+  .icon-logout-container,
+  .icon-acount-container {
+    font-size: 16px;
+    padding: 10%;
+  }
 }
 
 /* small computers */

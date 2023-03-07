@@ -6,7 +6,7 @@
   margin-bottom: 10%;
   width: 75%;
   max-width: 400px;
-  z-index: 0;
+  z-index: 1;
 }
 
 .game-container {
