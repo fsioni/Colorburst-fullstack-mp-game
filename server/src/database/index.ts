@@ -72,7 +72,7 @@ const saveUserStats = async (
             user._blocksTravelled
           ),
           blocksCaptured: admin.firestore.FieldValue.increment(
-            user._blocksCaptured - 9
+            user._blocksCaptured
           ),
         },
       });

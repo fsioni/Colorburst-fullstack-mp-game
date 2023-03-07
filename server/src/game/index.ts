@@ -215,7 +215,7 @@ export default class Game {
     const docName = this.getDocumentName();
     this.players.forEach((player) => {
       // Save stats
-      player.gameStats.Add(Stats.BLOCK_CAPTURED, 9);
+      player.gameStats.Add(Stats.BLOCK_CAPTURED, 23);
       player.gameStats.Add(Stats.BLOCK_TRAVELLED, 43);
       saveUserStats(player.token, player.pseudo, player.gameStats, docName);
     });
