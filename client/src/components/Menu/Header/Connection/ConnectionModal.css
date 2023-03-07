@@ -20,7 +20,9 @@
 
 .modal {
   width: 250px;
-  height: 170px;
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
   background: white;
   color: white;
   border-radius: 16px;
@@ -39,8 +41,8 @@
   margin: 0;
   padding: 10px;
   color: #2c3e50;
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 700;
+  font-size: 24px;
   text-align: center;
 }
 
@@ -70,13 +72,15 @@
 
 .modalContent {
   padding: 10px;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 600;
   color: #2c3e50;
   text-align: center;
 }
 
 .modalActions {
   position: absolute;
+  justify-content: center;
   bottom: 2px;
   margin-bottom: 10px;
   width: 100%;
@@ -84,6 +88,6 @@
 
 .actionsContainer {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
 }
