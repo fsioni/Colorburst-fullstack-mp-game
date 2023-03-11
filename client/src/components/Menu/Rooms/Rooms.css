@@ -1,9 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
-
 .main-room-container {
   display: flex;
   padding: 1%;
-  margin-bottom: 10%;
+  margin-bottom: 8%;
   width: 75%;
   max-width: 400px;
   z-index: 1;
@@ -12,7 +10,6 @@
 .game-container {
   background-color: #e8476a;
   color: whitesmoke;
-  font-family: "Electrolize", sans-serif;
   display: flex;
   flex-direction: column;
   box-shadow: purple 0px 2px 4px, rgba(255, 160, 27, 0.3) 0px 7px 13px -3px,
@@ -85,7 +82,6 @@
 .create-room-container {
   background-color: #e8476a;
   color: whitesmoke;
-  font-family: "Electrolize", sans-serif;
   display: flex;
   position: relative;
   flex-direction: column;

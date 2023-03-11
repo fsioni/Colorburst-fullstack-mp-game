@@ -3,7 +3,7 @@
 .main-stat-container {
   display: flex;
   padding: 1%;
-  width: 78%;
+  width: 100%;
   max-width: 400px;
   z-index: 0;
   background-color: rgb(138, 50, 138);

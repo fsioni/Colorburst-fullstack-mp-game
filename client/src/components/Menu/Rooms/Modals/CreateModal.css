@@ -1,10 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
-
 .create-container {
   display: flex;
-  padding: 1%;
-  margin-bottom: 10%;
-  max-width: 400px;
+  padding: 1% 0 5% 0;
+  margin-bottom: 5%;
+  max-width: 500px;
   width: 100%;
   background-color: #e8476a;
   color: whitesmoke;
@@ -12,7 +10,6 @@
   outline: none;
   flex-direction: column;
   border-radius: 10px;
-  font-family: "Electrolize", sans-serif;
 }
 
 .close-icon-container {
@@ -36,6 +33,7 @@
 
 .title {
   margin: 0 0 1% 0;
+  padding-bottom: 5%;
   text-align: center;
   z-index: 2;
 }
@@ -45,171 +43,18 @@
   justify-content: center;
 }
 
-.creat-form {
+.imputs-form {
   display: flex;
   align-items: center;
-  background-color: whitesmoke;
-  padding: 0 0 0 1%;
   width: 80%;
 }
 
 .form-field-container {
   display: flex;
+  width: auto;
+  height: auto;
   flex-direction: column;
-  align-items: center;
-  background-color: green;
-  padding: 4%;
-}
-
-.name-container {
-  background-color: red;
-  padding: 1%;
-  display: flex;
-  justify-content: center;
-  width: 80%;
-  margin-bottom: 4%;
-}
-
-.name-title {
-  margin: 3% 0 0 0;
-  font-weight: 600;
-  width: 37%;
-}
-
-.name-input {
-  width: 55%;
-  padding: 3.6%;
-  font-size: 14px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  font-family: "Electrolize", sans-serif;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-}
-
-.name-input:hover {
-  cursor: pointer;
-  transition: 0.2s;
-  scale: 1.02;
-  -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -ms-transition: 0.2s;
-  -o-transition: 0.2s;
-  text-shadow: 1px 1px 1px rgba(62, 62, 62, 0.4);
-  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
-    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
-}
-
-.players-and-privat-container {
-  background-color: blueviolet;
-  padding: 1%;
-  display: flex;
-  align-items: center;
-  width: 90%;
-}
-
-.nb-players-container {
-  background-color: aqua;
-  display: flex;
-  flex-direction: column;
-}
-
-.nb-players-tile {
-  margin: 0 0 4% 0;
-  font-weight: 600;
-}
-
-.number-players-input {
-  width: 55%;
-  padding: 4%;
-  font-size: 15px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  font-family: "Electrolize", sans-serif;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-}
-
-.number-players-input:hover {
-  cursor: pointer;
-  transition: 0.2s;
-  scale: 1.02;
-  -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -ms-transition: 0.2s;
-  -o-transition: 0.2s;
-  text-shadow: 1px 1px 1px rgba(10, 10, 10, 0.4);
-  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
-    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
-}
-
-.private-container {
-  display: flex;
-  background-color: yellowgreen;
-}
-
-.submit-container {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-  height: 70%;
-  justify-content: space-around;
-  background-color: rgb(255, 136, 0);
-  padding: 1%;
-}
-
-.submit-input {
-  width: 100%;
-  padding: 5%;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  background-color: #ffa01b;
-  color: rgb(236, 236, 236);
-  font-family: "Electrolize", sans-serif;
-  font-weight: 600;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-}
-
-.submit-input:hover {
-  background-color: #fe9b10;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
-    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
-  color: rgb(212, 246, 214);
-  cursor: pointer;
-  transition: 0.2s;
-  scale: 1.02;
-  -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -ms-transition: 0.2s;
-  -o-transition: 0.2s;
-  font-size: 17px;
-}
-
-.reset-input {
-  width: 100%;
-  font-size: 15px;
-  border: none;
-  outline: none;
-  background: none;
-  font-family: "Electrolize", sans-serif;
-  font-weight: 600;
-}
-
-.reset-input:hover {
-  cursor: pointer;
-  transition: 0.2s;
-  scale: 1.02;
-  -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -ms-transition: 0.2s;
-  -o-transition: 0.2s;
-  color: rgb(194, 72, 72);
-  text-shadow: 1px 1px 1px rgba(255, 0, 0, 0.5);
-  font-size: 17px;
+  border-left: 3px solid;
+  border-color: #ffa01b;
+  padding: 0 0 0 2%;
 }
