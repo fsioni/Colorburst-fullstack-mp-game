@@ -10,6 +10,132 @@
   padding: 1% 3% 0 1%;
 }
 
+.toggler {
+  margin: 0 0 0 2%;
+}
+
+.toggler input {
+  display: none;
+}
+
+.toggler label {
+  display: block;
+  position: relative;
+  width: 13vw;
+  height: 3.7vh;
+  border: 1px solid #d6d6d6;
+  border-radius: 36px;
+  background: #e4e8e8;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.toggler label:hover {
+  cursor: pointer;
+  transition: 0.2s;
+  scale: 1.03;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
+    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
+}
+
+.toggler label::after {
+  display: block;
+  border-radius: 100%;
+  background-color: #d7062a;
+  content: "";
+  animation-name: toggler-size;
+  animation-duration: 0.15s;
+  animation-timing-function: ease-out;
+  animation-direction: forwards;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+}
+
+.toggler label::after,
+.toggler label .toggler-on,
+.toggler label .toggler-off {
+  position: absolute;
+  top: 43%;
+  left: 25%;
+  width: 26px;
+  height: 26px;
+  transform: translateY(-50%) translateX(-50%);
+  transition: left 0.15s ease-in-out, background-color 0.2s ease-out,
+    width 0.15s ease-in-out, height 0.15s ease-in-out, opacity 0.15s ease-in-out;
+}
+
+.toggler input:checked + label::after,
+.toggler input:checked + label .toggler-on,
+.toggler input:checked + label .toggler-off {
+  left: 75%;
+}
+
+.toggler input:checked + label::after {
+  background-color: #50ac5d;
+  animation-name: toggler-size2;
+}
+
+.toggler .toggler-on,
+.toggler .toggler-off {
+  opacity: 1;
+  z-index: 2;
+}
+
+.toggler input:checked + label .toggler-off,
+.toggler input:not(:checked) + label .toggler-on {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.toggler .path {
+  fill: none;
+  stroke: #fefefe;
+  stroke-width: 7px;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
+
+@keyframes toggler-size {
+  0%,
+  100% {
+    width: 26px;
+    height: 26px;
+  }
+
+  50% {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@keyframes toggler-size2 {
+  0%,
+  100% {
+    width: 26px;
+    height: 26px;
+  }
+
+  50% {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.icon-unlock {
+  padding: 17% 0 0 18%;
+}
+
+.icon-lock {
+  padding: 18% 0 0 20%;
+}
+
+/* Previous button
 .lock-button {
   display: flex;
   gap: 10px;
@@ -90,4 +216,4 @@ span:active {
   padding: 0 0 1px 5px;
   color: antiquewhite;
   font-size: 17px;
-}
+} */
