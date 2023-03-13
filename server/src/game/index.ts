@@ -59,6 +59,19 @@ export default class Game {
     return this.players.length;
   }
 
+  get leaderBoard(): { id: string; score: number }[] {
+    // Return total of territories for each player
+    return this.players
+      .map((player) => {
+        const territories = this.gameBoard.getTerritoriesCount(player);
+        return {
+          id: player.id,
+          score: territories,
+        };
+      })
+      .sort((a, b) => b.score - a.score);
+  }
+
   async join(playerSocket: Socket): Promise<void> {
     if (!this.isJoinable)
       return this.log(`Player tried to join the game: ${playerSocket.id}`);
@@ -75,23 +88,19 @@ export default class Game {
 
     // On met le detecteur d'évènement sur le joueur
     this.handlePlayersEvent(playerSocket);
+  }
 
-    // On fait spawn le joueur
-    this.spawnPlayer(player);
-
-    // On envoie la liste des joueurs pour la couleur :)
-    setTimeout(() => this.sendPlayersList(), 500);
+  get playersList(): { id: string; color: number }[] {
+    return this.players.map((player) => ({
+      id: player.id,
+      color: player.color,
+    }));
   }
 
   private sendPlayersList(): void {
-    console.log("sendPlayersList");
-    this.socketServer.to(this.gameID).emit(
-      "playersList",
-      this.players.map((player) => ({
-        id: player.id,
-        color: player.color,
-      }))
-    );
+    this.alivePlayers.forEach((player) => {
+      this.socketServer.emit("playersList", this.playersList);
+    });
   }
 
   spawnPlayer(player: Player): void {
@@ -112,6 +121,7 @@ export default class Game {
     // On occupe les case en 5*5 autour du joueur 2 + 1 + 2
     this.gameBoard.occupeCellsSpawn(player.position, player.id);
 
+    this.sendPlayersList();
     this.sendGameData();
   }
 
@@ -131,30 +141,33 @@ export default class Game {
     console.log(`[Game ${this.gameID}]`, ...data);
   }
 
-  private handlePlayersEvent(player: Socket): void {
+  private handlePlayersEvent(playerSocket: Socket): void {
     // Quand le joueur se déconnecte
-    player.on("disconnect", () => {
-      this.log(`Player disconnected: ${player.id}`);
-      const playerToDelete = this.players.find(
-        (p) => p.id === player.id
+    playerSocket.on("disconnect", () => {
+      this.log(`Player disconnected: ${playerSocket.id}`);
+      const playerToKill = this.players.find(
+        (p) => p.id === playerSocket.id
       ) as Player;
-      this.players = this.players.filter((p) => p.id !== player.id);
-      this.killPlayer(playerToDelete);
+      this.players = this.players.filter((p) => p.id !== playerSocket.id);
+      this.killPlayer(playerToKill);
     });
 
     // Quand le joueur change de direction
-    player.on("directionChange", (direction: number) => {
-      const playerObject = this.players.find((p) => p.id === player.id);
+    playerSocket.on("directionChange", (direction: number) => {
+      const playerObject = this.players.find((p) => p.id === playerSocket.id);
 
       if (!playerObject) return;
       playerObject.ChangeDirection(direction);
       this.sendGameData();
     });
 
-    player.on("playerReady", () => {
-      player.emit("gameSettings", {
+    playerSocket.on("playerReady", () => {
+      playerSocket.emit("gameSettings", {
         boardSize: this.boardSize,
       });
+      const player = this.players.find((p) => p.id === playerSocket.id);
+      if (!player) return;
+      this.spawnPlayer(player);
     });
   }
 
@@ -177,6 +190,11 @@ export default class Game {
     );
     this.alivePlayers.forEach((player) => {
       player.socket.emit("map", map);
+    });
+
+    // Send leaderBoard
+    this.alivePlayers.forEach((player) => {
+      player.socket.emit("leaderBoard", this.leaderBoard);
     });
   }
 

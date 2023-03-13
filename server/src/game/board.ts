@@ -69,4 +69,12 @@ export default class Board {
     const { x, y } = player.position;
     return x >= 0 && x < this.boardSize && y >= 0 && y < this.boardSize;
   }
+
+  getTerritoriesCount(player: Player): number {
+    const territorie = this.boardCells.flat().filter((cell) => {
+      return cell.territoryOccupiedBy === player.id;
+    });
+
+    return territorie.length;
+  }
 }

@@ -38,9 +38,8 @@ io.on("connection", (socket) => {
 
 server.listen(port, () => {
   log(`⚡️ Server is running at http://localhost:${port}`);
-  setTimeout(() => console.log(gameManager.gamesList), 1000);
 });
 
-getUsers().then((users) => {
-  console.log(users);
-});
+// getUsers().then((users) => {
+//   console.log(users);
+// });
