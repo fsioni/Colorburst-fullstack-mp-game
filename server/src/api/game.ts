@@ -60,9 +60,9 @@ gameRouteur.param("/", (req, res, next) => {
   next();
 });
 
-// create a new room
+// post methode to create a new room
 gameRouteur.post("/", (req: any, res: any) => {
-  res.send("Create a new room");
+  console.log(req.body);
 });
 
 gameRouteur

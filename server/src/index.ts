@@ -23,6 +23,7 @@ app.get("/", (_req, res) => {
   res.send({ uptime: process.uptime() });
 });
 
+// Routes for rooms backend
 app.use("/rooms", gameRouter);
 // Alowed fetch and parse
 app.use(express.json());

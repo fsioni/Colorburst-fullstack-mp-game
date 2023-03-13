@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 3%;
+  width: 80%;
 }
 
 .private-title {
@@ -22,6 +23,7 @@
   display: block;
   position: relative;
   width: 13vw;
+  max-width: 60px;
   height: 3.7vh;
   border: 1px solid #d6d6d6;
   border-radius: 36px;
@@ -46,7 +48,7 @@
 .toggler label::after {
   display: block;
   border-radius: 100%;
-  background-color: #d7062a;
+  background-color: #50ac5d;
   content: "";
   animation-name: toggler-size;
   animation-duration: 0.15s;
@@ -57,8 +59,8 @@
 }
 
 .toggler label::after,
-.toggler label .toggler-on,
-.toggler label .toggler-off {
+.toggler label .toggler-lock,
+.toggler label .toggler-unlock {
   position: absolute;
   top: 43%;
   left: 25%;
@@ -70,24 +72,24 @@
 }
 
 .toggler input:checked + label::after,
-.toggler input:checked + label .toggler-on,
-.toggler input:checked + label .toggler-off {
+.toggler input:checked + label .toggler-lock,
+.toggler input:checked + label .toggler-unlock {
   left: 75%;
 }
 
 .toggler input:checked + label::after {
-  background-color: #50ac5d;
+  background-color: #d7062a;
   animation-name: toggler-size2;
 }
 
-.toggler .toggler-on,
-.toggler .toggler-off {
+.toggler .toggler-lock,
+.toggler .toggler-unlock {
   opacity: 1;
   z-index: 2;
 }
 
-.toggler input:checked + label .toggler-off,
-.toggler input:not(:checked) + label .toggler-on {
+.toggler input:checked + label .toggler-unlock,
+.toggler input:not(:checked) + label .toggler-lock {
   width: 0;
   height: 0;
   opacity: 0;
@@ -128,92 +130,9 @@
 }
 
 .icon-unlock {
-  padding: 17% 0 0 18%;
+  padding: 18% 0 0 18%;
 }
 
 .icon-lock {
   padding: 18% 0 0 20%;
 }
-
-/* Previous button
-.lock-button {
-  display: flex;
-  gap: 10px;
-  --b: 5px;
-  --h: 1.4em;
-}
-
-.lock-button span {
-  --_c: #88c100;
-  flex: calc(1.25 + var(--_s, 0));
-  min-width: 0;
-  font-size: 22px;
-  height: var(--h);
-  cursor: pointer;
-  color: var(--_c);
-  border: var(--b) solid var(--_c);
-  background: conic-gradient(
-      at calc(100% - 1.3 * var(--b)) 0,
-      var(--_c) 209deg,
-      #0000 211deg
-    )
-    border-box;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 0.577 * var(--h)) 100%, 0 100%);
-  padding: 0 calc(0.5 * var(--h)) 0 0;
-  margin: 0 calc(-0.288 * var(--h)) 0 0;
-  box-sizing: border-box;
-  transition: flex 0.4s;
-}
-.lock-button span + span {
-  --_c: #ff003c;
-  flex: calc(0.75 + var(--_s, 0));
-  background: conic-gradient(
-      from -90deg at calc(1.3 * var(--b)) 100%,
-      var(--_c) 119deg,
-      #0000 121deg
-    )
-    border-box;
-  clip-path: polygon(calc(0.577 * var(--h)) 0, 100% 0, 100% 100%, 0 100%);
-  margin: 0 0 0 calc(-0.388 * var(--h));
-  padding: 0 7% 0 calc(0.6 * var(--h));
-}
-.lock-button span:focus-visible {
-  outline-offset: calc(-2 * var(--b));
-  outline: calc(var(--b) / 2) solid #000;
-  background: none;
-  clip-path: none;
-  margin: 0;
-  padding: 0;
-}
-.lock-button span:focus-visible + span {
-  background: none;
-  clip-path: none;
-  margin: 0;
-  padding: 0;
-}
-.lock-button span:has(+ span:focus-visible) {
-  background: none;
-  clip-path: none;
-  margin: 0;
-  padding: 0;
-}
-span:hover,
-span:active:not(:focus-visible) {
-  --_s: 0.77;
-}
-span:active {
-  box-shadow: inset 0 0 0 100vmax var(--_c);
-  color: #fff;
-}
-
-.icon-lock {
-  padding: 0 10px 1px 0;
-  color: antiquewhite;
-  font-size: 17px;
-}
-
-.icon-unlock {
-  padding: 0 0 1px 5px;
-  color: antiquewhite;
-  font-size: 17px;
-} */
