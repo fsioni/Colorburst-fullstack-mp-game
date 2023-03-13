@@ -22,6 +22,7 @@ function Game() {
         </thead>
         <tbody id="scoreBoardBody"></tbody>
       </table>
+      <canvas id="miniMap" className="miniMap"></canvas>
     </div>
   );
 }
