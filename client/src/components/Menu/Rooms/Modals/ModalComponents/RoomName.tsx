@@ -2,15 +2,15 @@ import React, { FC } from "react";
 import "./RoomName.css";
 
 interface Props {
-  roomName: string;
+  _roomName: string;
   setRoomName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const RoomName: FC<Props> = ({ roomName, setRoomName }) => {
+export const RoomName: FC<Props> = ({ _roomName, setRoomName }) => {
   const handleChange = (event: any): any => {
     event.preventDefault();
     setRoomName(event.target.value);
-    if (roomName.length > 10) {
+    if (_roomName.length > 10) {
       // ajouter quand on dépasse 10 caractère on peu plus écrire
       alert("Max length is 10 caracters");
     }

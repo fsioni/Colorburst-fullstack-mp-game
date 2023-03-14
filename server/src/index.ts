@@ -18,6 +18,12 @@ const app: Express = express();
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
+// Middleware to extract data from POST
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 app.get("/", (_req, res) => {
   res.send({ uptime: process.uptime() });

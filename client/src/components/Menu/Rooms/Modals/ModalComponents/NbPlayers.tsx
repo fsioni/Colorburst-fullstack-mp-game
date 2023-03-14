@@ -2,17 +2,17 @@ import React, { FC } from "react";
 import "./NbPlayers.css";
 
 interface Props {
-  nbPlayers: number;
+  _nbPlayers: number;
   setNbPlayers: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const NbPlayers: FC<Props> = ({ nbPlayers, setNbPlayers }) => {
+export const NbPlayers: FC<Props> = ({ _nbPlayers, setNbPlayers }) => {
   const handleChange = (event: any): any => {
     event.preventDefault;
-    if (nbPlayers > 100) {
+    if (_nbPlayers > 100) {
       alert("Max players is 100");
     }
-    if (nbPlayers < 0) {
+    if (_nbPlayers < 0) {
       alert("Number of players can't be negative");
     }
     setNbPlayers(event.target.value);

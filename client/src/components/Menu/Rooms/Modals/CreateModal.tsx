@@ -13,20 +13,50 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const createRooms = () => {
-  const formInfo = {};
-};
-
-const handleSubmit = (event: any) => {
-  event.preventDefault();
-  console.log(event.target.elements.username.value);
-  console.log(event.target.username.value);
-};
-
 const CreateModal: FC<Props> = ({ open, setOpen }) => {
-  const [roomName, setRoomName] = useState<string>("");
-  const [nbPlayers, setNbPlayers] = useState<number>(0);
-  const [isPrivate, setIsPrivate] = useState<boolean>(false);
+  const [_roomName, setRoomName] = useState<string>("");
+  const [_nbPlayers, setNbPlayers] = useState<number>(0);
+  const [_isPrivate, setIsPrivate] = useState<boolean>(false);
+  const [message, setMessage] = useState("");
+
+  const apiOrigin =
+    window.location.origin.split(":")[0] +
+    ":" +
+    window.location.origin.split(":")[1] +
+    ":3040";
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(apiOrigin + "/rooms", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: "6009",
+          nbPlayers: "1",
+          roomName: _roomName,
+          playersMax: _nbPlayers,
+          isPrivate: _isPrivate,
+        }),
+      });
+      //const resJson = await res.json();
+      console.log(res);
+      if (res.status === 200) {
+        // on succes
+        setRoomName("");
+        setNbPlayers(0);
+        setIsPrivate(false);
+        setMessage("Room created successfully ✅");
+      } else {
+        setMessage("Error occured ❌");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="create-container">
       <div className="close-icon-container">
@@ -36,11 +66,11 @@ const CreateModal: FC<Props> = ({ open, setOpen }) => {
       </div>
       <h2 className="title">⚒️ Game Creation ⚒️</h2>
       <div className="form-container">
-        <form className="imputs-form">
+        <form className="imputs-form" onSubmit={handleSubmit}>
           <div className="form-field-container">
-            <RoomName roomName={roomName} setRoomName={setRoomName} />
-            <NbPlayers nbPlayers={nbPlayers} setNbPlayers={setNbPlayers} />
-            <IsPrivate isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
+            <RoomName _roomName={_roomName} setRoomName={setRoomName} />
+            <NbPlayers _nbPlayers={_nbPlayers} setNbPlayers={setNbPlayers} />
+            <IsPrivate _isPrivate={_isPrivate} setIsPrivate={setIsPrivate} />
           </div>
           <SubmitAndReset />
         </form>

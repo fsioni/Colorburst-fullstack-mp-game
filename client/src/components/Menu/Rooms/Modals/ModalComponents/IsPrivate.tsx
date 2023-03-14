@@ -3,17 +3,19 @@ import { FaLock, FaLockOpen } from "react-icons/fa";
 import "./IsPrivate.css";
 
 interface Props {
-  isPrivate: boolean;
+  _isPrivate: boolean;
   setIsPrivate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const IsPrivate: FC<Props> = ({ isPrivate, setIsPrivate }) => {
-  const changeValue = (): void => {
-    if (isPrivate === false) {
-      setIsPrivate(true);
-    } else if (isPrivate === true) {
-      setIsPrivate(false);
+export const IsPrivate: FC<Props> = ({ _isPrivate, setIsPrivate }) => {
+  const changeValue = (): boolean => {
+    let res: boolean = _isPrivate;
+    if (res === false) {
+      res = true;
+    } else if (res === true) {
+      res = false;
     }
+    return res;
   };
 
   return (
@@ -24,7 +26,7 @@ export const IsPrivate: FC<Props> = ({ isPrivate, setIsPrivate }) => {
           id="toggler-1"
           name="toggler-1"
           type="checkbox"
-          onClick={changeValue}
+          onClick={(e) => setIsPrivate(changeValue())}
         />
         <label htmlFor="toggler-1">
           <span className="toggler-unlock">

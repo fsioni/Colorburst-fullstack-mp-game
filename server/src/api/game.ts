@@ -62,7 +62,16 @@ gameRouteur.param("/", (req, res, next) => {
 
 // post methode to create a new room
 gameRouteur.post("/", (req: any, res: any) => {
+  // Room.create({
+  //   roomId: req.body.roomId,
+  //   roomName: req.body.roomName,
+  //   nbPlayers: req.body.nbPlayers,
+  //   playersMax: req.body.playersMax,
+  //   isPrivate: req.body.isPrivate,
+  //   password: req.body.password,
   console.log(req.body);
+  //}).then(room => res.json(user));
+  res.end();
 });
 
 gameRouteur

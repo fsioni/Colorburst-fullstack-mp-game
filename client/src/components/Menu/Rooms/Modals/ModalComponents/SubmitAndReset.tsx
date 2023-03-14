@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import "./SubmitAndReset.css";
 
-export const SubmitAndReset = () => {
+export const SubmitAndReset: FC = () => {
   return (
     <div className="submit-container">
       <input
