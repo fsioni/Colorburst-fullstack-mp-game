@@ -16,6 +16,7 @@ const Game: FC<GameProps> = ({ setGameStarted }): JSX.Element => {
   return (
     <>
       <button
+        className="quitButton"
         onClick={() => {
           setGameStarted(false);
           game?.destroy(true);
