@@ -30,6 +30,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   killedAudio = new Audio("../../../ress/killed.mp3");
   gainedTerritoryAudio = new Audio("../../../ress/gain-territory.wav");
+  moveAudio = new Audio("../../../ress/move.wav");
 
   constructor(
     scene: Phaser.Scene,
@@ -50,6 +51,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.socket = _socket;
     }
     this.id = id;
+    this.moveAudio.volume = 0.1;
+    this.gainedTerritoryAudio.volume = 0.4;
+    this.killedAudio.volume = 0.4;
     this.handleSocketEvents();
   }
 
@@ -171,6 +175,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     } else if (this.direction === Direction.Right) {
       this.boardPosition.x += 1;
     }
+    this.moveAudio.play();
 
     this.calculateAimedPosition();
     const { x, y } = this.boardPosition;
