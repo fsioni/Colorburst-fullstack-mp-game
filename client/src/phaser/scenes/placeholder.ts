@@ -167,8 +167,8 @@ export class FirstGameScene extends Phaser.Scene {
   initVolumeSprites() {
     if (!this.volumeSprite || !this.volumeMutedSprite) return;
 
-    this.volumeSprite.setInteractive();
-    this.volumeMutedSprite.setInteractive();
+    this.volumeSprite.setInteractive({ cursor: "pointer" });
+    this.volumeMutedSprite.setInteractive({ cursor: "pointer" });
 
     const onHoverColor = 0x00ff00;
 
