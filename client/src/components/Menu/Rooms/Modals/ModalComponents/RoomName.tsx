@@ -24,8 +24,10 @@ export const RoomName: FC<Props> = ({ _roomName, setRoomName }) => {
         id="roomName"
         type="text"
         placeholder="Room name"
+        required
         onChange={(e) => handleChange(e)}
       />
+      <span className="requiredField">*</span>
     </div>
   );
 };

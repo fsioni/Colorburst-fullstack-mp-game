@@ -24,13 +24,16 @@ export const NbPlayers: FC<Props> = ({ _nbPlayers, setNbPlayers }) => {
       <input
         className="number-players-input"
         type="number"
+        value={_nbPlayers}
         id="nbMaxPlayers"
         name="tentacles"
         min="10"
         max="100"
         step="10"
+        required
         onChange={(e) => handleChange(e)}
       />
+      <span className="requiredField">*</span>
     </div>
   );
 };

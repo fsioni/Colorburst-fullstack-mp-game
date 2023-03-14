@@ -51,7 +51,7 @@
 
 .form-field-container {
   display: flex;
-  width: auto;
+  width: 70%;
   height: auto;
   flex-direction: column;
   border-left: 3px solid;

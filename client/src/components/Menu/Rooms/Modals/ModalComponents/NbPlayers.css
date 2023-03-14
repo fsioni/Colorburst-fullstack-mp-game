@@ -11,8 +11,20 @@
   padding: 2.5% 4% 0 0;
 }
 
+/* Disable Arrows for the number input*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .number-players-input {
-  width: 25%;
+  width: 15%;
   padding: 4%;
   font-size: 14px;
   border-radius: 5px;
@@ -20,6 +32,14 @@
   outline: none;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.number-players-input:required:focus {
+  background-color: rgba(255, 63, 63, 0.347);
+  box-shadow: rgba(255, 0, 0, 0.4) 0px 2px 4px,
+    rgba(234, 7, 7, 0.3) 0px 7px 13px -3px,
+    rgrgba(235, 4, 4, 0.2) px -3px 0px inset;
+  outline: none;
 }
 
 .number-players-input:hover {
@@ -33,4 +53,9 @@
   text-shadow: 1px 1px 1px rgba(10, 10, 10, 0.4);
   box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
     rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
+}
+
+.requiredField {
+  padding: 0% 1% 1% 2%;
+  color: rgb(255, 255, 255);
 }

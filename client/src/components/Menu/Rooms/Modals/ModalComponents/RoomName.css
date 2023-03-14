@@ -11,6 +11,22 @@
   padding: 2.5% 4% 0 0;
 }
 
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(255, 255, 255);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgb(255, 255, 255);
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgb(255, 255, 255);
+}
+
 .name-input {
   width: 50%;
   padding: 3.6%;
@@ -20,6 +36,14 @@
   outline: none;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.name-input:required:focus {
+  background-color: rgba(255, 63, 63, 0.347);
+  box-shadow: rgba(255, 0, 0, 0.4) 0px 2px 4px,
+    rgba(234, 7, 7, 0.3) 0px 7px 13px -3px,
+    rgrgba(235, 4, 4, 0.2) px -3px 0px inset;
+  outline: none;
 }
 
 .name-input:hover {
@@ -33,4 +57,9 @@
   text-shadow: 1px 1px 1px rgba(62, 62, 62, 0.4);
   box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
     rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
+}
+
+.requiredField {
+  padding: 0% 1% 1% 2%;
+  color: rgb(255, 255, 255);
 }

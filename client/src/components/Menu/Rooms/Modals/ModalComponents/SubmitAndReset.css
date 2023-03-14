@@ -1,21 +1,22 @@
 .submit-container {
   display: flex;
   flex-direction: column;
-  width: 30%;
-  height: 70%;
+  align-items: center;
+  width: 31%;
+  height: 75%;
   justify-content: space-around;
-  background-color: rgb(255, 136, 0);
-  border-radius: 10px;
+  background-color: #fe9a0e;
+  border-radius: 15px;
   padding: 1%;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .submit-input {
-  width: 100%;
+  width: 90%;
   padding: 5%;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 7.5px;
   border: none;
   outline: none;
   background-color: #ffa01b;

@@ -6,7 +6,6 @@ import RoomName from "./ModalComponents/RoomName";
 import NbPlayers from "./ModalComponents/NbPlayers";
 import IsPrivate from "./ModalComponents/IsPrivate";
 import SubmitAndReset from "./ModalComponents/SubmitAndReset";
-import { use } from "matter";
 
 interface Props {
   open: boolean;
@@ -15,7 +14,7 @@ interface Props {
 
 const CreateModal: FC<Props> = ({ open, setOpen }) => {
   const [_roomName, setRoomName] = useState<string>("");
-  const [_nbPlayers, setNbPlayers] = useState<number>(0);
+  const [_nbPlayers, setNbPlayers] = useState<number>(20);
   const [_isPrivate, setIsPrivate] = useState<boolean>(false);
   const [message, setMessage] = useState("");
 
@@ -46,7 +45,7 @@ const CreateModal: FC<Props> = ({ open, setOpen }) => {
       if (res.status === 200) {
         // on succes
         setRoomName("");
-        setNbPlayers(0);
+        setNbPlayers(20);
         setIsPrivate(false);
         setMessage("Room created successfully ✅");
       } else {
