@@ -29,6 +29,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   color = 0;
 
   killedAudio = new Audio("../../../ress/killed.mp3");
+  gainedTerritoryAudio = new Audio("../../../ress/gain-territory.wav");
 
   constructor(
     scene: Phaser.Scene,
@@ -49,10 +50,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.socket = _socket;
     }
     this.id = id;
-
-    this.socket?.on("gameOver", () => {
-      this.killedAudio.play();
-    });
+    this.handleSocketEvents();
   }
 
   preUpdate(time: number, delta: number) {
@@ -64,6 +62,20 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.handleMovements(delta);
     this.handleRotation(delta);
+  }
+
+  handleSocketEvents() {
+    if (this.socket) {
+      this.socket?.on("gameOver", () => {
+        this.killedAudio.play();
+      });
+      this.socket?.on("gainedTerritory", () => {
+        //check if the player has respawned
+        console.log(this);
+
+        this.gainedTerritoryAudio.play();
+      });
+    }
   }
 
   sendDirectionToSocket() {

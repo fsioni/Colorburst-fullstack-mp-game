@@ -38,6 +38,7 @@ export default class Board {
   occupeCells(player: Player): void {
     const zoneOccupator = new ZoneCalculator(this.boardCells, player.id);
     zoneOccupator.fillZone();
+    player.socket.emit("gainedTerritory");
   }
 
   freeCells(playerId: string): void {
