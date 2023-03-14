@@ -180,7 +180,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
     } else if (this.direction === Direction.Right) {
       this.boardPosition.x += 1;
     }
-    this.moveAudio.play();
+
+    if (this.isPlayable) {
+      this.moveAudio.play();
+    }
 
     this.calculateAimedPosition();
     const { x, y } = this.boardPosition;
