@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import "./ConnectionModal.css";
 import { RiCloseLine } from "react-icons/ri";
 import GoogleLoginButton from "../../../LoginButtons/GoogleLoginButton";
+import AnonymousLoginButton from "../../../LoginButtons/AnonymousLoginButton";
 
 interface Props {
   setIsOpen: (isOpen: boolean) => void;
@@ -14,7 +15,7 @@ const ConnectionModal: FC<Props> = ({ setIsOpen }): JSX.Element => {
       <div className="centered">
         <div className="modal">
           <div className="modalHeader">
-            <h2 className="heading">Log in</h2>
+            <h2 className="heading">LOG IN</h2>
           </div>
           <button className="closeBtn" onClick={() => setIsOpen(false)}>
             <RiCloseLine style={{ marginBottom: "-3px" }} />
@@ -23,6 +24,7 @@ const ConnectionModal: FC<Props> = ({ setIsOpen }): JSX.Element => {
           <div className="modalActions">
             <div className="actionsContainer">
               <GoogleLoginButton />
+              <AnonymousLoginButton />
             </div>
           </div>
         </div>

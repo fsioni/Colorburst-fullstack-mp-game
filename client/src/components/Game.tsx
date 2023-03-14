@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { config } from "../phaser/config";
 import "./Game.css";
 
-function Game() {
+interface GameProps {
+  setGameStarted: (arg: boolean) => void;
+}
+
+const Game: FC<GameProps> = ({ setGameStarted }): JSX.Element => {
   const [game, setGame] = useState<Phaser.Game>();
 
   useEffect(() => {
@@ -10,8 +14,18 @@ function Game() {
   }, []);
 
   return (
-    <div>
+    <>
+      <button
+        onClick={() => {
+          setGameStarted(false);
+          game?.destroy(true);
+        }}
+      >
+        Quit
+      </button>
+
       <div id="phaser"></div>
+
       <table className="scoreBoard">
         <thead>
           <tr>
@@ -22,9 +36,9 @@ function Game() {
         </thead>
         <tbody id="scoreBoardBody"></tbody>
       </table>
-      <canvas id="miniMap" className="miniMap"></canvas>
-    </div>
-  );
-}
 
+      <canvas id="miniMap" className="miniMap"></canvas>
+    </>
+  );
+};
 export default Game;

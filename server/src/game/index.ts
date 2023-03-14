@@ -3,6 +3,8 @@ import Player from "./player";
 import { Server, Socket } from "socket.io";
 import Cell from "./cell";
 import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
+import { saveUserStats } from "../database";
+import { Stats } from "../enums/Stats";
 
 const skinsCount = 5;
 
@@ -75,7 +77,7 @@ export default class Game {
   async join(playerSocket: Socket): Promise<void> {
     if (!this.isJoinable)
       return this.log(`Player tried to join the game: ${playerSocket.id}`);
-    this.log(`New player joined the game: ${playerSocket.id}`);
+    this.log(`New player joined the game: ${playerSocket.id}}`);
 
     // on fait rejoindre la room socket io
     playerSocket.join(this.gameID);
@@ -83,6 +85,8 @@ export default class Game {
     // Création du joueur
     const player = new Player(playerSocket);
     player.color = this.nextSkin;
+    player.token = playerSocket.handshake.auth.token;
+    //console.log(player.uid);
     this.nextSkin = (this.nextSkin + 1) % skinsCount;
     this.players.push(player);
 
@@ -214,6 +218,7 @@ export default class Game {
       // add score to killer
       killer.socket.emit("kill");
     }
+    this.saveStats();
   }
 
   private movePlayers(): void {
@@ -257,5 +262,20 @@ export default class Game {
 
     // Emit message to informe client game was updated
     this.socketServer.to(this.gameID).emit("gameUpdated");
+  }
+
+  private getDocumentName(): string {
+    const date = new Date();
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  }
+
+  saveStats(): void {
+    const docName = this.getDocumentName();
+    this.players.forEach((player) => {
+      // Save stats
+      player.gameStats.Add(Stats.BLOCK_CAPTURED, 23);
+      player.gameStats.Add(Stats.BLOCK_TRAVELLED, 43);
+      saveUserStats(player.token, player.pseudo, player.gameStats, docName);
+    });
   }
 }

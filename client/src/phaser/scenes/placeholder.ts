@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import Player from "../gameObjects/Player";
 import Board from "../gameObjects/Board";
 import io from "socket.io-client";
+import { getAuth } from "firebase/auth";
+import app from "../../Firebase";
 import { Buffer } from "buffer";
 
 const Socketorigin =
@@ -11,7 +13,7 @@ const Socketorigin =
   ":3040";
 
 export class FirstGameScene extends Phaser.Scene {
-  socket = io(Socketorigin);
+  socket;
   player: Player | null = null;
   players: Player[];
   board?: Board;
@@ -21,6 +23,16 @@ export class FirstGameScene extends Phaser.Scene {
   constructor() {
     super("FirstGameScene");
     this.players = [];
+    getAuth(app)
+      .currentUser?.getIdToken()
+      .then((_token) => {
+        console.log(_token);
+        this.socket = io(Socketorigin, {
+          auth: {
+            token: _token,
+          },
+        });
+      });
   }
 
   preload() {
@@ -158,6 +170,10 @@ export class FirstGameScene extends Phaser.Scene {
   // Gere les evenements du socket
   handleSocketEvents() {
     // On utilsie le bind pour que this soit dans le contexte de la fonction
+    this.game?.events.on("destroy", () => {
+      console.log("destroy");
+      this.socket?.disconnect();
+    });
     this.socket?.on("playersList", this.updatePlayerList.bind(this));
     this.socket.on("playersPositions", this.updatePlayerPos.bind(this));
     this.socket?.on("gameUpdated", this.tickGame.bind(this));
