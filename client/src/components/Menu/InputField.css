@@ -45,7 +45,8 @@
 }
 
 .input-field-box:focus {
-  box-shadow: 0 0 10px 1000px rgb(0, 0, 0, 0.5);
+  z-index: 100;
+  box-shadow: 0 0 10px 3000px rgb(0, 0, 0, 0.5);
   outline: none;
   border-radius: 15px;
   transition: 0.3s;
