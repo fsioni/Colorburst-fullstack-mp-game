@@ -212,6 +212,7 @@ export default class Game {
 
     if (killer) {
       // add score to killer
+      killer.socket.emit("kill");
     }
   }
 

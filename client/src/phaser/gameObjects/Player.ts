@@ -3,6 +3,7 @@ import Phaser from "phaser";
 import { Direction } from "../Direction";
 import Board from "./Board";
 import Point = Phaser.Geom.Point;
+import { FirstGameScene } from "../scenes/placeholder";
 
 const moveInterpolationRatio = 0.01;
 const rotaInterpolationRatio = 0.01;
@@ -28,12 +29,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
   cursors = this.scene.input.keyboard.createCursorKeys();
   color = 0;
 
+  killAudio = new Audio("../../../ress/kill.wav");
   killedAudio = new Audio("../../../ress/killed.mp3");
   gainedTerritoryAudio = new Audio("../../../ress/gain-territory.wav");
   moveAudio = new Audio("../../../ress/move.wav");
 
+  isAudioMuted = false;
+
   constructor(
-    scene: Phaser.Scene,
+    scene: FirstGameScene,
     id: string,
     board: Board,
     color = 0,
@@ -53,6 +57,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.id = id;
     this.moveAudio.volume = 0.1;
     this.gainedTerritoryAudio.volume = 0.4;
+    this.killAudio.volume = 0.4;
     this.killedAudio.volume = 0.4;
     this.handleSocketEvents();
   }
@@ -70,13 +75,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   handleSocketEvents() {
     if (this.socket) {
+      this.socket?.on("kill", () => {
+        this.killAudio.play();
+      });
       this.socket?.on("gameOver", () => {
         this.killedAudio.play();
       });
       this.socket?.on("gainedTerritory", () => {
-        //check if the player has respawned
-        console.log(this);
-
         this.gainedTerritoryAudio.play();
       });
     }
@@ -226,5 +231,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
     const cellPosition = this.board.aGrid.getCellPosition(x, y);
     this.aimedPosition.x = cellPosition.x;
     this.aimedPosition.y = cellPosition.y;
+  }
+
+  setIsAudioMuted(isMuted: boolean) {
+    this.isAudioMuted = isMuted;
+
+    this.moveAudio.muted = this.isAudioMuted;
+    this.killAudio.muted = this.isAudioMuted;
+    this.gainedTerritoryAudio.muted = this.isAudioMuted;
+    this.killedAudio.muted = this.isAudioMuted;
   }
 }

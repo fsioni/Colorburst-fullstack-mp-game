@@ -15,6 +15,8 @@ export class FirstGameScene extends Phaser.Scene {
   player: Player | null = null;
   players: Player[];
   board?: Board;
+  volumeSprite?: Phaser.GameObjects.Image;
+  volumeMutedSprite?: Phaser.GameObjects.Image;
 
   constructor() {
     super("FirstGameScene");
@@ -30,6 +32,8 @@ export class FirstGameScene extends Phaser.Scene {
       frameWidth: 10,
       frameHeight: 10,
     });
+    this.load.image("volumeOn", "../../../ress/volume.png");
+    this.load.image("volumeOff", "../../../ress/mute.png");
   }
 
   create() {
@@ -44,6 +48,13 @@ export class FirstGameScene extends Phaser.Scene {
     this.handleSocketEvents();
 
     this.cameras.main.setZoom(0.4);
+    this.volumeSprite = this.add.image(0, 0, "volumeOn");
+    this.volumeMutedSprite = this.add.image(0, 0, "volumeOff");
+    this.initVolumeSprites();
+  }
+
+  update(): void {
+    this.updateButtonsPosition();
   }
 
   // Met a jour la position des joueurs
@@ -151,5 +162,69 @@ export class FirstGameScene extends Phaser.Scene {
     this.socket.on("playersPositions", this.updatePlayerPos.bind(this));
     this.socket?.on("gameUpdated", this.tickGame.bind(this));
     this.socket?.on("leaderBoard", this.updateLeaderBoard.bind(this));
+  }
+
+  initVolumeSprites() {
+    if (!this.volumeSprite || !this.volumeMutedSprite) return;
+
+    this.volumeSprite.setInteractive();
+    this.volumeMutedSprite.setInteractive();
+
+    const onHoverColor = 0x00ff00;
+
+    this.volumeSprite.on("pointerover", () => {
+      this.volumeMutedSprite?.clearTint();
+      this.volumeSprite?.setTintFill(onHoverColor);
+    });
+
+    this.volumeMutedSprite.on("pointerover", () => {
+      this.volumeSprite?.clearTint();
+      this.volumeMutedSprite?.setTintFill(onHoverColor);
+    });
+
+    this.volumeSprite.on("pointerout", () => {
+      this.volumeSprite?.clearTint();
+    });
+
+    this.volumeMutedSprite.on("pointerout", () => {
+      this.volumeMutedSprite?.clearTint();
+    });
+
+    this.volumeMutedSprite.on("pointerdown", () => {
+      this.setIsAudioMuted(false);
+    });
+
+    this.volumeSprite.on("pointerdown", () => {
+      this.setIsAudioMuted(true);
+    });
+
+    this.volumeSprite.depth = 100;
+    this.volumeMutedSprite.depth = 100;
+
+    if (!this.player) console.log("player is null");
+
+    this.setIsAudioMuted(false);
+  }
+
+  setIsAudioMuted(isMuted: boolean) {
+    if (!this.volumeSprite || !this.volumeMutedSprite) return;
+
+    this.player?.setIsAudioMuted(isMuted);
+    this.volumeSprite.setVisible(!this.player?.isAudioMuted);
+    this.volumeMutedSprite.setVisible(this.player?.isAudioMuted ? true : false);
+  }
+
+  updateButtonsPosition() {
+    const xOffset = 500;
+    const yOffset = 300;
+    const xButtonPos =
+      this.cameras.main.worldView.x + this.cameras.main.width * 2 + xOffset;
+    const yButtonPos =
+      this.cameras.main.worldView.y + this.cameras.main.height * 2 + yOffset;
+
+    if (this.volumeSprite)
+      this.volumeSprite?.setPosition(xButtonPos, yButtonPos);
+    if (this.volumeMutedSprite)
+      this.volumeMutedSprite?.setPosition(xButtonPos, yButtonPos);
   }
 }
