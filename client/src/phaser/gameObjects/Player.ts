@@ -28,6 +28,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
   cursors = this.scene.input.keyboard.createCursorKeys();
   color = 0;
 
+  killedAudio = new Audio("../../../ress/killed.mp3");
+
   constructor(
     scene: Phaser.Scene,
     id: string,
@@ -47,6 +49,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.socket = _socket;
     }
     this.id = id;
+
+    this.socket?.on("gameOver", () => {
+      this.killedAudio.play();
+    });
   }
 
   preUpdate(time: number, delta: number) {
