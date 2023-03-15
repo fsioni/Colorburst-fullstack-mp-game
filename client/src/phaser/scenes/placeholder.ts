@@ -114,7 +114,7 @@ export class FirstGameScene extends Phaser.Scene {
   }
 
   // Met a jour la liste des joueurs
-  updatePlayerList(data: { id: string; color: number }[]) {
+  updatePlayerList(data: { id: string; pseudo: string; color: number }[]) {
     const packetSize = Buffer.byteLength(JSON.stringify(data));
     console.log(`[playersList] Packet size: ${packetSize} bytes`);
 
@@ -126,12 +126,14 @@ export class FirstGameScene extends Phaser.Scene {
           this.player = this.add.existing(
             new Player(this, p.id, this.board, p.color, true, this.socket)
           );
+          if (p.pseudo) this.player.pseudo = p.pseudo;
           this.player.setFrame(p.color);
           this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
         } else {
           //check if it is the player
           if (this.player?.id === p.id) return;
           const newPlayer = new Player(this, p.id, this.board, p.color);
+          if (p.pseudo) newPlayer.pseudo = p.pseudo;
           newPlayer.setFrame(p.color);
           this.players.push(this.add.existing(newPlayer));
         }
@@ -148,7 +150,7 @@ export class FirstGameScene extends Phaser.Scene {
   }
 
   // Met a jour le leaderboard
-  updateLeaderBoard(data: { id: string; score: number }[]) {
+  updateLeaderBoard(data: { id: string; pseudo: string; score: number }[]) {
     const leaderBoard = document.getElementById("scoreBoardBody");
     if (!leaderBoard) return;
     leaderBoard.innerHTML = "";
@@ -158,7 +160,7 @@ export class FirstGameScene extends Phaser.Scene {
       const id = document.createElement("td");
       const score = document.createElement("td");
       place.innerText = (i + 1).toString();
-      id.innerText = player.id;
+      id.innerText = player.pseudo;
       score.innerText = player.score.toString();
       row.appendChild(place);
       row.appendChild(id);

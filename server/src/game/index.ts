@@ -3,7 +3,7 @@ import Player from "./player";
 import { Server, Socket } from "socket.io";
 import Cell from "./cell";
 import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
-import { saveUserStats } from "../database";
+import { getUserPseudo, saveUserStats } from "../database";
 import { Stats } from "../enums/Stats";
 
 const skinsCount = 5;
@@ -61,13 +61,14 @@ export default class Game {
     return this.players.length;
   }
 
-  get leaderBoard(): { id: string; score: number }[] {
+  get leaderBoard(): { id: string; pseudo: string; score: number }[] {
     // Return total of territories for each player
     return this.players
       .map((player) => {
         const territories = this.gameBoard.getTerritoriesCount(player);
         return {
           id: player.id,
+          pseudo: player.pseudo,
           score: territories,
         };
       })
@@ -86,6 +87,15 @@ export default class Game {
     const player = new Player(playerSocket);
     player.color = this.nextSkin;
     player.token = playerSocket.handshake.auth.token;
+    getUserPseudo(playerSocket.handshake.auth.token)
+      .then((pseudo) => {
+        player.pseudo = pseudo || "Anonyme";
+        this.log(`Player ${player.pseudo} joined the game`);
+        this.socketServer.emit("playersList", this.playersList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     //console.log(player.uid);
     this.nextSkin = (this.nextSkin + 1) % skinsCount;
     this.players.push(player);
@@ -94,9 +104,11 @@ export default class Game {
     this.handlePlayersEvent(playerSocket);
   }
 
-  get playersList(): { id: string; color: number }[] {
+  get playersList(): { id: string; pseudo: string; color: number }[] {
+    console.log(this.players);
     return this.players.map((player) => ({
       id: player.id,
+      pseudo: player.pseudo,
       color: player.color,
     }));
   }

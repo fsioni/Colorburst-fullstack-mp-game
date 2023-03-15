@@ -82,4 +82,12 @@ const saveUserStats = async (
     });
 };
 
-export { db, getUsers, getStats, saveUserStats };
+const getUserPseudo = async (playerToken: string) => {
+  if (!playerToken) return; //si le joueur a un compte
+  //verify the token
+  const decodedToken = await admin.auth().verifyIdToken(playerToken);
+  const user = await admin.auth().getUser(decodedToken.uid);
+  return user.displayName;
+};
+
+export { db, getUsers, getStats, saveUserStats, getUserPseudo };

@@ -12,6 +12,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   direction: Direction | null = null;
   isPlayable = false;
   id: string;
+  pseudo = "Anonymous";
   isAlive = true;
   socket: Socket | null = null;
 
