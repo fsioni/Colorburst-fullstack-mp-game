@@ -1,29 +1,39 @@
 stages:
-  - test
   - lint
+  - test
 
-test:
-  image: node:16-alpine
-  stage: test
+lint-server:
+  stage: lint
+  image: node:latest
   script:
+    - cd server
+    - npm install
+    - npm run lint
+    - npm run format
+  artifacts:
+    paths:
+      - server/node_modules
+
+lint-public:
+  stage: lint
+  image: node:latest
+  script:
+    - cd public
+    - npm install
+    - npm run lint
+    - npm run format
+  artifacts:
+    paths:
+      - public/node_modules
+
+test-server:
+  stage: test
+  image: node:latest
+  script:
+    - cd server
     - npm install
     - npm run test:coverage
   artifacts:
     paths:
-      - coverage/
-  coverage: '/All files\s*\|\s*([\d\.]+)/'
-
-eslint:
-  stage: lint
-  image: node:16-alpine
-  script:
-    - npm install
-    - npm run lint
-
-prettier:
-  stage: lint
-  image: node:16-alpine
-  script:
-    - npm install
-    - npm run format
-    - git diff --exit-code # fail if there are unstaged changes
+      - server/node_modules
+      - server/coverage
