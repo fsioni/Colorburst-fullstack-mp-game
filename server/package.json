@@ -10,6 +10,7 @@
     "lint": "npx eslint ./src",
     "test": "jest",
     "test:coverage": "jest --coverage",
+    "test:coverage:ci": "jest --coverage --ci --detectOpenHandles",
     "test:watch": "jest --watch",
     "prepare": "cd .. && husky install ./server/.husky && chmod +x ./server/.husky/pre-commit"
   },
