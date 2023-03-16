@@ -1,5 +1,5 @@
 import { Stats } from "../enums/Stats";
-export default class name {
+export default class PlayerGameStats {
   private kills: number;
   private killed: number;
   private blocksCaptured: number;
@@ -41,8 +41,6 @@ export default class name {
         break;
       case Stats.BLOCK_TRAVELLED:
         this.blocksTravelled += amount;
-        break;
-      default:
         break;
     }
   }
