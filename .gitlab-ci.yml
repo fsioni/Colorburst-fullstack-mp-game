@@ -1,6 +1,7 @@
 stages:
   - lint
   - test
+  - deploy
 
 lint-server:
   stage: lint
@@ -32,17 +33,17 @@ test-server:
   script:
     - cd server
     - npm install
-    - npm run test:coverage
+    - npm run test:coverage:ci
   artifacts:
     paths:
       - server/node_modules
       - server/coverage
 
-deploy-ci:
+deploy-coverage-server:
   stage: deploy
   image: alpine
   dependencies:
-    - test
+    - test-server
   script:
     - apk add --no-cache git
     - git clone $CI_PROJECT_URL deploy
