@@ -1,6 +1,7 @@
 stages:
   - lint
   - test
+  - deploy
 
 lint-server:
   stage: lint
