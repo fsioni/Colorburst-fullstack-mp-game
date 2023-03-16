@@ -37,3 +37,23 @@ test-server:
     paths:
       - server/node_modules
       - server/coverage
+
+deploy-ci:
+  stage: deploy
+  image: alpine
+  dependencies:
+    - test
+  script:
+    - apk add --no-cache git
+    - git clone $CI_PROJECT_URL deploy
+    - rm -rf deploy/*
+    - cp -r ./server/coverage/lcov-report/* deploy/
+    - cd deploy
+    - git config user.name "GitLab CI"
+    - git config user.email "gitlab-ci@etu.univ-lyon1.fr"
+    - git add -A
+    - git commit -m "Deploy code coverage report"
+    - git push origin main
+  only:
+    - main
+
