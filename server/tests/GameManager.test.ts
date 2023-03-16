@@ -3,6 +3,13 @@ import { Server } from "socket.io";
 import GameManager from "../src/GameManager";
 
 describe("GameManager", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
   test("createGame", () => {
     const io = new Server();
     const gameManager = new GameManager(io);
