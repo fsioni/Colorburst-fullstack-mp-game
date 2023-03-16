@@ -1,0 +1,29 @@
+stages:
+  - test
+  - lint
+
+test:
+  image: node:16-alpine
+  stage: test
+  script:
+    - npm install
+    - npm run test:coverage
+  artifacts:
+    paths:
+      - coverage/
+  coverage: '/All files\s*\|\s*([\d\.]+)/'
+
+eslint:
+  stage: lint
+  image: node:16-alpine
+  script:
+    - npm install
+    - npm run lint
+
+prettier:
+  stage: lint
+  image: node:16-alpine
+  script:
+    - npm install
+    - npm run format
+    - git diff --exit-code # fail if there are unstaged changes
