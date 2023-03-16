@@ -1,7 +1,6 @@
 stages:
   - lint
   - test
-  - deploy
 
 lint-server:
   stage: lint
@@ -34,27 +33,9 @@ test-server:
     - cd server
     - npm install
     - npm run test:coverage:ci
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
   artifacts:
     paths:
       - server/node_modules
       - server/coverage
-
-deploy-coverage-server:
-  stage: deploy
-  image: alpine
-  dependencies:
-    - test-server
-  script:
-    - apk add --no-cache git
-    - git clone $CI_PROJECT_URL deploy
-    - rm -rf deploy/*
-    - cp -r ./server/coverage/lcov-report/* deploy/
-    - cd deploy
-    - git config user.name "SIONI Fares"
-    - git config user.email "fares.sioni@etu.univ-lyon1.fr"
-    - git add -A
-    - git commit -m "Deploy code coverage report"
-    - git push origin main
-  only:
-    - main
 
