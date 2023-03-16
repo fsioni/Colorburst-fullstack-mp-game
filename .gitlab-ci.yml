@@ -39,6 +39,18 @@ test-server:
       - server/node_modules
       - server/coverage
 
+test-client:
+  stage: test
+  image: node:latest
+  script:
+    - cd client
+    - npm install
+    - npm run test:coverage:ci
+  artifacts:
+    paths:
+      - client/node_modules
+      - client/coverage
+
 deploy-coverage-server:
   stage: deploy
   image: alpine
