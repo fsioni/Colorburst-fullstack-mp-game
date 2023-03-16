@@ -14,17 +14,17 @@ lint-server:
     paths:
       - server/node_modules
 
-lint-public:
+lint-client:
   stage: lint
   image: node:latest
   script:
-    - cd public
+    - cd client
     - npm install
     - npm run lint
     - npm run format
   artifacts:
     paths:
-      - public/node_modules
+      - client/node_modules
 
 test-server:
   stage: test
