@@ -3,3 +3,5 @@
 **/.hg
 **/node_modules
 pnpm-lock.yaml
+/target
+/coverage
