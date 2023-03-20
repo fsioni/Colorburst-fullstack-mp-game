@@ -173,7 +173,6 @@ export class FirstGameScene extends Phaser.Scene {
   handleSocketEvents() {
     // On utilsie le bind pour que this soit dans le contexte de la fonction
     this.game?.events.on("destroy", () => {
-      console.log("destroy");
       this.socket?.disconnect();
     });
     this.socket?.on("playersList", this.updatePlayerList.bind(this));
@@ -221,15 +220,30 @@ export class FirstGameScene extends Phaser.Scene {
 
     if (!this.player) console.log("player is null");
 
-    this.setIsAudioMuted(false);
+    this.setIsAudioMuted(undefined);
   }
 
-  setIsAudioMuted(isMuted: boolean) {
+  setIsAudioMuted(isMuted: boolean | undefined) {
     if (!this.volumeSprite || !this.volumeMutedSprite) return;
 
+    if (isMuted === undefined) {
+      isMuted = localStorage.getItem("isMuted") === "true";
+    } else {
+      localStorage.setItem("isMuted", isMuted.toString());
+    }
+
+    //wait for the player to be created
+    if (!this.player) {
+      setTimeout(() => {
+        this.setIsAudioMuted(isMuted);
+      }, 100);
+      return;
+    }
+
     this.player?.setIsAudioMuted(isMuted);
+
     this.volumeSprite.setVisible(!this.player?.isAudioMuted);
-    this.volumeMutedSprite.setVisible(this.player?.isAudioMuted ? true : false);
+    this.volumeMutedSprite.setVisible(this.player?.isAudioMuted || false);
   }
 
   updateButtonsPosition() {

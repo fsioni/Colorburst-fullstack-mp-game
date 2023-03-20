@@ -56,10 +56,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.socket = _socket;
     }
     this.id = id;
+
     this.moveAudio.volume = 0.1;
     this.gainedTerritoryAudio.volume = 0.4;
     this.killAudio.volume = 0.4;
     this.killedAudio.volume = 0.4;
+
     this.handleSocketEvents();
   }
 
