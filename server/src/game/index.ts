@@ -220,14 +220,15 @@ export default class Game {
   }
 
   private killPlayer(player: Player, killer: Player | null = null): void {
+    player.gameStats.Add(Stats.KILLED, 1);
     player.socket.emit("gameOver");
     player.isAlive = false;
     player.outOfHisTerritory = false;
     this.gameBoard.freeCells(player.id);
     this.spawnPlayer(player);
 
-    if (killer) {
-      // add score to killer
+    if (killer && killer.id !== player.id) {
+      killer.gameStats.Add(Stats.KILL, 1);
       killer.socket.emit("kill");
     }
     this.saveStats();
