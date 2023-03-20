@@ -61,7 +61,10 @@ const Rooms: FC = () => {
         <div className="game-container">
           <h2 className="menu-game-title">🕹️ GAME 🕹️</h2>
           {rooms.length == 0 ? (
-            <div className="rooms-empty">✖️ No rooms ✖️</div>
+            <div className="rooms-empty">
+              ✖️ No rooms ✖️
+              {buttons()}
+            </div>
           ) : (
             <div className="rooms-and-buttons-container">
               {roomsMap()}

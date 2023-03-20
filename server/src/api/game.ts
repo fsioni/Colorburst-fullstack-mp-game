@@ -1,4 +1,5 @@
-import { Router } from "express";
+import express, { Router } from "express";
+import { ResultWithContext } from "express-validator/src/chain";
 const gameRouteur = Router();
 
 interface Room {
@@ -10,49 +11,11 @@ interface Room {
   password?: number;
 }
 
+const Rooms: Room[] = [];
+
 // get the rooms list
-gameRouteur.get("/", (req: any, res: any) => {
-  res.json([
-    {
-      roomId: 6001,
-      roomName: "Barthelimi",
-      nbPlayers: 10,
-      playersMax: 20,
-      isPrivate: true,
-      password: 69,
-    },
-    {
-      roomId: 6002,
-      roomName: "alloooo",
-      nbPlayers: 1,
-      playersMax: 15,
-      isPrivate: false,
-    },
-    {
-      roomId: 6003,
-      roomName: "La J",
-      nbPlayers: 1,
-      playersMax: 5,
-      isPrivate: false,
-      password: null,
-    },
-    {
-      roomId: 6004,
-      roomName: "C'est troop le S",
-      nbPlayers: 100,
-      playersMax: 200,
-      isPrivate: false,
-      password: null,
-    },
-    {
-      roomId: 6005,
-      roomName: "Lagavame",
-      nbPlayers: 50,
-      playersMax: 50,
-      isPrivate: true,
-      password: 69200,
-    },
-  ]);
+gameRouteur.get("/", (req: express.Request, res: express.Response) => {
+  res.json(Rooms);
 });
 
 gameRouteur.param("/", (req, res, next) => {
@@ -61,17 +24,18 @@ gameRouteur.param("/", (req, res, next) => {
 });
 
 // post methode to create a new room
-gameRouteur.post("/", (req: any, res: any) => {
-  // Room.create({
-  //   roomId: req.body.roomId,
-  //   roomName: req.body.roomName,
-  //   nbPlayers: req.body.nbPlayers,
-  //   playersMax: req.body.playersMax,
-  //   isPrivate: req.body.isPrivate,
-  //   password: req.body.password,
-  console.log(req.body);
-  //}).then(room => res.json(user));
-  res.end();
+gameRouteur.post("/", (req: express.Request, res: express.Response) => {
+  res.send("Room create Post request");
+  const room = {
+    roomId: req.body.roomId,
+    roomName: req.body.roomName,
+    nbPlayers: req.body.nbPlayers,
+    playersMax: req.body.playersMax,
+    isPrivate: req.body.isPrivate,
+    password: req.body.password,
+  };
+  console.log(room);
+  Rooms.push(room);
 });
 
 gameRouteur

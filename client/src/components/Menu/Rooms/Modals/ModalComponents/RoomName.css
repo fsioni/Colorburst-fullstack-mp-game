@@ -11,22 +11,6 @@
   padding: 2.5% 4% 0 0;
 }
 
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: rgb(255, 255, 255);
-  opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: rgb(255, 255, 255);
-}
-
-::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: rgb(255, 255, 255);
-}
-
 .name-input {
   width: 50%;
   padding: 3.6%;
@@ -54,9 +38,25 @@
   -moz-transition: 0.2s;
   -ms-transition: 0.2s;
   -o-transition: 0.2s;
-  text-shadow: 1px 1px 1px rgba(62, 62, 62, 0.4);
-  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 3px 4px,
     rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
+}
+
+.name-input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(22, 22, 22);
+  opacity: 1; /* Firefox */
+}
+
+.name-input::-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgb(19, 19, 19);
+}
+
+.name-input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgb(19, 19, 19);
 }
 
 .requiredField {

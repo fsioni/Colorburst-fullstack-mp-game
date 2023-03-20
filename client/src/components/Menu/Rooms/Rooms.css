@@ -27,26 +27,31 @@
 
 .rooms-empty {
   display: flex;
-  height: 150px;
-  width: 200px;
+  height: 60%;
+  width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   font-size: 20px;
 }
 
 .rooms-and-buttons-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
 }
 
 .rooms-container {
-  width: 63%;
+  display: flex;
+  width: 80%;
+  height: auto;
+  align-items: center;
 }
 
 .buttons-container {
   display: flex;
   width: 25%;
+  height: 100%;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;

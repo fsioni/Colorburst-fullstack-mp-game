@@ -42,6 +42,11 @@
   outline: none;
 }
 
+.input-field-box::placeholder {
+  color: black;
+  text-align: center;
+}
+
 .mode-and-go {
   display: flex;
   padding: 3%;

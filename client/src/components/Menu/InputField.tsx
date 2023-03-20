@@ -26,7 +26,7 @@ const InputField = ({ username, isLoged }: Props): JSX.Element => {
           ref={inputRef}
           type="input"
           value={username}
-          placeholder={isLoged === -1 ? "Username 🤔" : username}
+          placeholder={"Username 🤔"}
           className="input-field-box"
         />
       </div>
