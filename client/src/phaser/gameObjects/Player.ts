@@ -1,6 +1,6 @@
 import { Socket } from "socket.io-client";
 import Phaser from "phaser";
-import { Direction } from "../Direction";
+import { Direction } from "../utils/Direction";
 import Board from "./Board";
 import Point = Phaser.Geom.Point;
 import { FirstGameScene } from "../scenes/placeholder";

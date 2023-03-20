@@ -1,5 +1,5 @@
 import "phaser";
-import { config } from "./config";
+import { config } from "./utils/config";
 
 const phaserGame = new Phaser.Game(config);
 
