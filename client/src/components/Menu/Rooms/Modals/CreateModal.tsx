@@ -8,11 +8,11 @@ import IsPrivate from "./ModalComponents/IsPrivate";
 import SubmitAndReset from "./ModalComponents/SubmitAndReset";
 
 interface Props {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  modalIsOpen: boolean;
+  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreateModal: FC<Props> = ({ open, setOpen }) => {
+const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
   const [_roomName, setRoomName] = useState<string>("");
   const [_nbPlayers, setNbPlayers] = useState<number>(20);
   const [_isPrivate, setIsPrivate] = useState<boolean>(false);
@@ -25,6 +25,7 @@ const CreateModal: FC<Props> = ({ open, setOpen }) => {
     ":3040";
 
   const handleSubmit = async (e: any) => {
+    console.log("OKKKKKKKK");
     e.preventDefault();
     try {
       const res = await fetch(apiOrigin + "/rooms", {
@@ -40,14 +41,13 @@ const CreateModal: FC<Props> = ({ open, setOpen }) => {
           isPrivate: _isPrivate,
         }),
       });
-      //const resJson = await res.json();
-      console.log(res);
       if (res.status === 200) {
         // on succes
         setRoomName("");
         setNbPlayers(20);
         setIsPrivate(false);
         setMessage("Room created successfully ✅");
+        setModalIsOpen(false);
       } else {
         setMessage("Error occured ❌");
       }
@@ -59,7 +59,7 @@ const CreateModal: FC<Props> = ({ open, setOpen }) => {
   return (
     <div className="create-container">
       <div className="close-icon-container">
-        <span className="close-icon" onClick={() => setOpen(false)}>
+        <span className="close-icon" onClick={() => setModalIsOpen(false)}>
           <CgClose />
         </span>
       </div>

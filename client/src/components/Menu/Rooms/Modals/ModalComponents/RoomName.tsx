@@ -10,10 +10,6 @@ export const RoomName: FC<Props> = ({ _roomName, setRoomName }) => {
   const handleChange = (event: any): any => {
     event.preventDefault();
     setRoomName(event.target.value);
-    if (_roomName.length > 10) {
-      // ajouter quand on dépasse 10 caractère on peu plus écrire
-      alert("Max length is 10 caracters");
-    }
   };
 
   return (
@@ -25,6 +21,8 @@ export const RoomName: FC<Props> = ({ _roomName, setRoomName }) => {
         type="text"
         placeholder="Room name"
         required
+        minLength={3}
+        maxLength={10}
         onChange={(e) => handleChange(e)}
       />
       <span className="requiredField">*</span>

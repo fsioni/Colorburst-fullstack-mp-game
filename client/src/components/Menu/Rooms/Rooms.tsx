@@ -2,14 +2,13 @@ import React from "react";
 import { FC, useState, useEffect } from "react";
 
 import "./Rooms.css";
-import jsonListRoom from "../../../data/roomList.json";
 import SingleRoom from "./SingleRoom/SingleRoom";
 import Room from "./RoomModel"; // a utiliser pour les props
 import CreateModal from "./Modals/CreateModal";
 
 const Rooms: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const apiOrigin =
     window.location.origin.split(":")[0] +
     ":" +
@@ -48,7 +47,7 @@ const Rooms: FC = () => {
     return (
       <div className="buttons-container">
         <button className="join-button">JOIN</button>
-        <button className="create-button" onClick={() => setOpen(true)}>
+        <button className="create-button" onClick={() => setModalIsOpen(true)}>
           CREATE
         </button>
       </div>
@@ -57,7 +56,7 @@ const Rooms: FC = () => {
 
   return (
     <div className="main-room-container">
-      {open == false ? (
+      {modalIsOpen == false ? (
         <div className="game-container">
           <h2 className="menu-game-title">🕹️ GAME 🕹️</h2>
           {rooms.length == 0 ? (
@@ -73,7 +72,10 @@ const Rooms: FC = () => {
           )}
         </div>
       ) : (
-        <CreateModal open={open} setOpen={setOpen} />
+        <CreateModal
+          modalIsOpen={modalIsOpen}
+          setModalIsOpen={setModalIsOpen}
+        />
       )}
     </div>
   );
