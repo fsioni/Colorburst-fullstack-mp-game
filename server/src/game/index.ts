@@ -105,7 +105,6 @@ export default class Game {
   }
 
   get playersList(): { id: string; pseudo: string; color: number }[] {
-    console.log(this.players);
     return this.players.map((player) => ({
       id: player.id,
       pseudo: player.pseudo,
@@ -165,7 +164,7 @@ export default class Game {
         (p) => p.id === playerSocket.id
       ) as Player;
       this.players = this.players.filter((p) => p.id !== playerSocket.id);
-      this.killPlayer(playerToKill);
+      this.killPlayer(playerToKill, null, true);
     });
 
     // Quand le joueur change de direction
@@ -219,12 +218,17 @@ export default class Game {
     this.sendMapToPlayers();
   }
 
-  private killPlayer(player: Player, killer: Player | null = null): void {
+  private killPlayer(
+    player: Player,
+    killer: Player | null = null,
+    disconnected = false
+  ): void {
     player.socket.emit("gameOver");
     player.isAlive = false;
     player.outOfHisTerritory = false;
     this.gameBoard.freeCells(player.id);
-    this.spawnPlayer(player);
+
+    if (!disconnected) this.spawnPlayer(player);
 
     if (killer) {
       // add score to killer
