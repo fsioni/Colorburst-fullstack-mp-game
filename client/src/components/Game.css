@@ -41,3 +41,17 @@ body {
   /* Center font image */
   background-position: center;
 }
+
+#soundBtn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+#soundBtn:hover {
+  /* On met un filtre pour le rendre vert */
+  filter: invert(0.5) sepia(1) saturate(3) hue-rotate(100deg);
+}

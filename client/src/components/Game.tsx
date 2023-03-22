@@ -39,6 +39,8 @@ const Game: FC<GameProps> = ({ setGameStarted }): JSX.Element => {
       </table>
 
       <canvas id="miniMap" className="miniMap"></canvas>
+
+      <img id="soundBtn" src="./ress/mute.png" alt="" />
     </>
   );
 };
