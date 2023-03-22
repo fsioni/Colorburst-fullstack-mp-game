@@ -13,11 +13,10 @@ const Socketorigin =
   ":3040";
 
 export class FirstGameScene extends Phaser.Scene {
-  socket;
+  socket: any;
   player: Player | null = null;
   players: Player[];
   board?: Board;
-
   constructor() {
     super("FirstGameScene");
     this.players = [];

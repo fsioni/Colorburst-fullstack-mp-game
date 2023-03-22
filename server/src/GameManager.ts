@@ -4,6 +4,7 @@ import { CreateGameSettings } from "./game/interfaces";
 class GameManager {
   private games: Game[] = [];
   socketServeur: Server;
+  deleteTimeOut: Map<string, NodeJS.Timeout> = new Map();
   constructor(socketServeur: Server) {
     this.socketServeur = socketServeur;
   }
@@ -11,6 +12,28 @@ class GameManager {
   createGame(settings: CreateGameSettings): Game {
     const game = new Game(this.socketServeur, settings);
     this.games.push(game);
+
+    game.onConnect = () => {
+      console.log("onConnect");
+      const timeout = this.deleteTimeOut.get(game.gameID);
+      if (timeout) {
+        clearTimeout(timeout);
+        this.deleteTimeOut.delete(game.gameID);
+        console.log(game.gameID, "Game secured");
+      }
+    };
+
+    game.onDisconnect = () => {
+      if (game.alivePlayersCount === 0) {
+        const timeout = setTimeout(() => {
+          this.deleteGame(game.gameID);
+          console.log(game.gameID, "Game deleted");
+          console.log("Games count:", this.games.length);
+        }, 10000);
+        this.deleteTimeOut.set(game.gameID, timeout);
+      }
+    };
+
     return game;
   }
 
@@ -20,6 +43,13 @@ class GameManager {
 
   deleteGame(gameID: string): void {
     this.games = this.games.filter((game) => game.gameID !== gameID);
+  }
+
+  // Récupérer la partie officielle / démarer une partie officielle
+  get defaultGame() {
+    const game = this.games.find((game) => game.isOfficialGame);
+    if (game) return game;
+    return this.createGame({ isOfficialGame: true });
   }
 
   get gamesList() {

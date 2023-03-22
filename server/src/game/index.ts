@@ -17,6 +17,7 @@ export default class Game {
   gameID: string;
   nextSkin = 0;
   interval: NodeJS.Timeout;
+  isOfficalGame = false;
   constructor(socketServer: Server, settings: CreateGameSettings) {
     this.socketServer = socketServer;
     this.gameSettings = {
@@ -24,6 +25,7 @@ export default class Game {
       nbPlayersMax: settings.nbPlayersMax || 10,
       isPrivate: settings.isPrivate || false,
       invitationCode: settings.invitationCode || null,
+      isOfficialGame: settings.isOfficialGame || false,
     };
     this.gameBoard = new Board(this.boardSize);
     this.isJoinable = true;
@@ -59,6 +61,10 @@ export default class Game {
 
   get connectedPlayersCount(): number {
     return this.players.length;
+  }
+
+  get isOfficialGame(): boolean {
+    return this.gameSettings.isOfficialGame;
   }
 
   get leaderBoard(): { id: string; pseudo: string; score: number }[] {
@@ -102,6 +108,7 @@ export default class Game {
 
     // On met le detecteur d'évènement sur le joueur
     this.handlePlayersEvent(playerSocket);
+    this.onConnectEvent();
   }
 
   get playersList(): { id: string; pseudo: string; color: number }[] {
@@ -113,7 +120,7 @@ export default class Game {
   }
 
   private sendPlayersList(): void {
-    this.alivePlayers.forEach((player) => {
+    this.alivePlayers.forEach(() => {
       this.socketServer.emit("playersList", this.playersList);
     });
   }
@@ -165,6 +172,7 @@ export default class Game {
       ) as Player;
       this.players = this.players.filter((p) => p.id !== playerSocket.id);
       this.killPlayer(playerToKill, null, true);
+      this.onDisconnectEvent();
     });
 
     // Quand le joueur change de direction
@@ -293,5 +301,15 @@ export default class Game {
       player.gameStats.Add(Stats.BLOCK_TRAVELLED, 43);
       saveUserStats(player.token, player.pseudo, player.gameStats, docName);
     });
+  }
+
+  private onDisconnectEvent = (): void => {};
+  set onDisconnect(callback: () => void) {
+    this.onDisconnectEvent = callback;
+  }
+
+  private onConnectEvent = (): void => {};
+  set onConnect(callback: () => void) {
+    this.onConnectEvent = callback;
   }
 }

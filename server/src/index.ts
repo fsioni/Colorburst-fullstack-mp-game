@@ -3,7 +3,6 @@ import cors from "cors";
 import * as http from "http";
 import * as socketio from "socket.io";
 import dotenv from "dotenv";
-import { db, getUsers } from "./database/index";
 import GameManager from "./GameManager";
 
 const log = (...text: string[]) => console.log(`[Server] ${text.join(" ")}`);
@@ -28,12 +27,12 @@ const io: socketio.Server = new socketio.Server(server, {
 });
 
 const gameManager = new GameManager(io);
-gameManager.createGame({ boardSize: 80 });
 
 io.on("connection", (socket) => {
   // Join the game
   console.log("New player connected");
-  gameManager.getGame(gameManager.gamesList[0].gameID)?.join(socket);
+
+  gameManager.defaultGame.join(socket);
 });
 
 server.listen(port, () => {

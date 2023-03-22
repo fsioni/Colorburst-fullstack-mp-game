@@ -10,6 +10,7 @@ export interface CreateGameSettings {
   nbPlayersMax?: number;
   isPrivate?: boolean;
   invitationCode?: string | null;
+  isOfficialGame?: boolean;
 }
 
 export interface Settings {
@@ -17,4 +18,5 @@ export interface Settings {
   nbPlayersMax: number;
   isPrivate: boolean;
   invitationCode: string | null;
+  isOfficialGame: boolean;
 }
