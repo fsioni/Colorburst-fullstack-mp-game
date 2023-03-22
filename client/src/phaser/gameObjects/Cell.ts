@@ -4,7 +4,7 @@ export default class Cell extends Phaser.GameObjects.Sprite {
   constructor(scene: Phaser.Scene, grid: AlignGrid, i: number, j: number) {
     super(scene, 0, 0, "boardCells");
     scene.add.existing(this);
-    this.setScale(14);
+    this.setScale(15);
     this.setFrame(0, true);
     grid.placeAt(i, j, this);
   }

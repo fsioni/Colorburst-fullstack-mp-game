@@ -33,3 +33,11 @@
   /* Désactiver le flou entre les pixels*/
   image-rendering: pixelated;
 }
+
+body {
+  /* Cover font image local image */
+  background-image: url(./ress/background.png);
+  background-size: cover;
+  /* Center font image */
+  background-position: center;
+}
