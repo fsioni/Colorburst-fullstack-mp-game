@@ -20,7 +20,7 @@ export const NbPlayers: FC<Props> = ({ _nbPlayers, setNbPlayers }) => {
 
   return (
     <div className="nb-players-container">
-      <p className="nb-players-tile">Players :</p>
+      <p className="nb-players-tile">Max players :</p>
       <input
         className="number-players-input"
         type="number"
