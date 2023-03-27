@@ -33,3 +33,25 @@
   /* Désactiver le flou entre les pixels*/
   image-rendering: pixelated;
 }
+
+body {
+  /* Cover font image local image */
+  background-image: url(./ress/background.png);
+  background-size: cover;
+  /* Center font image */
+  background-position: center;
+}
+
+#soundBtn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+#soundBtn:hover {
+  /* On met un filtre pour le rendre vert */
+  filter: invert(0.5) sepia(1) saturate(3) hue-rotate(100deg);
+}
