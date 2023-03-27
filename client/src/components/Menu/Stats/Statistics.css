@@ -19,5 +19,7 @@
 
 .menu-stat-title {
   text-align: center;
+  margin-bottom: 6%;
   margin-top: 4%;
+  user-select: none;
 }

@@ -4,3 +4,17 @@ export interface playerPosition {
   direction?: number;
   playerID?: string;
 }
+
+export interface CreateGameSettings {
+  boardSize?: number;
+  nbPlayersMax?: number;
+  isPrivate?: boolean;
+  invitationCode?: string | null;
+}
+
+export interface Settings {
+  boardSize: number;
+  nbPlayersMax: number;
+  isPrivate: boolean;
+  invitationCode: string | null;
+}

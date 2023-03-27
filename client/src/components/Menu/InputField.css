@@ -7,6 +7,9 @@
   width: 69%;
   max-width: 400px;
   max-height: 125px;
+}
+
+.inputField-container {
   background-color: #ffa01b;
   padding: 3%;
   border-radius: 7px;
@@ -26,20 +29,46 @@
 }
 
 .input-field-box {
-  width: 75%;
+  position: inherit;
+  bottom: 20px;
+  width: 80%;
   border-radius: 50px;
   padding: 3%;
   font-size: 17px;
   border: none;
-  transition: 0.2s;
+  transition: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   font-family: "Electrolize", sans-serif;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+
+.input-field-box:hover {
+  background-color: #efefef;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
 }
 
 .input-field-box:focus {
-  box-shadow: 0 0 10px 1000px rgb(0, 0, 0, 0.5);
+  z-index: 100;
+  box-shadow: 0 0 10px 3000px rgb(0, 0, 0, 0.5);
   outline: none;
+  border-radius: 15px;
+  transition: 0.3s;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
 }
 
 .input-field-box::placeholder {
@@ -64,6 +93,21 @@
   color: rgb(43, 43, 43);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+
+.input-select:hover {
+  scale: 1.05;
+  background-color: #efefef;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
 }
 
 .input-select option {
@@ -73,12 +117,104 @@
 }
 
 .input-field-submit {
+  padding: 9px 8px;
   border: none;
   outline: none;
-  color: rgba(43, 43, 43, 0.963);
+  color: rgb(43, 43, 43);
+  text-shadow: #6b6b6bdb 1px 1px 2px;
   background: #ffffff;
   border-radius: 15px;
+  user-select: none;
+  transition: 0.2s;
+  -webkit-user-select: none;
+  touch-action: manipulation;
   font-family: "Electrolize", sans-serif;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+
+.input-field-submit:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.input-field-submit:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.input-field-submit:hover {
+  scale: 1.05;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  box-shadow: #00ffd5 0px 2px 4px, rgba(0, 255, 213, 0.3) 0px 7px 13px -3px,
+    rgba(0, 255, 213, 0.3) 0px -3px 0px inset;
+}
+
+.input-field-submit:active {
+  scale: 0.9;
+  transition: 0.2s;
+}
+
+.input-field-submit:active:before {
+  opacity: 0;
+}
+
+.input-field-submit:hover:before {
+  opacity: 0;
+}
+
+.input-field-submit:hover:after {
+  background-color: #efefef;
 }

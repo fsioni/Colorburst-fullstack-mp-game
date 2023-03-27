@@ -1,10 +1,10 @@
 import Board from "./board";
 import Player from "./player";
-
-import Settings from "./settings";
 import { Server, Socket } from "socket.io";
 import Cell from "./cell";
-import { playerPosition } from "./interfaces";
+import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
+import { getUserPseudo, saveUserStats } from "../database";
+import { Stats } from "../enums/Stats";
 
 const skinsCount = 5;
 
@@ -17,9 +17,14 @@ export default class Game {
   gameID: string;
   nextSkin = 0;
   interval: NodeJS.Timeout;
-  constructor(socketServer: Server, settings: Settings) {
+  constructor(socketServer: Server, settings: CreateGameSettings) {
     this.socketServer = socketServer;
-    this.gameSettings = settings;
+    this.gameSettings = {
+      boardSize: settings.boardSize || 80,
+      nbPlayersMax: settings.nbPlayersMax || 10,
+      isPrivate: settings.isPrivate || false,
+      invitationCode: settings.invitationCode || null,
+    };
     this.gameBoard = new Board(this.boardSize);
     this.isJoinable = true;
     this.gameID = Math.random().toString(36).substring(7);
@@ -36,10 +41,44 @@ export default class Game {
     return this.gameBoard.boardCells;
   }
 
+  get nbPlayersMax(): number {
+    return this.gameSettings.nbPlayersMax;
+  }
+
+  get isPrivate(): boolean {
+    return this.gameSettings.isPrivate;
+  }
+
+  get invitationCode(): string | null {
+    return this.gameSettings.invitationCode;
+  }
+
+  get alivePlayersCount(): number {
+    return this.alivePlayers.length;
+  }
+
+  get connectedPlayersCount(): number {
+    return this.players.length;
+  }
+
+  get leaderBoard(): { id: string; pseudo: string; score: number }[] {
+    // Return total of territories for each player
+    return this.players
+      .map((player) => {
+        const territories = this.gameBoard.getTerritoriesCount(player);
+        return {
+          id: player.id,
+          pseudo: player.pseudo,
+          score: territories,
+        };
+      })
+      .sort((a, b) => b.score - a.score);
+  }
+
   async join(playerSocket: Socket): Promise<void> {
     if (!this.isJoinable)
       return this.log(`Player tried to join the game: ${playerSocket.id}`);
-    this.log(`New player joined the game: ${playerSocket.id}`);
+    this.log(`New player joined the game: ${playerSocket.id}}`);
 
     // on fait rejoindre la room socket io
     playerSocket.join(this.gameID);
@@ -47,28 +86,37 @@ export default class Game {
     // Création du joueur
     const player = new Player(playerSocket);
     player.color = this.nextSkin;
+    player.token = playerSocket.handshake.auth.token;
+    getUserPseudo(playerSocket.handshake.auth.token)
+      .then((pseudo) => {
+        player.pseudo = pseudo || "Anonyme";
+        this.log(`Player ${player.pseudo} joined the game`);
+        this.socketServer.emit("playersList", this.playersList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //console.log(player.uid);
     this.nextSkin = (this.nextSkin + 1) % skinsCount;
     this.players.push(player);
 
     // On met le detecteur d'évènement sur le joueur
     this.handlePlayersEvent(playerSocket);
+  }
 
-    // On fait spawn le joueur
-    this.spawnPlayer(player);
-
-    // On envoie la liste des joueurs pour la couleur :)
-    setTimeout(() => this.sendPlayersList(), 500);
+  get playersList(): { id: string; pseudo: string; color: number }[] {
+    console.log(this.players);
+    return this.players.map((player) => ({
+      id: player.id,
+      pseudo: player.pseudo,
+      color: player.color,
+    }));
   }
 
   private sendPlayersList(): void {
-    console.log("sendPlayersList");
-    this.socketServer.to(this.gameID).emit(
-      "playersList",
-      this.players.map((player) => ({
-        id: player.id,
-        color: player.color,
-      }))
-    );
+    this.alivePlayers.forEach((player) => {
+      this.socketServer.emit("playersList", this.playersList);
+    });
   }
 
   spawnPlayer(player: Player): void {
@@ -89,6 +137,7 @@ export default class Game {
     // On occupe les case en 5*5 autour du joueur 2 + 1 + 2
     this.gameBoard.occupeCellsSpawn(player.position, player.id);
 
+    this.sendPlayersList();
     this.sendGameData();
   }
 
@@ -108,24 +157,33 @@ export default class Game {
     console.log(`[Game ${this.gameID}]`, ...data);
   }
 
-  private handlePlayersEvent(player: Socket): void {
+  private handlePlayersEvent(playerSocket: Socket): void {
     // Quand le joueur se déconnecte
-    player.on("disconnect", () => {
-      this.log(`Player disconnected: ${player.id}`);
-      const playerToDelete = this.players.find(
-        (p) => p.id === player.id
+    playerSocket.on("disconnect", () => {
+      this.log(`Player disconnected: ${playerSocket.id}`);
+      const playerToKill = this.players.find(
+        (p) => p.id === playerSocket.id
       ) as Player;
-      this.players = this.players.filter((p) => p.id !== player.id);
-      this.killPlayer(playerToDelete);
+      this.players = this.players.filter((p) => p.id !== playerSocket.id);
+      this.killPlayer(playerToKill);
     });
 
     // Quand le joueur change de direction
-    player.on("directionChange", (direction: number) => {
-      const playerObject = this.players.find((p) => p.id === player.id);
+    playerSocket.on("directionChange", (direction: number) => {
+      const playerObject = this.players.find((p) => p.id === playerSocket.id);
 
       if (!playerObject) return;
       playerObject.ChangeDirection(direction);
       this.sendGameData();
+    });
+
+    playerSocket.on("playerReady", () => {
+      playerSocket.emit("gameSettings", {
+        boardSize: this.boardSize,
+      });
+      const player = this.players.find((p) => p.id === playerSocket.id);
+      if (!player) return;
+      this.spawnPlayer(player);
     });
   }
 
@@ -136,8 +194,23 @@ export default class Game {
   }
 
   private sendMapToPlayers(): void {
+    // Translate boardCells to a smaller array
+    const map = this.boardCells.map((row) =>
+      row.map((cell) => {
+        if (cell.trailsBy && cell.territoryOccupiedBy)
+          return [cell.territoryOccupiedBy, cell.trailsBy];
+        if (cell.trailsBy) return [null, cell.trailsBy];
+        if (cell.territoryOccupiedBy) return [cell.territoryOccupiedBy];
+        return null;
+      })
+    );
     this.alivePlayers.forEach((player) => {
-      player.socket.emit("map", this.boardCells);
+      player.socket.emit("map", map);
+    });
+
+    // Send leaderBoard
+    this.alivePlayers.forEach((player) => {
+      player.socket.emit("leaderBoard", this.leaderBoard);
     });
   }
 
@@ -155,7 +228,9 @@ export default class Game {
 
     if (killer) {
       // add score to killer
+      killer.socket.emit("kill");
     }
+    this.saveStats();
   }
 
   private movePlayers(): void {
@@ -199,5 +274,20 @@ export default class Game {
 
     // Emit message to informe client game was updated
     this.socketServer.to(this.gameID).emit("gameUpdated");
+  }
+
+  private getDocumentName(): string {
+    const date = new Date();
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  }
+
+  saveStats(): void {
+    const docName = this.getDocumentName();
+    this.players.forEach((player) => {
+      // Save stats
+      player.gameStats.Add(Stats.BLOCK_CAPTURED, 23);
+      player.gameStats.Add(Stats.BLOCK_TRAVELLED, 43);
+      saveUserStats(player.token, player.pseudo, player.gameStats, docName);
+    });
   }
 }

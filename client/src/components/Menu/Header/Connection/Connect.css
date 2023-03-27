@@ -52,7 +52,7 @@
   transform: translate(3px, 3px);
 }
 
-.icon-acount-container,
+.icon-account-container,
 .icon-logout-container {
   display: flex;
   padding: 11%;
@@ -62,27 +62,42 @@
   box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
     rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
   border-radius: 5px;
+  border: 2px solid #e8476a;
   background-color: #ffa01b;
+  margin-left: auto;
 }
 
-.icon-acount-container:hover {
+.icon-account-container:hover,
+.icon-logout-container:hover {
+  color: rgb(185, 185, 185);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  transition: 0.2s;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+
+.icon-account-container:hover,
+.icon-logout-container:hover {
+  background-color: #de860c;
+  color: #dbcfcf;
   transform: scale(1.04);
+  -webkit-transform: scale(1.04);
+  -moz-transform: scale(1.04);
+  -ms-transform: scale(1.04);
+  -o-transform: scale(1.04);
 }
 
-/* no less than 320px and no greater than 480px Mobiles*/
-@media (min-width: 320px) and (max-width: 480px) {
-  .connexion-area-container {
-    justify-content: space-evenly;
-  }
-  .connexion-button {
-    font-size: 12px;
-    padding: 8%;
-  }
-  .icon-logout-container,
-  .icon-acount-container {
-    font-size: 13px;
-    padding: 9%;
-  }
+.icon-account-container:active,
+.icon-logout-container:active {
+  transform: scale(0.95);
+  color: rgb(34, 34, 34);
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  -o-transform: scale(0.95);
 }
 
 /* 481px - 768px tablet */
@@ -94,8 +109,7 @@
     font-size: 13px;
     padding: 8%;
   }
-  .icon-logout-container,
-  .icon-acount-container {
+  .icon-account-container {
     font-size: 16px;
     padding: 10%;
   }

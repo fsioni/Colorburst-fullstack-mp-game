@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import Game from "./game";
 // Import the game route file
 import gameRouter from "./api/game";
+import { db, getUsers } from "./database/index";
+import GameManager from "./GameManager";
 
 const log = (...text: string[]) => console.log(`[Server] ${text.join(" ")}`);
 
@@ -39,18 +41,19 @@ const io: socketio.Server = new socketio.Server(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
-const game = new Game(io, {
-  boardSize: 20,
-  nbPlayersMax: 0,
-  isPrivate: false,
-  invitationCode: null,
-});
+const gameManager = new GameManager(io);
+gameManager.createGame({ boardSize: 80 });
 
 io.on("connection", (socket) => {
   // Join the game
-  game.join(socket);
+  console.log("New player connected");
+  gameManager.getGame(gameManager.gamesList[0].gameID)?.join(socket);
 });
 
 server.listen(port, () => {
   log(`⚡️ Server is running at http://localhost:${port}`);
 });
+
+// getUsers().then((users) => {
+//   console.log(users);
+// });

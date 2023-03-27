@@ -2,7 +2,7 @@ import { Socket } from "socket.io";
 import { AlignGrid } from "../utils/AlignGrid";
 import Cell from "./Cell";
 import { FirstGameScene } from "../scenes/placeholder";
-
+import { Buffer } from "buffer";
 export default class Board {
   scene: FirstGameScene;
   size: { x: number; y: number };
@@ -11,7 +11,6 @@ export default class Board {
   socket: Socket;
 
   constructor(scene: FirstGameScene, _x: number, _y: number, _socket: Socket) {
-    console.log("Board.constructor()");
     this.scene = scene;
     this.size = { x: _x, y: _y };
     this.cells = [];
@@ -36,66 +35,80 @@ export default class Board {
     this.cells[x][y].setFrame(frame);
   }
 
+  get colorsList() {
+    let colors = this.scene.players.reduce((acc, p) => {
+      acc[p.id] = p.color;
+      return acc;
+    }, {} as { [key: string]: number }) as { [key: string]: number };
+    colors = { ...colors, [this.socket.id]: this.scene.player?.color || 0 };
+    return colors;
+  }
+
   handleSocketEvents() {
-    this.socket.on(
-      "map",
-      (
-        data: {
-          territoryOccupiedBy: string | null;
-          trailsBy: string | null;
-        }[][]
-      ) => {
-        const map = data;
-        let colors = this.scene.players.reduce((acc, p) => {
-          acc[p.id] = p.color;
-          return acc;
-        }, {} as { [key: string]: number }) as { [key: string]: number };
-        colors = { ...colors, [this.socket.id]: this.scene.player?.color || 0 };
-        for (let i = 0; i < map.length; i++) {
-          for (let j = 0; j < map[i].length; j++) {
-            const cell = map[i][j] as {
-              territoryOccupiedBy: string | null;
-              trailsBy: string | null;
-            };
-            if (cell.trailsBy) {
-              const color = colors[cell.trailsBy] || 0;
-              this.setTrailsBy({ x: i, y: j }, color);
-            } else if (cell.territoryOccupiedBy) {
-              const color = colors[cell.territoryOccupiedBy] || 0;
-              this.setTerritoryOccupied(i, j, color, cell.territoryOccupiedBy);
-            } else {
-              this.clearData(i, j);
-              this.setCell(i, j, 0);
-            }
+    this.socket.on("map", (data: [[null | [string, string] | [string]]]) => {
+      const packetSize = Buffer.byteLength(JSON.stringify(data));
+      console.log(`[map] Packet size: ${packetSize} bytes`);
+      for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < data[i].length; j++) {
+          const cell = data[i][j];
+          if (cell === null) {
+            this.clearData(i, j);
+            this.setCell(i, j, 0);
+          } else if (cell.length === 1) {
+            // Occuped cell
+            const player = cell[0];
+            this.setTerritoryOccupied(i, j, player);
+          } else if (cell.length === 2) {
+            // Trail cell
+            const player = cell[1];
+            this.setTrailsBy(i, j, player);
           }
         }
       }
-    );
+      this.drawMiniMap();
+    });
+  }
+
+  drawMiniMap() {
+    const beginTime = Date.now();
+    const miniMap = document.getElementById("miniMap") as HTMLCanvasElement;
+    if (!miniMap) return;
+    const ctx = miniMap.getContext("2d");
+    if (!ctx) return;
+
+    const mapWidth = this.size.x;
+    const mapHeight = this.size.y;
+    miniMap.width = mapWidth;
+    miniMap.height = mapHeight;
+
+    // Transparent background
+    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+
+    ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
+
+    for (let i = 0; i < this.size.x; i++)
+      for (let j = 0; j < this.size.y; j++)
+        if (this.cells[i][j].occupedBy) ctx.fillRect(i, j, 1, 1);
+
+    const endTime = Date.now();
+    console.log(`[map] Draw time: ${endTime - beginTime} ms`);
   }
 
   clearData(i: number, j: number) {
     this.cells[i][j].occupedBy = null;
   }
 
-  setTrailsBy(
-    position: { x: number; y: number },
-    color: number,
-    player: string | null = null
-  ) {
-    const { x, y } = position;
+  setTrailsBy(x: number, y: number, player: string) {
     const cell = this.cells[x][y];
     if (!cell) return;
     if (cell.occupedBy === player) return;
+    const color = this.colorsList[player] || 0;
     this.setCell(x, y, color * 2 + 2);
   }
 
-  setTerritoryOccupied(
-    i: number,
-    j: number,
-    color: number,
-    player: string | null = null
-  ) {
-    this.cells[i][j].occupedBy = player;
-    this.setCell(i, j, color * 2 + 1);
+  setTerritoryOccupied(x: number, y: number, player: string) {
+    this.cells[x][y].occupedBy = player;
+    const color = this.colorsList[player] || 0;
+    this.setCell(x, y, color * 2 + 1);
   }
 }

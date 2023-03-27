@@ -1,0 +1,35 @@
+.scoreBoard {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.505);
+  color: white;
+  border-radius: 5px;
+}
+
+.quitButton {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.505);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quitButton:hover {
+  background-color: rgba(0, 0, 0, 0.705);
+}
+
+.miniMap {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.505);
+  color: white;
+  border-radius: 5px;
+  height: 200px;
+  width: 200px;
+  /* Désactiver le flou entre les pixels*/
+  image-rendering: pixelated;
+}

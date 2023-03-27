@@ -1,0 +1,42 @@
+.signWithGoogle {
+  background-color: #4485f3ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 10px;
+  display: flex;
+  line-height: 20px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  transition-duration: 0.2s;
+  transition-property: background-color;
+}
+
+.signWithGoogle:hover {
+  background-color: #2055b0;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  scale: 1.05;
+  transition-duration: 0.2s;
+  transition-property: background-color;
+  color: rgb(211, 211, 211);
+}
+
+.signWithGoogle:active {
+  scale: 0.9;
+  background-color: #3e6bb9;
+  transition-duration: 0.5s;
+  transition-property: background-color;
+  color: rgb(229, 227, 227);
+}
+
+.signWithGoogle img {
+  filter: drop-shadow(1px 1px 3px #13137a);
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  -webkit-filter: drop-shadow(1px 1px 3px #13137a);
+  pointer-events: none;
+}

@@ -9,7 +9,7 @@ export const config: Phaser.Types.Core.GameConfig = {
   backgroundColor: "#ffffff",
   scale: {
     parent: "phaser", // this has to match the div id in index.html
-    fullscreenTarget: "body", // this has to be the wrapping element
+    fullscreenTarget: "mainDiv", // this has to be the wrapping element
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT,
     mode: Phaser.Scale.FIT, // we scale the game manually in resize()

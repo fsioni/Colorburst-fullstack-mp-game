@@ -10,11 +10,25 @@
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
     rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  user-select: none;
   cursor: pointer;
 }
 
-.room-name {
-  display: flex;
+.single-room-container:hover {
+  background-color: #be8b95;
+  color: whitesmoke;
+  translate: 4px;
+  transition: 0.2s;
+  transition-timing-function: ease;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
 }
 
 .lock-icon {
@@ -29,11 +43,19 @@
 .room-nbPlayers-Full {
   display: flex;
   justify-content: flex-end;
+  position: absolute;
+  right: 10px;
+  width: 220px;
+  color: rgb(255, 35, 35);
+}
+
+.single-room-container:hover > .room-nbPlayers-Full {
+  color: rgb(255, 217, 217);
+  text-shadow: red 0px 0px 5px;
 }
 
 .room-nbPlayers {
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  cursor: pointer;
 }

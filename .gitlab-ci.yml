@@ -1,0 +1,41 @@
+stages:
+  - lint
+  - test
+
+lint-server:
+  stage: lint
+  image: node:latest
+  script:
+    - cd server
+    - npm install
+    - npm run lint
+    - npm run format
+  artifacts:
+    paths:
+      - server/node_modules
+
+lint-client:
+  stage: lint
+  image: node:latest
+  script:
+    - cd client
+    - npm install
+    - npm run lint
+    - npm run format
+  artifacts:
+    paths:
+      - client/node_modules
+
+test-server:
+  stage: test
+  image: node:latest
+  script:
+    - cd server
+    - npm install
+    - npm run test:coverage:ci
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  artifacts:
+    paths:
+      - server/node_modules
+      - server/coverage
+

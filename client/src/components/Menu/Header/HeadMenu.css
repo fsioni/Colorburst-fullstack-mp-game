@@ -6,15 +6,21 @@
   align-items: center;
 }
 
-.game-tile {
+.game-title {
   font-family: "Wendy One", sans-serif;
   color: #ffa01b;
   position: relative;
   text-shadow: -6px 6px 0 #e8476a, -9px 9px 0 purple;
   font-size: 50px;
+  cursor: default;
 }
 
-.game-tile:after {
+.game-title:hover {
+  color: #d0841a;
+  text-shadow: -6px 6px 0 #bc3956, -9px 9px 0 rgb(86, 0, 86);
+}
+
+.game-title:after {
   content: "";
   position: absolute;
   width: 100%;
@@ -28,13 +34,13 @@
   transition: transform 0.5s ease-out;
 }
 
-.game-tile:hover:after {
+.game-title:hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
 @media only screen and (max-width: 550px) {
-  .game-tile {
+  .game-title {
     font-size: 40px;
   }
 }

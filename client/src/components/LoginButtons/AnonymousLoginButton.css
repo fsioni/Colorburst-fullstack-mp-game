@@ -1,0 +1,44 @@
+.signAnonymous {
+  background-color: rgb(107, 120, 144);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  line-height: 20px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  transition-duration: 0.2s;
+  transition-property: background-color;
+}
+
+.signAnonymous:hover {
+  background-color: rgb(91, 101, 121);
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  scale: 1.05;
+  transition-duration: 0.2s;
+  transition-property: background-color;
+  color: rgb(211, 211, 211);
+}
+
+.signAnonymous:active {
+  scale: 0.9;
+  background-color: #3e6bb9;
+  transition-duration: 0.5s;
+  transition-property: background-color;
+  color: rgb(229, 227, 227);
+}
+
+.icon {
+  filter: drop-shadow(1px 1px 3px #070733);
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  pointer-events: none;
+  -webkit-filter: drop-shadow(1px 1px 3px #070733);
+}

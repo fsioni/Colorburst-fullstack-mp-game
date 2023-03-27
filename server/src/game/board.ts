@@ -38,6 +38,7 @@ export default class Board {
   occupeCells(player: Player): void {
     const zoneOccupator = new ZoneCalculator(this.boardCells, player.id);
     zoneOccupator.fillZone();
+    player.socket.emit("gainedTerritory");
   }
 
   freeCells(playerId: string): void {
@@ -68,5 +69,13 @@ export default class Board {
   isInBoard(player: Player): boolean {
     const { x, y } = player.position;
     return x >= 0 && x < this.boardSize && y >= 0 && y < this.boardSize;
+  }
+
+  getTerritoriesCount(player: Player): number {
+    const territorie = this.boardCells.flat().filter((cell) => {
+      return cell.territoryOccupiedBy === player.id;
+    });
+
+    return territorie.length;
   }
 }

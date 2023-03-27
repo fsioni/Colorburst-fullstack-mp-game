@@ -2,7 +2,13 @@
   "version": "0.0.1",
   "name": "crawlavers-backend",
   "dependencies": {
+    "@types/cookie-parser": { "version": "1.4.3" },
+    "cors": { "version": "2.8.5" },
     "dotenv": { "version": "16.0.3" },
-    "express": { "version": "4.18.2" }
+    "express": { "version": "4.18.2" },
+    "firebase-admin": { "version": "11.5.0" },
+    "firebase": { "version": "9.16.0" },
+    "socket.io-cookie": { "version": "0.0.1" },
+    "socket.io": { "version": "4.5.4" }
   }
 }
