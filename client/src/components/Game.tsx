@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { config } from "../phaser/config";
+import { config } from "../phaser/utils/config";
 import "./Game.css";
 
 interface GameProps {

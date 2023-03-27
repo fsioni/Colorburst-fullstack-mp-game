@@ -1,5 +1,5 @@
-import PreloadScene from "./scenes/preload";
-import { FirstGameScene } from "./scenes/placeholder";
+import PreloadScene from "../scenes/preload";
+import { FirstGameScene } from "../scenes/placeholder";
 
 // 1080p
 export const DEFAULT_WIDTH = 1920;
