@@ -236,6 +236,7 @@ export default class Game {
     killer: Player | null = null,
     disconnected = false
   ): void {
+    player.gameStats.Add(Stats.KILLED, 1);
     player.socket.emit("gameOver");
     player.isAlive = false;
     player.outOfHisTerritory = false;
@@ -243,8 +244,8 @@ export default class Game {
 
     if (!disconnected) this.spawnPlayer(player);
 
-    if (killer) {
-      // add score to killer
+    if (killer && killer.id !== player.id) {
+      killer.gameStats.Add(Stats.KILL, 1);
       killer.socket.emit("kill");
     }
     this.saveStats();
