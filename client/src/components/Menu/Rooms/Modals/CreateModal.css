@@ -28,7 +28,13 @@
 
 .close-icon:hover {
   color: rgb(207, 14, 14);
+  scale: 1.2;
+  transition: ease 0.4s;
   z-index: 1;
+  -webkit-transition: ease 0.4s;
+  -moz-transition: ease 0.4s;
+  -ms-transition: ease 0.4s;
+  -o-transition: ease 0.4s;
 }
 
 .title {
