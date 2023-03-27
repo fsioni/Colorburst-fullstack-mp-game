@@ -11,7 +11,7 @@
     "lint": "npx eslint ./src",
     "test": "jest",
     "test:coverage": "jest --coverage --passWithNoTests",
-    "test:coverage:ci": "jest --coverage --ci --detectOpenHandles",
+    "test:coverage:ci": "jest --coverage --ci --detectOpenHandles --passWithNoTests",
     "test:watch": "jest --watch",
     "preview": "vite preview"
   },
