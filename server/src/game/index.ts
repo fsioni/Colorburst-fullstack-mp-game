@@ -6,7 +6,7 @@ import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
 import { getUserPseudo, saveUserStats } from "../database";
 import { Stats } from "../enums/Stats";
 
-const skinsCount = 5;
+const skinsCount = 33;
 
 export default class Game {
   socketServer: Server;
@@ -91,7 +91,12 @@ export default class Game {
 
     // Création du joueur
     const player = new Player(playerSocket);
-    player.color = this.nextSkin;
+    if (playerSocket.handshake.query.playerSkin) {
+      player.color = Number(playerSocket.handshake.query.playerSkin);
+    } else {
+      player.color = this.nextSkin;
+      this.nextSkin = (this.nextSkin + 1) % skinsCount;
+    }
     player.token = playerSocket.handshake.auth.token;
     getUserPseudo(playerSocket.handshake.auth.token)
       .then((pseudo) => {

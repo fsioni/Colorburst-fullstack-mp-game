@@ -20,6 +20,10 @@ export class FirstGameScene extends Phaser.Scene {
   constructor() {
     super("FirstGameScene");
     this.players = [];
+    //get  value from localStorage selectedSkin as number
+    const selectedSkin = Number(localStorage.getItem("selectedSkin")) || 0;
+
+    console.log("Plyaer skin number " + selectedSkin);
     getAuth(app)
       .currentUser?.getIdToken()
       .then((_token) => {
@@ -27,6 +31,9 @@ export class FirstGameScene extends Phaser.Scene {
         this.socket = io(Socketorigin, {
           auth: {
             token: _token,
+          },
+          query: {
+            playerSkin: selectedSkin,
           },
         });
       });

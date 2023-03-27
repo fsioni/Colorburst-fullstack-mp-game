@@ -27,6 +27,7 @@ const SkinSelection = () => {
   useEffect(() => {
     return () => {
       console.log("Skin changed to: ", selectedSkin);
+      localStorage.setItem("selectedSkin", selectedSkin.toString());
     };
   }, [selectedSkin]);
 
