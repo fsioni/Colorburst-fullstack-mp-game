@@ -5,6 +5,7 @@
   justify-content: space-around;
   align-items: center;
   margin-bottom: 3px;
+  background-color: rgba(0, 0, 0, 0.267);
 }
 
 .game-title {
