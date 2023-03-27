@@ -23,7 +23,7 @@
 }
 
 .name-input:required:focus {
-  background-color: rgba(255, 63, 63, 0.347);
+  background-color: rgb(225, 220, 220);
   box-shadow: rgba(255, 0, 0, 0.4) 0px 2px 4px,
     rgba(234, 7, 7, 0.3) 0px 7px 13px -3px,
     rgrgba(235, 4, 4, 0.2) px -3px 0px inset;
@@ -31,7 +31,6 @@
 }
 
 .name-input:hover {
-  cursor: pointer;
   transition: 0.2s;
   scale: 1.02;
   -webkit-transition: 0.2s;
