@@ -5,6 +5,7 @@ import Cell from "./cell";
 import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
 import { getUserPseudo, saveUserStats } from "../database";
 import { Stats } from "../enums/Stats";
+import { kill } from "process";
 
 const skinsCount = 33;
 
@@ -245,6 +246,8 @@ export default class Game {
     if (!disconnected) this.spawnPlayer(player);
 
     if (killer && killer.id !== player.id) {
+      const getKilledScoreRatio = 0.1;
+      killer.score += player.score * getKilledScoreRatio;
       killer.gameStats.Add(Stats.KILL, 1);
       killer.socket.emit("kill");
     }
