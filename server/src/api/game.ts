@@ -21,7 +21,7 @@ gameRouteur
         boardSize: 50,
         nbPlayersMax: req.body.playersMax,
         isPrivate: req.body.isPrivate,
-        invitationCode: "AAA", // à generer
+        invitationCode: "AAAA", // à generer
       };
       const game = gameManager.createGame(settings);
       console.log(req.body);
