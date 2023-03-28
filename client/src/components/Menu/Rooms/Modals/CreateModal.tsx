@@ -3,7 +3,7 @@ import { FC } from "react";
 import "./CreateModal.css";
 import { CgClose } from "react-icons/cg";
 import RoomName from "./ModalComponents/RoomName";
-import NbPlayers from "./ModalComponents/NbPlayers";
+import NbPlayersMax from "./ModalComponents/NbPlayersMax";
 import IsPrivate from "./ModalComponents/IsPrivate";
 import SubmitAndReset from "./ModalComponents/SubmitAndReset";
 
@@ -14,7 +14,8 @@ interface Props {
 
 const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
   const [_roomName, setRoomName] = useState<string>("");
-  const [_nbPlayers, setNbPlayers] = useState<number>(20);
+  const [_nbPlayersMax, setNbPlayersMax] = useState<number>(20);
+  //const [_bordSize, setBordSize] = useState<number>(50);
   const [_isPrivate, setIsPrivate] = useState<boolean>(false);
   const [message, setMessage] = useState("");
 
@@ -25,7 +26,7 @@ const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
     ":3040";
 
   const handleSubmit = async (e: any) => {
-    console.log("OKKKKKKKK");
+    console.log("Room submited");
     e.preventDefault();
     try {
       const res = await fetch(apiOrigin + "/rooms", {
@@ -34,17 +35,17 @@ const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: "6009",
-          nbPlayers: "1",
           roomName: _roomName,
-          playersMax: _nbPlayers,
+          nbPlayersMax: _nbPlayersMax,
+          //borderSize: _bordSize,
           isPrivate: _isPrivate,
         }),
       });
+      console.log(res.status);
       if (res.status === 200) {
         // on succes
         setRoomName("");
-        setNbPlayers(20);
+        setNbPlayersMax(20);
         setIsPrivate(false);
         setMessage("Room created successfully ✅");
         setModalIsOpen(false);
@@ -68,7 +69,10 @@ const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
         <form className="imputs-form" onSubmit={handleSubmit}>
           <div className="form-field-container">
             <RoomName _roomName={_roomName} setRoomName={setRoomName} />
-            <NbPlayers _nbPlayers={_nbPlayers} setNbPlayers={setNbPlayers} />
+            <NbPlayersMax
+              _nbPlayers={_nbPlayersMax}
+              setNbPlayers={setNbPlayersMax}
+            />
             <IsPrivate _isPrivate={_isPrivate} setIsPrivate={setIsPrivate} />
           </div>
           <SubmitAndReset />

@@ -25,6 +25,7 @@ class GameManager {
   get gamesList() {
     return this.games.map((game) => ({
       gameID: game.gameID,
+      gameName: game.gameName,
       boardSize: game.boardSize,
       nbPlayersMax: game.nbPlayersMax,
       isPrivate: game.isPrivate,

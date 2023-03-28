@@ -13,6 +13,7 @@ export default class Game {
   gameSettings: Settings;
   gameBoard: Board;
   players: Player[] = [];
+  gameName: string;
   isJoinable: boolean;
   gameID: string;
   nextSkin = 0;
@@ -27,7 +28,8 @@ export default class Game {
     };
     this.gameBoard = new Board(this.boardSize);
     this.isJoinable = true;
-    this.gameID = Math.random().toString(36).substring(7);
+    this.gameID = settings.roomId;
+    this.gameName = settings.roomName;
     this.interval = setInterval(() => {
       this.movePlayers();
     }, 500);
@@ -47,6 +49,10 @@ export default class Game {
 
   get isPrivate(): boolean {
     return this.gameSettings.isPrivate;
+  }
+
+  get roomName(): string {
+    return this.roomName;
   }
 
   get invitationCode(): string | null {

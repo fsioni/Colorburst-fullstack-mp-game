@@ -18,31 +18,13 @@ const port: number | undefined = process.env.PORT
 
 const app: Express = express();
 
-app.use(cors({ origin: "*" }));
-app.use(express.json());
-// Middleware to extract data from POST
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-
-app.get("/", (_req, res) => {
-  res.send({ uptime: process.uptime() });
-});
-
-// Routes for rooms backend
-app.use("/rooms", gameRouter);
-// Alowed fetch and parse
-app.use(express.json());
-
+// Server io creation
 const server: http.Server = http.createServer(app);
 const io: socketio.Server = new socketio.Server(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
-
-const gameManager = new GameManager(io);
-gameManager.createGame({ boardSize: 80 });
+// Creation of the instance GameManager
+export const gameManager = new GameManager(io);
 
 io.on("connection", (socket) => {
   // Join the game
@@ -54,6 +36,19 @@ server.listen(port, () => {
   log(`⚡️ Server is running at http://localhost:${port}`);
 });
 
-// getUsers().then((users) => {
-//   console.log(users);
-// });
+app.use(cors({ origin: "*" }));
+app.use(express.json());
+// Middleware to extract data from POST
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+// Alowed fetch and parse
+app.use(express.json());
+// Routes for rooms backend
+app.use("/rooms", gameRouter);
+
+app.get("/", (_req, res) => {
+  res.send({ uptime: process.uptime() });
+});
