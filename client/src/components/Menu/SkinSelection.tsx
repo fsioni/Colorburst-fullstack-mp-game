@@ -6,32 +6,51 @@ const SkinSelection = () => {
   const numberOfSkins = 33;
   const [selectedSkin, setSelectedSkin] = React.useState(0);
 
+  const saveSelectedSkin = (_selectedSkin: number) => {
+    localStorage.setItem("selectedSkin", _selectedSkin.toString());
+  };
+
   const decrementSkin = () => {
-    console.log("decrement");
-    if (selectedSkin === 0) {
-      setSelectedSkin(numberOfSkins - 1);
-    } else {
-      setSelectedSkin(selectedSkin - 1);
-    }
+    setSelectedSkin((prevSelectedSkin) => {
+      if (prevSelectedSkin === 0) {
+        const newSelectedSkin = numberOfSkins - 1;
+        saveSelectedSkin(newSelectedSkin);
+        return newSelectedSkin;
+      } else {
+        const newSelectedSkin = prevSelectedSkin - 1;
+        saveSelectedSkin(newSelectedSkin);
+        return newSelectedSkin;
+      }
+    });
   };
 
   const incrementSkin = () => {
-    console.log("increment");
-    if (selectedSkin === numberOfSkins - 1) {
-      setSelectedSkin(0);
-    } else {
-      setSelectedSkin(selectedSkin + 1);
-    }
+    setSelectedSkin((prevSelectedSkin) => {
+      if (prevSelectedSkin === numberOfSkins - 1) {
+        saveSelectedSkin(0);
+        return 0;
+      } else {
+        const newSelectedSkin = prevSelectedSkin + 1;
+        saveSelectedSkin(newSelectedSkin);
+        return newSelectedSkin;
+      }
+    });
   };
 
   useEffect(() => {
-    return () => {
-      console.log("Skin changed to: ", selectedSkin);
-      localStorage.setItem("selectedSkin", selectedSkin.toString());
-    };
+    uptdatePlayerHeadImage();
   }, [selectedSkin]);
 
-  const getPlayerHeadImage = () => {
+  useEffect(() => {
+    const _selectedSkin = localStorage.getItem("selectedSkin");
+    if (_selectedSkin) {
+      setSelectedSkin(parseInt(_selectedSkin));
+      console.log("Selected skin loaded with: ", _selectedSkin);
+    }
+  }, []);
+
+  const uptdatePlayerHeadImage = () => {
+    console.log("Updating player head image with skin: ", selectedSkin);
     const amount_of_heads_on_x_axis = 3;
     const amount_of_heads_on_y_axis = 11;
 
@@ -51,12 +70,43 @@ const SkinSelection = () => {
       (head_height + gap_y / (amount_of_heads_on_y_axis - 1)) *
       Math.floor(selectedSkin / amount_of_heads_on_x_axis);
 
-    return {
-      backgroundImage: `url(${player_heads})`,
-      backgroundPosition: `-${xPos}px -${yPos}px`,
-      width: `${head_width}px`,
-      height: `${head_height}px`,
+    // Add this image in a canvas and then get the image data
+    // and return it
+
+    const canvas = document.createElement("canvas");
+    canvas.width = head_width;
+    canvas.height = head_height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Could not get canvas context");
+    const img = new Image();
+    img.src = player_heads;
+    img.onload = () => {
+      ctx.drawImage(
+        img,
+        xPos,
+        yPos,
+        head_width,
+        head_height,
+        0,
+        0,
+        head_width,
+        head_height
+      );
+      const imageData = ctx.getImageData(0, 0, head_width, head_height);
+      console.log(imageData);
+      const playerHead = document.getElementById(
+        "playerHead"
+      ) as HTMLImageElement;
+      if (!playerHead) return;
+      playerHead.src = canvas.toDataURL();
     };
+
+    // return {
+    //   backgroundImage: `url(${player_heads})`,
+    //   backgroundPosition: `-${xPos}px -${yPos}px`,
+    //   width: `${head_width}px`,
+    //   height: `${head_height}px`,
+    // };
   };
 
   return (
@@ -66,7 +116,7 @@ const SkinSelection = () => {
         <button onClick={decrementSkin} className="arrow_button revert_arrow">
           ➤
         </button>
-        <img style={getPlayerHeadImage()} alt="" />
+        <img id="playerHead" alt="Custom Image Player" />
         <button onClick={incrementSkin} className="arrow_button">
           ➤
         </button>
