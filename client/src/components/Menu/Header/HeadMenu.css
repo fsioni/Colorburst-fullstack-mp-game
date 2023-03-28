@@ -6,6 +6,7 @@
   align-items: center;
   margin-bottom: 3px;
   background-color: rgba(0, 0, 0, 0.267);
+  backdrop-filter: blur(3px);
 }
 
 .game-title {

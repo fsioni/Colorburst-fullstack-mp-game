@@ -35,10 +35,10 @@
 }
 
 body {
-  /* Cover font image local image */
+  /*Coverfontimagelocalimage*/
   background-image: url(./ress/background.png);
   background-size: cover;
-  /* Center font image */
+  /*Centerfontimage*/
   background-position: center;
 }
 
