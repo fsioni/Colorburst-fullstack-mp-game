@@ -115,24 +115,30 @@ export class FirstGameScene extends Phaser.Scene {
     console.log(`[playersList] Packet size: ${packetSize} bytes`);
 
     data.forEach((p) => {
-      if (!this.players.find((player: Player) => player.id === p.id)) {
+      const playerFound = this.players.find(
+        (player: Player) => player.id === p.id
+      );
+
+      if (!playerFound) {
         if (!this.board) return;
 
         if (p.id === this.socket?.id && this.player === null) {
           this.player = this.add.existing(
             new Player(this, p.id, this.board, p.color, true, this.socket)
           );
-          if (p.pseudo) this.player.pseudo = p.pseudo;
+          if (p.pseudo) this.player.changePseudo(p.pseudo);
           this.player.setFrame(p.color);
           this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
         } else {
           //check if it is the player
           if (this.player?.id === p.id) return;
           const newPlayer = new Player(this, p.id, this.board, p.color);
-          if (p.pseudo) newPlayer.pseudo = p.pseudo;
+          if (p.pseudo) newPlayer.changePseudo(p.pseudo);
           newPlayer.setFrame(p.color);
           this.players.push(this.add.existing(newPlayer));
         }
+      } else {
+        playerFound.changePseudo(p.pseudo);
       }
     });
   }

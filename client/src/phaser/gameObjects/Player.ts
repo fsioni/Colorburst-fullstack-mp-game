@@ -4,6 +4,7 @@ import { Direction } from "../utils/Direction";
 import Board from "./Board";
 import Point = Phaser.Geom.Point;
 import { FirstGameScene } from "../scenes/placeholder";
+import PlayerNameText from "./PlayerNameText";
 
 const moveInterpolationRatio = 0.01;
 const rotaInterpolationRatio = 0.01;
@@ -37,6 +38,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   isAudioMuted = false;
 
+  playerText: PlayerNameText;
+
   constructor(
     scene: FirstGameScene,
     id: string,
@@ -61,6 +64,17 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.gainedTerritoryAudio.volume = 0.4;
     this.killAudio.volume = 0.4;
     this.killedAudio.volume = 0.4;
+
+    this.playerText = new PlayerNameText(
+      this.scene as FirstGameScene,
+      this.x,
+      this.y,
+      this.pseudo
+    );
+
+    if (this.isPlayable) {
+      this.playerText.setAlpha(0);
+    }
 
     this.handleSocketEvents();
   }
@@ -204,6 +218,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
     );
 
     this.setPosition(calculatedPosition.x, calculatedPosition.y);
+    this.playerText?.updatePosition(calculatedPosition.x, calculatedPosition.y);
+    if (!this.isPlayable) {
+      console.log(
+        "player text position updated : ",
+        calculatedPosition.x,
+        calculatedPosition.y
+      );
+    }
   }
 
   handleRotation(delta: number) {
@@ -246,5 +268,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.killAudio.muted = this.isAudioMuted;
     this.gainedTerritoryAudio.muted = this.isAudioMuted;
     this.killedAudio.muted = this.isAudioMuted;
+  }
+
+  changePseudo(pseudo: string) {
+    console.log("change pseudo : ", pseudo);
+    this.pseudo = pseudo;
+    this.playerText.setText(this.pseudo);
   }
 }
