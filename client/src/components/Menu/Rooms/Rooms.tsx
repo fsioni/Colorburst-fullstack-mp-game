@@ -28,14 +28,13 @@ const Rooms: FC = () => {
     return (
       <div className="rooms-container">
         {rooms.map((room) => (
-          <div key={room.roomId}>
+          <div key={room.gameID}>
             <SingleRoom
-              roomId={room.roomId}
-              roomName={room.roomName}
-              nbPlayers={room.nbPlayers}
-              playersMax={room.playersMax}
+              gameID={room.gameID}
+              gameName={room.gameName}
+              connectedPlayersCount={room.connectedPlayersCount}
+              nbPlayersMax={room.nbPlayersMax}
               isPrivate={room.isPrivate}
-              password={room.password}
             />
           </div>
         ))}
@@ -45,10 +44,9 @@ const Rooms: FC = () => {
 
   const buttons = () => {
     return (
-      <div className="buttons-container">
-        <button className="join-button">JOIN</button>
+      <div className="create-button-container">
         <button className="create-button" onClick={() => setModalIsOpen(true)}>
-          CREATE
+          +
         </button>
       </div>
     );

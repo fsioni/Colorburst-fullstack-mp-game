@@ -26,10 +26,8 @@ export const NbPlayers: FC<Props> = ({ _nbPlayers, setNbPlayers }) => {
         type="number"
         value={_nbPlayers}
         id="nbMaxPlayers"
-        name="tentacles"
         min="10"
         max="100"
-        step="10"
         required
         onChange={(e) => handleChange(e)}
       />

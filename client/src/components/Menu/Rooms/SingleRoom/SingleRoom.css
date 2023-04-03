@@ -32,7 +32,11 @@
 }
 
 .lock-icon {
-  margin-left: 5%;
+  padding-right: 6%;
+}
+
+.room-name {
+  display: flex;
 }
 
 .players-number {

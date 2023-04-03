@@ -22,7 +22,7 @@ export default class Game {
     this.socketServer = socketServer;
     this.gameSettings = {
       boardSize: settings.boardSize || 80,
-      nbPlayersMax: settings.nbPlayersMax || 10,
+      nbPlayersMax: settings.nbPlayersMax || 20,
       isPrivate: settings.isPrivate || false,
       invitationCode: settings.invitationCode || null,
     };

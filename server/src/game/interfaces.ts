@@ -9,7 +9,7 @@ export interface CreateGameSettings {
   roomId: string;
   roomName: string;
   boardSize?: number;
-  nbPlayersMax?: number;
+  nbPlayersMax: number;
   isPrivate?: boolean;
   invitationCode?: string | null;
 }

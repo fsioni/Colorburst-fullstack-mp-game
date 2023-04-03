@@ -19,13 +19,12 @@ gameRouteur
         roomId: Math.random().toString(36).substring(7),
         roomName: req.body.roomName,
         boardSize: 50,
-        nbPlayersMax: req.body.playersMax,
+        nbPlayersMax: req.body.nbPlayersMax,
         isPrivate: req.body.isPrivate,
         invitationCode: "AAAA", // à generer
       };
-      const game = gameManager.createGame(settings);
-      console.log(req.body);
-      res.json({ gameID: game.gameID, message: "Room created" });
+      gameManager.createGame(settings);
+      res.json(settings.roomId);
     }
   );
 

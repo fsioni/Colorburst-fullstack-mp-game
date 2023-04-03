@@ -1,8 +1,7 @@
 export default interface Room {
-  roomId: number;
-  roomName: string;
-  nbPlayers: number;
-  playersMax: number;
+  gameID: string;
+  gameName: string;
+  connectedPlayersCount: number;
+  nbPlayersMax: number;
   isPrivate: boolean;
-  password?: number;
 }
