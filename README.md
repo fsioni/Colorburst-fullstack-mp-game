@@ -76,7 +76,7 @@ cd server && npm start
 
 ## ⛏️ Built Using
 
-- [React](h<https://reactjs.org/)
+- [React](https://reactjs.org/)
 - [Phaser](https://phaser.io/)
 - [Firebase](https://firebase.google.com/)
 - [Socket.io](https://socket.io/)
