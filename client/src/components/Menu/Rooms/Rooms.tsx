@@ -1,5 +1,6 @@
 import React from "react";
 import { FC, useState, useEffect } from "react";
+import { TbRefresh } from "react-icons/tb";
 
 import "./Rooms.css";
 import SingleRoom from "./SingleRoom/SingleRoom";
@@ -9,6 +10,7 @@ import CreateModal from "./Modals/CreateModal";
 const Rooms: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
   const apiOrigin =
     window.location.origin.split(":")[0] +
     ":" +
@@ -23,6 +25,19 @@ const Rooms: FC = () => {
     };
     fetchRooms();
   }, []);
+
+  const realoadButton = () => {
+    return (
+      <div className="reaload-button-container">
+        <button
+          className="reload-button"
+          onClick={() => window.location.reload()}
+        >
+          <TbRefresh className="reload-icon" />
+        </button>
+      </div>
+    );
+  };
 
   const roomsMap = () => {
     return (
@@ -42,7 +57,7 @@ const Rooms: FC = () => {
     );
   };
 
-  const buttons = () => {
+  const createButton = () => {
     return (
       <div className="create-button-container">
         <button className="create-button" onClick={() => setModalIsOpen(true)}>
@@ -56,16 +71,17 @@ const Rooms: FC = () => {
     <div className="main-room-container">
       {modalIsOpen == false ? (
         <div className="game-container">
+          {realoadButton()}
           <h2 className="menu-game-title">🕹️ GAME 🕹️</h2>
           {rooms.length == 0 ? (
             <div className="rooms-empty">
               ✖️ No rooms ✖️
-              {buttons()}
+              {createButton()}
             </div>
           ) : (
             <div className="rooms-and-buttons-container">
               {roomsMap()}
-              {buttons()}
+              {createButton()}
             </div>
           )}
         </div>

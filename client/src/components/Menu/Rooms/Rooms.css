@@ -15,8 +15,43 @@
   box-shadow: #800080 0px 2px 4px, rgba(255, 160, 27, 0.3) 0px 7px 13px -3px,
     rgba(255, 160, 27, 0.3) 0px -3px 0px inset;
   border-radius: 5px;
-  padding: 5% 0% 7% 0%;
+  padding: 0% 0% 7% 0%;
   width: 100%;
+}
+
+.reaload-button-container {
+  display: flex;
+}
+
+.reload-button {
+  background-color: transparent;
+  border: none;
+  padding: 2% 0% 0% 2%;
+  color: antiquewhite;
+  cursor: pointer;
+}
+
+.reload-button:hover {
+  background-color: transparent;
+  border: none;
+  padding: 2% 0% 0% 2%;
+  color: antiquewhite;
+  cursor: pointer;
+}
+
+.reload-button:hover {
+  color: rgb(207, 207, 207);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  transition: 0.2s;
+  scale: 1.06;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+
+.reload-icon {
+  font-size: 21px;
 }
 
 .menu-game-title {
