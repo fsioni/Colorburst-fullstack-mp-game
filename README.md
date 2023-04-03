@@ -9,7 +9,7 @@
     <br>
 </p>
 
-## 🧐 About  <a name="about"></a>
+## 🧐 About
 
 In this io game, the world is your canvas. Explore the 2D environment and cover it with your color to expand your territory. Be on the lookout for opponents trying to do the same! Eliminate your enemies and become the ultimate paint champion in this fast-paced game.
 
@@ -74,12 +74,28 @@ cd server && npm start
 - Visit the link that is displayed in the console (localhost:xxxx)
 - PLAY & have FUN
 
+## 📏 Rules
+
+- Objective: The objective of the game is to paint as much of the map as possible with your color while avoiding other players.
+
+- Controls: Use the arrow keys to move in the desired direction.
+
+- Starting the game: At the beginning of the game, you will be placed on a blank map. Choose a skin and start painting the map.
+
+- Avoid other players: Avoid other players who try to block or eliminate you. If you another player (or yourself) collide with your trail, you lose and must start over.
+
+- Gain points: You gain points by painting the map. You can also steal other players' points when you eliminate them!
+
 ## ⛏️ Built Using
 
-- [React](https://reactjs.org/)
-- [Phaser](https://phaser.io/)
-- [Firebase](https://firebase.google.com/)
-- [Socket.io](https://socket.io/)
+- [Typescript](https://www.typescriptlang.org/) : statically typed superset of JavaScript used to write both the client and server-side code
+- [Vite](https://vitejs.dev/) : frontend server
+- [React](https://reactjs.org/) : frontend library
+- [Phaser](https://phaser.io/) : game engine
+- [Firebase](https://firebase.google.com/) : authentication and data persistence
+- [Socket.io](https://socket.io/) : game communications
+- [ExpressJS](https://expressjs.com/fr/) : backend server
+- [Jest](https://jestjs.io/fr/) : testing
 
 ## 📌 Trello Board
 
