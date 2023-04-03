@@ -72,11 +72,11 @@ cd server && npm start
 ```
 
 - Visit the link that is displayed in the console (localhost:xxxx)
-- PLAY
+- PLAY & have FUN
 
 ## ⛏️ Built Using
 
-- [React](h<https://reactjs.org/)>
+- [React](https://reactjs.org/)
 - [Phaser](https://phaser.io/)
 - [Firebase](https://firebase.google.com/)
 - [Socket.io](https://socket.io/)
