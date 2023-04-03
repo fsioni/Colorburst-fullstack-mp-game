@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import "./ConnectionModal.css";
-import { RiCloseLine } from "react-icons/ri";
+import { FaWindowClose } from "react-icons/fa";
 import GoogleLoginButton from "../../../LoginButtons/GoogleLoginButton";
 import AnonymousLoginButton from "../../../LoginButtons/AnonymousLoginButton";
 
@@ -18,7 +18,7 @@ const ConnectionModal: FC<Props> = ({ setIsOpen }): JSX.Element => {
             <h2 className="heading">LOG IN</h2>
           </div>
           <button className="closeBtn" onClick={() => setIsOpen(false)}>
-            <RiCloseLine style={{ marginBottom: "-3px" }} />
+            <FaWindowClose style={{ marginBottom: "-3px" }} />
           </button>
           <div className="modalContent">Choose your connection method</div>
           <div className="modalActions">
