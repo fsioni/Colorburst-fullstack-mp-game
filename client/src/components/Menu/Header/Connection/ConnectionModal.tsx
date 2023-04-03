@@ -1,14 +1,16 @@
 import React, { FC } from "react";
 import "./ConnectionModal.css";
 import { FaWindowClose } from "react-icons/fa";
-import GoogleLoginButton from "../../../LoginButtons/GoogleLoginButton";
-import AnonymousLoginButton from "../../../LoginButtons/AnonymousLoginButton";
+import GoogleLoginButton from "./LoginButtons/GoogleLoginButton";
+import AnonymousLoginButton from "./LoginButtons/AnonymousLoginButton";
 
-interface Props {
+interface ConnectionModalProps {
   setIsOpen: (isOpen: boolean) => void;
+  setIsConnectionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ConnectionModal: FC<Props> = ({ setIsOpen }): JSX.Element => {
+const ConnectionModal: FC<ConnectionModalProps> = (props): JSX.Element => {
+  const { setIsOpen, setIsConnectionModalOpen } = props;
   return (
     <>
       <div className="dark_bg" onClick={() => setIsOpen(false)} />
@@ -23,8 +25,12 @@ const ConnectionModal: FC<Props> = ({ setIsOpen }): JSX.Element => {
           <div className="modalContent">Choose your connection method</div>
           <div className="modalActions">
             <div className="actionsContainer">
-              <GoogleLoginButton />
-              <AnonymousLoginButton />
+              <GoogleLoginButton
+                setIsConnectionModalOpen={setIsConnectionModalOpen}
+              />
+              <AnonymousLoginButton
+                setIsConnectionModalOpen={setIsConnectionModalOpen}
+              />
             </div>
           </div>
         </div>

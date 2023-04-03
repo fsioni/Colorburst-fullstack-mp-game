@@ -14,13 +14,11 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
     <>
       <div className="header-container">
         <h1 className="game-title">ColorBurst</h1>
-        <Connect
-          isConnectionModalOpen={isConnectionModalOpen}
-          setIsConnectionModalOpen={setIsConnectionModalOpen}
-        />
+        <Connect setIsConnectionModalOpen={setIsConnectionModalOpen} />
       </div>
       {isConnectionModalOpen && (
         <ConnectionModal
+          setIsConnectionModalOpen={setIsConnectionModalOpen}
           setIsOpen={function (isOpen: boolean): void {
             setIsConnectionModalOpen(isOpen);
           }}
