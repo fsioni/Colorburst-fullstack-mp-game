@@ -15,6 +15,7 @@ const Game: FC<GameProps> = ({ setGameStarted }): JSX.Element => {
 
   return (
     <>
+      <div className="transitionScreen" />
       <button
         className="quitButton"
         onClick={() => {
