@@ -26,13 +26,6 @@ const Connect: FC<ConnectProps> = (props): JSX.Element => {
       >
         Log in
       </button>
-      {isConnectionModalOpen && (
-        <ConnectionModal
-          setIsOpen={function (isOpen: boolean): void {
-            setIsConnectionModalOpen(isOpen);
-          }}
-        />
-      )}
     </div>
   ) : (
     <div className="connexion-area-container">
