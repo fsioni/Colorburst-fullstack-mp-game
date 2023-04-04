@@ -38,7 +38,7 @@ const SkinSelection = () => {
   };
 
   useEffect(() => {
-    uptdatePlayerHeadImage();
+    updatePlayerHeadImage();
   }, [selectedSkin]);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const SkinSelection = () => {
     }
   }, []);
 
-  const uptdatePlayerHeadImage = () => {
+  const updatePlayerHeadImage = () => {
     console.log("Updating player head image with skin: ", selectedSkin);
     const amount_of_heads_on_x_axis = 3;
     const amount_of_heads_on_y_axis = 11;
