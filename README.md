@@ -96,6 +96,9 @@ cd server && npm start
 - [Socket.io](https://socket.io/) : game communications
 - [ExpressJS](https://expressjs.com/fr/) : backend server
 - [Jest](https://jestjs.io/fr/) : testing
+- [ESLint](https://eslint.org/) : javaScript linter 
+- [Prettier](https://prettier.io/) : code formatter
+- [Husky](https://typicode.github.io/husky/#/) : run scripts at commit (lint and format)
 
 ## 📌 Trello Board
 
