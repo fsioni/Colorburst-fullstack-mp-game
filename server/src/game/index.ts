@@ -72,11 +72,10 @@ export default class Game {
     // Return total of territories for each player
     return this.players
       .map((player) => {
-        const territories = this.gameBoard.getTerritoriesCount(player);
         return {
           id: player.id,
           pseudo: player.pseudo,
-          score: territories,
+          score: player.scoreTotal,
         };
       })
       .sort((a, b) => b.score - a.score);
@@ -220,8 +219,10 @@ export default class Game {
     this.alivePlayers.forEach((player) => {
       player.socket.emit("map", map);
     });
+    this.sendLeaderboard();
+  }
 
-    // Send leaderBoard
+  private sendLeaderboard(): void {
     this.alivePlayers.forEach((player) => {
       player.socket.emit("leaderBoard", this.leaderBoard);
     });
@@ -247,7 +248,7 @@ export default class Game {
 
     if (killer && killer.id !== player.id) {
       const getKilledScoreRatio = 0.1;
-      killer.score += player.score * getKilledScoreRatio;
+      killer.score += player.scoreTotal * getKilledScoreRatio;
       killer.gameStats.Add(Stats.KILL, 1);
       killer.socket.emit("kill");
     }
