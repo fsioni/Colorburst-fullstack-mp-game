@@ -13,6 +13,7 @@ export default class Player {
   gameStats: PlayerGameStats;
   color = 0;
   score = 0;
+  territoryScore = 0;
   isAlive = false;
   socket: Socket;
   outOfHisTerritory = false;
@@ -21,6 +22,10 @@ export default class Player {
     this.id = socket.id;
     this.token = "";
     this.gameStats = new PlayerGameStats();
+  }
+
+  get scoreTotal(): number {
+    return Math.floor(this.score + this.territoryScore);
   }
 
   ChangeDirection(direction: Direction): void {

@@ -39,6 +39,7 @@ export default class Board {
     const zoneOccupator = new ZoneCalculator(this.boardCells, player.id);
     zoneOccupator.fillZone();
     player.socket.emit("gainedTerritory");
+    player.territoryScore = this.getTerritoriesCount(player);
   }
 
   freeCells(playerId: string): void {
