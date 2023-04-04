@@ -1,0 +1,21 @@
+.rooms-empty {
+  display: flex;
+  height: 60%;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 20px;
+}
+
+.rooms-and-buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.rooms-container {
+  display: flex;
+  width: 55%;
+  flex-direction: column;
+}

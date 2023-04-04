@@ -1,14 +1,14 @@
-import React from "react";
-import { FC, useState, useEffect } from "react";
-import { TbRefresh } from "react-icons/tb";
-
+import React, { FC, useState, useEffect } from "react";
 import "./Rooms.css";
-import SingleRoom from "./SingleRoom/SingleRoom";
 import Room from "./RoomModel"; // a utiliser pour les props
 import CreateModal from "./Modals/CreateModal";
+import CreateButton from "./RoomComponents/CreateButton";
+import ReloadButton from "./RoomComponents/ReloadButton";
+import RoomMap from "./RoomComponents/RoomMap";
 
 const Rooms: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(true);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const apiOrigin =
@@ -17,73 +17,24 @@ const Rooms: FC = () => {
     window.location.origin.split(":")[1] +
     ":3040";
 
+  const fetchRooms = async () => {
+    const rooms = await fetch(apiOrigin + "/rooms");
+    const jsonRooms = await rooms.json();
+    setRooms(jsonRooms);
+  };
+
   useEffect(() => {
-    const fetchRooms = async () => {
-      const rooms = await fetch(apiOrigin + "/rooms");
-      const jsonRooms = await rooms.json();
-      setRooms(jsonRooms);
-    };
     fetchRooms();
+    setLoading(false); // stop loading when the data is fetched
   }, []);
-
-  const realoadButton = () => {
-    return (
-      <div className="reaload-button-container">
-        <button
-          className="reload-button"
-          onClick={() => window.location.reload()}
-        >
-          <TbRefresh className="reload-icon" />
-        </button>
-      </div>
-    );
-  };
-
-  const roomsMap = () => {
-    return (
-      <div className="rooms-container">
-        {rooms.map((room) => (
-          <div key={room.gameID}>
-            <SingleRoom
-              gameID={room.gameID}
-              gameName={room.gameName}
-              connectedPlayersCount={room.connectedPlayersCount}
-              nbPlayersMax={room.nbPlayersMax}
-              isPrivate={room.isPrivate}
-            />
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const createButton = () => {
-    return (
-      <div className="create-button-container">
-        <button className="create-button" onClick={() => setModalIsOpen(true)}>
-          +
-        </button>
-      </div>
-    );
-  };
 
   return (
     <div className="main-room-container">
       {modalIsOpen == false ? (
         <div className="game-container">
-          {realoadButton()}
+          <ReloadButton setLoading={setLoading} />
           <h2 className="menu-game-title">🕹️ GAME 🕹️</h2>
-          {rooms.length == 0 ? (
-            <div className="rooms-empty">
-              ✖️ No rooms ✖️
-              {createButton()}
-            </div>
-          ) : (
-            <div className="rooms-and-buttons-container">
-              {roomsMap()}
-              {createButton()}
-            </div>
-          )}
+          <RoomMap rooms={rooms} setModalIsOpen={setModalIsOpen} />
         </div>
       ) : (
         <CreateModal
