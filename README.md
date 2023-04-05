@@ -43,7 +43,7 @@ What things you need to install the game and how to install them.
 └── server
      ├── src
      │   ├── database/
-     │   └── enums/
+     │   ├── enums/
      │   └── game/
      │
      └── tests/
