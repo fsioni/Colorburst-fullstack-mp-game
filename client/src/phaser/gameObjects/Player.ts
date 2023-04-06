@@ -3,7 +3,7 @@ import Phaser from "phaser";
 import { Direction } from "../utils/Direction";
 import Board from "./Board";
 import Point = Phaser.Geom.Point;
-import { FirstGameScene } from "../scenes/placeholder";
+import FirstGameScene from "../scenes/GameScene";
 import PlayerNameText from "./PlayerNameText";
 
 const moveInterpolationRatio = 0.01;

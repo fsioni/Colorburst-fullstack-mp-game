@@ -2,7 +2,7 @@ import { Socket } from "socket.io";
 import DrawMiniMap from "../utils/DrawMiniMap";
 import { AlignGrid } from "../utils/AlignGrid";
 import Cell from "./Cell";
-import { FirstGameScene } from "../scenes/placeholder";
+import FirstGameScene from "../scenes/GameScene";
 import { Buffer } from "buffer";
 export default class Board {
   scene: FirstGameScene;

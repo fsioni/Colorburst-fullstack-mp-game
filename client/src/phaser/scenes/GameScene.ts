@@ -12,7 +12,7 @@ const Socketorigin =
   window.location.origin.split(":")[1] +
   ":3040";
 
-export class FirstGameScene extends Phaser.Scene {
+export default class GameScene extends Phaser.Scene {
   socket: any;
   player: Player | null = null;
   players: Player[];

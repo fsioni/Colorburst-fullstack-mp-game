@@ -1,4 +1,4 @@
-import { FirstGameScene } from "../scenes/placeholder";
+import FirstGameScene from "../scenes/GameScene";
 
 export default class PlayerNameText extends Phaser.GameObjects.Text {
   offsetY = 160;
