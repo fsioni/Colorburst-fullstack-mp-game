@@ -3,8 +3,6 @@
  <img height=125 src="logo.png" alt="ColorBurst Logo"></a>
 </p>
 
-[![wakatime](https://wakatime.com/badge/user/c9567959-4d57-48ac-9582-6f61d5363942/project/7357f254-b2d4-449b-8e93-7bfca3198fda.svg)](https://wakatime.com/badge/user/c9567959-4d57-48ac-9582-6f61d5363942/project/7357f254-b2d4-449b-8e93-7bfca3198fda)
-
 <h2 align="center">ColorBurst</h2>
 
 <p align="center"> Multiplayer game, made with Web technologies. (React, Phaser, Typescript, Express, Socket.io, Firebase)
