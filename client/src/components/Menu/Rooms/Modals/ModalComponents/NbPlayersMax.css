@@ -8,7 +8,8 @@
 .nb-players-tile {
   margin: 0;
   font-weight: 600;
-  padding: 2.5% 4% 0 0;
+  font-size: 18px;
+  padding: 2% 5% 0% 0%;
 }
 
 /* Disable Arrows for the number input*/
@@ -35,10 +36,7 @@ input[type="number"] {
 }
 
 .number-players-input:required:focus {
-  background-color: rgba(255, 63, 63, 0.347);
-  box-shadow: rgba(255, 0, 0, 0.4) 0px 2px 4px,
-    rgba(234, 7, 7, 0.3) 0px 7px 13px -3px,
-    rgrgba(235, 4, 4, 0.2) px -3px 0px inset;
+  background-color: rgb(228, 228, 228);
   outline: none;
 }
 
@@ -53,9 +51,4 @@ input[type="number"] {
   text-shadow: 1px 1px 1px rgba(10, 10, 10, 0.4);
   box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
     rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
-}
-
-.requiredField {
-  padding: 0% 1% 1% 2%;
-  color: rgb(255, 255, 255);
 }

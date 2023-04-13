@@ -6,6 +6,7 @@ import RoomName from "./ModalComponents/RoomName";
 import NbPlayersMax from "./ModalComponents/NbPlayersMax";
 import IsPrivate from "./ModalComponents/IsPrivate";
 import SubmitAndReset from "./ModalComponents/SubmitAndReset";
+import MapSize from "./ModalComponents/MapSize";
 
 interface Props {
   modalIsOpen: boolean;
@@ -15,7 +16,7 @@ interface Props {
 const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
   const [_roomName, setRoomName] = useState<string>("");
   const [_nbPlayersMax, setNbPlayersMax] = useState<number>(20);
-  //const [_bordSize, setBordSize] = useState<number>(50);
+  const [_bordSize, setBordSize] = useState<number>(50);
   const [_isPrivate, setIsPrivate] = useState<boolean>(false);
   const [message, setMessage] = useState("");
 
@@ -73,6 +74,7 @@ const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
               _nbPlayers={_nbPlayersMax}
               setNbPlayers={setNbPlayersMax}
             />
+            <MapSize _bordSize={_bordSize} setBordSize={setBordSize} />
             <IsPrivate _isPrivate={_isPrivate} setIsPrivate={setIsPrivate} />
           </div>
           <SubmitAndReset />

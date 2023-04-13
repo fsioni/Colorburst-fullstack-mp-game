@@ -8,7 +8,8 @@
 .private-title {
   margin: 0;
   font-weight: 600;
-  padding: 1% 3% 0 1%;
+  font-size: 18px;
+  padding: 0% 3% 0 0%;
 }
 
 .toggler {

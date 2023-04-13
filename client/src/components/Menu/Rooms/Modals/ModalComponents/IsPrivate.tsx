@@ -7,7 +7,7 @@ interface Props {
   setIsPrivate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const IsPrivate: FC<Props> = ({ _isPrivate, setIsPrivate }) => {
+const IsPrivate: FC<Props> = ({ _isPrivate, setIsPrivate }) => {
   const changeValue = (): boolean => {
     let res: boolean = _isPrivate;
     if (res === false) {
@@ -40,15 +40,5 @@ export const IsPrivate: FC<Props> = ({ _isPrivate, setIsPrivate }) => {
     </div>
   );
 };
-
-/* Ancien bouton
-<div className="lock-button">
-  <span>
-    <FaLockOpen className="icon-unlock" />
-  </span>
-  <span>
-    <FaLock className="icon-lock" />
-  </span>
-</div>*/
 
 export default IsPrivate;

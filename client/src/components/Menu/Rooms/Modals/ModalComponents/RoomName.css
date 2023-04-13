@@ -8,7 +8,8 @@
 .name-title {
   margin: 0;
   font-weight: 600;
-  padding: 2.5% 4% 0 0;
+  font-size: 18px;
+  padding: 2% 5% 0% 0%;
 }
 
 .name-input {
@@ -23,9 +24,9 @@
 }
 
 .name-input:required:focus {
-  background-color: rgb(225, 220, 220);
-  box-shadow: rgba(255, 0, 0, 0.4) 0px 2px 4px,
-    rgba(234, 7, 7, 0.3) 0px 7px 13px -3px,
+  background-color: rgb(223, 223, 223);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
     rgrgba(235, 4, 4, 0.2) px -3px 0px inset;
   outline: none;
 }
@@ -37,9 +38,10 @@
   -moz-transition: 0.2s;
   -ms-transition: 0.2s;
   -o-transition: 0.2s;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-  box-shadow: rgba(0, 0, 0, 0.6) 0px 3px 4px,
-    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
+  text-shadow: 1px 1px 1px rgba(38, 38, 38, 0.4);
+  box-shadow: rgba(48, 48, 48, 0.6) 0px 3px 4px,
+    rgba(59, 59, 59, 0.5) 0px 7px 13px -3px,
+    rgba(51, 51, 51, 0.4) 0px -3px 0px inset;
 }
 
 .name-input::placeholder {
@@ -56,9 +58,4 @@
 .name-input::-ms-input-placeholder {
   /* Microsoft Edge */
   color: rgb(19, 19, 19);
-}
-
-.requiredField {
-  padding: 0% 1% 1% 2%;
-  color: rgb(255, 255, 255);
 }
