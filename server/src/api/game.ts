@@ -18,7 +18,7 @@ gameRouteur
       const settings: CreateGameSettings = {
         roomId: Math.random().toString(36).substring(7),
         roomName: req.body.roomName,
-        boardSize: 50,
+        boardSize: req.body.boardSize,
         nbPlayersMax: req.body.nbPlayersMax,
         isPrivate: req.body.isPrivate,
         invitationCode: "AAAA", // à generer

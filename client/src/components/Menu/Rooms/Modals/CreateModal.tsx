@@ -16,7 +16,7 @@ interface Props {
 const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
   const [_roomName, setRoomName] = useState<string>("");
   const [_nbPlayersMax, setNbPlayersMax] = useState<number>(20);
-  const [_bordSize, setBordSize] = useState<number>(50);
+  const [_boardSize, setBoardSize] = useState<number>(50);
   const [_isPrivate, setIsPrivate] = useState<boolean>(false);
   const [message, setMessage] = useState("");
 
@@ -38,7 +38,7 @@ const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
         body: JSON.stringify({
           roomName: _roomName,
           nbPlayersMax: _nbPlayersMax,
-          //borderSize: _bordSize,
+          boardSize: _boardSize,
           isPrivate: _isPrivate,
         }),
       });
@@ -47,6 +47,7 @@ const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
         // on succes
         setRoomName("");
         setNbPlayersMax(20);
+        setBoardSize(50);
         setIsPrivate(false);
         setMessage("Room created successfully ✅");
         setModalIsOpen(false);
@@ -74,7 +75,7 @@ const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
               _nbPlayers={_nbPlayersMax}
               setNbPlayers={setNbPlayersMax}
             />
-            <MapSize _bordSize={_bordSize} setBordSize={setBordSize} />
+            <MapSize _boardSize={_boardSize} setBoardSize={setBoardSize} />
             <IsPrivate _isPrivate={_isPrivate} setIsPrivate={setIsPrivate} />
           </div>
           <SubmitAndReset />

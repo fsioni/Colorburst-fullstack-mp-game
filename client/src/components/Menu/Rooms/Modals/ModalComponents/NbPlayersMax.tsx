@@ -9,12 +9,6 @@ interface Props {
 export const NbPlayers: FC<Props> = ({ _nbPlayers, setNbPlayers }) => {
   const handleChange = (event: any): any => {
     event.preventDefault;
-    if (_nbPlayers > 100) {
-      alert("Max players is 100");
-    }
-    if (_nbPlayers < 0) {
-      alert("Number of players can't be negative");
-    }
     setNbPlayers(event.target.value);
   };
 
