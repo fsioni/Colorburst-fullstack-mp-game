@@ -2,7 +2,6 @@ import React, { FC, useState, useEffect } from "react";
 import "./Rooms.css";
 import Room from "./RoomModel"; // a utiliser pour les props
 import CreateModal from "./Modals/CreateModal";
-import CreateButton from "./RoomComponents/CreateButton";
 import ReloadButton from "./RoomComponents/ReloadButton";
 import RoomMap from "./RoomComponents/RoomMap";
 

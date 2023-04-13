@@ -1,6 +1,7 @@
 import React from "react";
 import { FC } from "react";
 import "./CreateButton.css";
+import { MdOutlineAdd } from "react-icons/md";
 
 interface Props {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,9 +9,9 @@ interface Props {
 
 const CreateButton: FC<Props> = ({ setModalIsOpen }) => {
   return (
-    <div className="create-button-container">
+    <div>
       <button className="create-button" onClick={() => setModalIsOpen(true)}>
-        +
+        <MdOutlineAdd className="add-icon" />
       </button>
     </div>
   );
