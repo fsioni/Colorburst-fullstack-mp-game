@@ -7,7 +7,7 @@ import loader from "../../../../data/loader.gif";
 const Loader: FC = () => {
   return (
     <div className="loader-container">
-      <img src={loader} alt="loading" />
+      <img src={loader} alt="loading" className="loader-icon" />
     </div>
   );
 };

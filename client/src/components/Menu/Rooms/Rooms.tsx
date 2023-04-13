@@ -4,6 +4,8 @@ import Room from "./RoomModel"; // a utiliser pour les props
 import CreateModal from "./Modals/CreateModal";
 import ReloadButton from "./RoomComponents/ReloadButton";
 import RoomMap from "./RoomComponents/RoomMap";
+import Loader from "./RoomComponents/Loader";
+import { Sleeping } from "matter";
 
 const Rooms: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -20,26 +22,34 @@ const Rooms: FC = () => {
     const rooms = await fetch(apiOrigin + "/rooms");
     const jsonRooms = await rooms.json();
     setRooms(jsonRooms);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1250);
   };
 
   useEffect(() => {
     fetchRooms();
-    setLoading(false); // stop loading when the data is fetched
   }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      fetchRooms();
+    }
+  }, [isLoading]);
 
   return (
     <div className="main-room-container">
-      {modalIsOpen == false ? (
-        <div className="game-container">
-          <ReloadButton setLoading={setLoading} />
-          <h2 className="menu-game-title">🕹️ GAME 🕹️</h2>
-          <RoomMap rooms={rooms} setModalIsOpen={setModalIsOpen} />
-        </div>
-      ) : (
+      {modalIsOpen ? (
         <CreateModal
           modalIsOpen={modalIsOpen}
           setModalIsOpen={setModalIsOpen}
         />
+      ) : (
+        <div className="game-container">
+          <ReloadButton isLoading={isLoading} setLoading={setLoading} />
+          <h2 className="menu-game-title">🕹️ GAME 🕹️</h2>
+          <RoomMap rooms={rooms} setModalIsOpen={setModalIsOpen} />
+        </div>
       )}
     </div>
   );

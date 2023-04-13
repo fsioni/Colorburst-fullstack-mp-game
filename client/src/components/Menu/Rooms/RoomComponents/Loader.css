@@ -1,0 +1,11 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  padding: 1%;
+}
+
+.loader-icon {
+  width: 5.5vw;
+
+  height: auto;
+}

@@ -2,6 +2,10 @@
   display: flex;
 }
 
+.reload-animation-container {
+  width: 50%;
+}
+
 .reload-button {
   background-color: transparent;
   border: none;
