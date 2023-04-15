@@ -6,6 +6,6 @@
 
 .loader-icon {
   width: 5.5vw;
-
+  max-width: 32px;
   height: auto;
 }

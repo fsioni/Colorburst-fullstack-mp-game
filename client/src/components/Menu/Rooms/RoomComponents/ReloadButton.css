@@ -4,6 +4,7 @@
 
 .reload-animation-container {
   width: 50%;
+  max-width: 10px;
 }
 
 .reload-button {
