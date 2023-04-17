@@ -1,11 +1,9 @@
 import React, { FC, useState, useEffect } from "react";
 import "./Rooms.css";
-import Room from "./RoomModel"; // a utiliser pour les props
+import Room from "./RoomModel";
 import CreateModal from "./Modals/CreateModal";
 import ReloadButton from "./RoomComponents/ReloadButton";
 import RoomMap from "./RoomComponents/RoomMap";
-import Loader from "./RoomComponents/Loader";
-import { Sleeping } from "matter";
 
 const Rooms: FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -39,7 +37,7 @@ const Rooms: FC = () => {
 
   return (
     <div className="main-room-container">
-      {modalIsOpen ? (
+      {modalIsOpen ? ( // Si le modal est ouvert et que l'utilisateur est authentifier
         <CreateModal
           modalIsOpen={modalIsOpen}
           setModalIsOpen={setModalIsOpen}

@@ -1,12 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useEffect } from "react";
+import React, { useEffect, FC, useRef } from "react";
 import {
   getAuth,
   onAuthStateChanged,
   User as FirebaseUser,
   updateProfile,
 } from "firebase/auth";
-import { FC, useRef } from "react";
 import "./InputField.css";
 import SkinSelection from "./SkinSelection";
 
