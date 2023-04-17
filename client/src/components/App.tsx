@@ -28,7 +28,10 @@ const App: FC = () => {
             />
           </div>
           <div className="statsAndRooms-container">
-            <Rooms />
+            <Rooms
+              setIsGameStarted={setIsGameStarted}
+              setIsConnectionModalOpen={setIsConnectionModalOpen}
+            />
             <Statistics />
           </div>
         </div>

@@ -5,7 +5,12 @@ import CreateModal from "./Modals/CreateModal";
 import ReloadButton from "./RoomComponents/ReloadButton";
 import RoomMap from "./RoomComponents/RoomMap";
 
-const Rooms: FC = () => {
+interface Props {
+  setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsConnectionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Rooms: FC<Props> = ({ setIsGameStarted, setIsConnectionModalOpen }) => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -46,7 +51,11 @@ const Rooms: FC = () => {
         <div className="game-container">
           <ReloadButton isLoading={isLoading} setLoading={setLoading} />
           <h2 className="menu-game-title">🕹️ GAME 🕹️</h2>
-          <RoomMap rooms={rooms} setModalIsOpen={setModalIsOpen} />
+          <RoomMap
+            rooms={rooms}
+            setModalIsOpen={setModalIsOpen}
+            setIsConnectionModalOpen={setIsConnectionModalOpen}
+          />
         </div>
       )}
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from "react";
+import React, { useEffect, FC, useRef } from "react";
 import "./CreateButton.css";
 import { MdOutlineAdd } from "react-icons/md";
 import {
@@ -9,16 +9,21 @@ import {
 } from "firebase/auth";
 interface Props {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsConnectionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreateButton: FC<Props> = ({ setModalIsOpen }) => {
+const CreateButton: FC<Props> = ({
+  setModalIsOpen,
+  setIsConnectionModalOpen,
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [username, setUsername] = React.useState("");
   const [isSync, setIsSync] = React.useState(false);
   const [user, setUser] = React.useState<FirebaseUser | null>(null);
 
   useEffect(() => {
     if (isSync) return;
-
     const auth = getAuth();
     onAuthStateChanged(auth, (_user: FirebaseUser | null) => {
       if (_user) {
@@ -38,6 +43,12 @@ const CreateButton: FC<Props> = ({ setModalIsOpen }) => {
       setUsername("");
     }
   }, [user]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = username;
+    }
+  }, [username]);
 
   const onCreateClick = () => {
     if (!user) {

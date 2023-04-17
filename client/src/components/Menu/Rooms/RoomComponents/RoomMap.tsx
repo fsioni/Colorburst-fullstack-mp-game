@@ -7,13 +7,21 @@ import CreateButton from "../RoomComponents/CreateButton";
 interface Props {
   rooms: Room[];
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsConnectionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Rooms: FC<Props> = ({ rooms, setModalIsOpen }) => {
+const Rooms: FC<Props> = ({
+  rooms,
+  setModalIsOpen,
+  setIsConnectionModalOpen,
+}) => {
   return rooms.length == 0 ? (
     <div className="rooms-empty">
       ✖️ No rooms ✖️
-      <CreateButton setModalIsOpen={setModalIsOpen} />
+      <CreateButton
+        setModalIsOpen={setModalIsOpen}
+        setIsConnectionModalOpen={setIsConnectionModalOpen}
+      />
     </div>
   ) : (
     <div className="rooms-and-buttons-container">
@@ -30,7 +38,10 @@ const Rooms: FC<Props> = ({ rooms, setModalIsOpen }) => {
           </div>
         ))}
       </div>
-      <CreateButton setModalIsOpen={setModalIsOpen} />
+      <CreateButton
+        setModalIsOpen={setModalIsOpen}
+        setIsConnectionModalOpen={setIsConnectionModalOpen}
+      />
     </div>
   );
 };
