@@ -30,7 +30,21 @@ io.on("connection", (socket) => {
   // Join the game
   console.log("New player connected");
 
-  gameManager.defaultGame.join(socket);
+  // check if the player is already in a game
+  const gameID = (socket.handshake.query.gameID as string) || "default";
+
+  if (!gameID || gameID == "default") {
+    gameManager.defaultGame.join(socket);
+  } else {
+    const game = gameManager.getGame(gameID);
+    if (game) {
+      console.log("Game found, joining game");
+      game.join(socket);
+    } else {
+      console.log("Game not found, joining default game");
+      gameManager.defaultGame.join(socket);
+    }
+  }
 });
 
 server.listen(port, () => {

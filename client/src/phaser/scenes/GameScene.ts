@@ -22,8 +22,9 @@ export default class GameScene extends Phaser.Scene {
     this.players = [];
     //get  value from localStorage selectedSkin as number
     const selectedSkin = Number(localStorage.getItem("selectedSkin")) || 0;
+    const gameID = localStorage.getItem("gameId") || "default";
 
-    console.log("Plyaer skin number " + selectedSkin);
+    console.log("Player skin number " + selectedSkin);
     getAuth(app)
       .currentUser?.getIdToken()
       .then((_token) => {
@@ -34,6 +35,7 @@ export default class GameScene extends Phaser.Scene {
           },
           query: {
             playerSkin: selectedSkin,
+            gameID: gameID,
           },
         });
       });
