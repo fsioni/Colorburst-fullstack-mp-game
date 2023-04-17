@@ -1,18 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+.main-room-container {
+  display: flex;
+  width: 70%;
+  max-width: 400px;
+  z-index: 1;
+}
 
-.room-container {
+.game-container {
   background-color: #e8476a;
   color: whitesmoke;
-  font-family: "Electrolize", sans-serif;
   display: flex;
-  position: relative;
   flex-direction: column;
-  box-shadow: purple 0px 2px 4px, rgba(255, 160, 27, 0.3) 0px 7px 13px -3px,
+  box-shadow: #800080 0px 2px 4px, rgba(255, 160, 27, 0.3) 0px 7px 13px -3px,
     rgba(255, 160, 27, 0.3) 0px -3px 0px inset;
   border-radius: 5px;
-  width: 375px;
-  padding: 20px 20px 20px 20px;
-  margin-bottom: 5%;
+  padding: 0% 0% 7% 0%;
+  width: 100%;
 }
 
 .menu-game-title {
@@ -22,88 +24,27 @@
   user-select: none;
 }
 
-.join-button {
-  background-color: cadetblue;
-  border: none;
-  width: 100px;
-  color: antiquewhite;
-  padding: 8px 0px 8px 0px;
-  position: absolute;
-  left: 280px;
-  top: 110px;
-  text-align: center;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  cursor: pointer;
-  transition: 0.5s;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -ms-transition: 0.5s;
-  -o-transition: 0.5s;
+.create-room-container {
+  background-color: #e8476a;
+  color: whitesmoke;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  box-shadow: purple 0px 2px 4px, rgba(255, 160, 27, 0.3) 0px 7px 13px -3px,
+    rgba(255, 160, 27, 0.3) 0px -3px 0px inset;
+  border-radius: 5px;
+  margin-bottom: 5%;
+  width: 100%;
 }
 
-.join-button:hover {
-  background-color: #a0c4c9;
-  color: rgb(247, 240, 231);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
-    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
-  transition: 0.2s;
-  scale: 1.05;
-  -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -ms-transition: 0.2s;
-  -o-transition: 0.2s;
+@media only screen and (max-width: 500px) {
+  .main-room-container {
+    width: 80%;
+  }
 }
 
-.create-button {
-  background-color: rgb(106, 189, 106);
-  width: 100px;
-  padding: 8px 0px 8px 0px;
-  border: none;
-  color: antiquewhite;
-  position: absolute;
-  left: 280px;
-  top: 175px;
-  text-align: center;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  cursor: pointer;
-  transition: 0.5s;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -ms-transition: 0.5s;
-  -o-transition: 0.5s;
-}
-
-.create-button:hover {
-  background-color: rgb(154, 207, 154);
-  color: rgb(247, 240, 231);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
-    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
-  transition: 0.2s;
-  scale: 1.05;
-  -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -ms-transition: 0.2s;
-  -o-transition: 0.2s;
-}
-
-.join-button:active,
-.create-button:active {
-  scale: 0.9;
-  transition: 0.2s;
-  -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -ms-transition: 0.2s;
-  -o-transition: 0.2s;
-}
-
-@media only screen and (max-width: 550px) {
-}
-
-@media only screen and (max-width: 550px) {
+@media screen and (max-width: 820px) {
+  .main-room-container {
+    margin-bottom: 1vh;
+  }
 }

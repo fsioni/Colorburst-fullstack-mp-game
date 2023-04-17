@@ -6,6 +6,8 @@ export interface playerPosition {
 }
 
 export interface CreateGameSettings {
+  roomId?: string;
+  roomName?: string;
   boardSize?: number;
   nbPlayersMax?: number;
   isPrivate?: boolean;

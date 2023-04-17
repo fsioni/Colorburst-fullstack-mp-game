@@ -1,0 +1,139 @@
+.private-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3%;
+  width: 80%;
+}
+
+.private-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0% 3% 0 0%;
+}
+
+.toggler {
+  margin: 0 0 0 2%;
+}
+
+.toggler input {
+  display: none;
+}
+
+.toggler label {
+  display: block;
+  position: relative;
+  width: 13vw;
+  max-width: 60px;
+  height: 3.7vh;
+  border: 1px solid #d6d6d6;
+  border-radius: 36px;
+  background: #e4e8e8;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.toggler label:hover {
+  cursor: pointer;
+  transition: 0.2s;
+  scale: 1.03;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
+    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
+}
+
+.toggler label::after {
+  display: block;
+  border-radius: 100%;
+  background-color: #50ac5d;
+  content: "";
+  animation-name: toggler-size;
+  animation-duration: 0.15s;
+  animation-timing-function: ease-out;
+  animation-direction: forwards;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+}
+
+.toggler label::after,
+.toggler label .toggler-lock,
+.toggler label .toggler-unlock {
+  position: absolute;
+  top: 43%;
+  left: 25%;
+  width: 26px;
+  height: 26px;
+  transform: translateY(-50%) translateX(-50%);
+  transition: left 0.15s ease-in-out, background-color 0.2s ease-out,
+    width 0.15s ease-in-out, height 0.15s ease-in-out, opacity 0.15s ease-in-out;
+}
+
+.toggler input:checked + label::after,
+.toggler input:checked + label .toggler-lock,
+.toggler input:checked + label .toggler-unlock {
+  left: 75%;
+}
+
+.toggler input:checked + label::after {
+  background-color: #d7062a;
+  animation-name: toggler-size2;
+}
+
+.toggler .toggler-lock,
+.toggler .toggler-unlock {
+  opacity: 1;
+  z-index: 2;
+}
+
+.toggler input:checked + label .toggler-unlock,
+.toggler input:not(:checked) + label .toggler-lock {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.toggler .path {
+  fill: none;
+  stroke: #fefefe;
+  stroke-width: 7px;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
+
+@keyframes toggler-size {
+  0%,
+  100% {
+    width: 26px;
+    height: 26px;
+  }
+
+  50% {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@keyframes toggler-size2 {
+  0%,
+  100% {
+    width: 26px;
+    height: 26px;
+  }
+
+  50% {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.icon-unlock {
+  padding: 18% 0 0 18%;
+}
+
+.icon-lock {
+  padding: 18% 0 0 20%;
+}

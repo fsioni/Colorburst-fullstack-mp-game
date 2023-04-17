@@ -3,25 +3,17 @@
   height: 100%;
 }
 
-.inputF-container {
-  display: flex;
-  justify-content: center;
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-.statsAndRooms-container {
+.panels-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5vh;
 }
 
-@media only screen and (max-width: 860px) {
-  .statsAndRooms-container {
-    display: flex;
+@media screen and (max-width: 820px) {
+  .panels-container {
     flex-direction: column;
-    flex-wrap: wrap;
     align-items: center;
   }
 }

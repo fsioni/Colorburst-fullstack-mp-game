@@ -1,25 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
-.statOpen-container {
+.main-stat-container {
+  display: flex;
+  padding: 1%;
+  width: 100%;
+  max-width: 400px;
+  z-index: 0;
   background-color: rgb(138, 50, 138);
   color: whitesmoke;
-  display: flex;
   font-family: "Electrolize", sans-serif;
-  flex-direction: column;
-  position: relative;
   flex-direction: column;
   border-radius: 5px;
   box-shadow: rgba(232, 71, 106, 0.4) 0px 2px 4px,
     rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
     rgba(232, 71, 106, 0.2) 0px -3px 0px inset;
-  width: 375px;
-  margin-bottom: 10%;
-  padding: 20px;
 }
 
 .menu-stat-title {
   text-align: center;
   margin-bottom: 6%;
-  margin-top: 1%;
+  margin-top: 4%;
   user-select: none;
+}
+
+@media screen and (max-width: 820px) {
+  .main-stat-container {
+    margin-top: 1vh;
+  }
 }

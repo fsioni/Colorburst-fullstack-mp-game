@@ -99,10 +99,10 @@
 }
 
 body {
-  /*Coverfontimagelocalimage*/
+  /* Cover font image local image */
   background-image: url(./ress/background.png);
   background-size: cover;
-  /*Centerfontimage*/
+  /* Center font image */
   background-position: center;
 }
 

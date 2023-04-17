@@ -14,6 +14,7 @@ export default class Game {
   gameSettings: Settings;
   gameBoard: Board;
   players: Player[] = [];
+  gameName: string;
   isJoinable: boolean;
   gameID: string;
   nextSkin = 0;
@@ -23,14 +24,15 @@ export default class Game {
     this.socketServer = socketServer;
     this.gameSettings = {
       boardSize: settings.boardSize || 80,
-      nbPlayersMax: settings.nbPlayersMax || 10,
+      nbPlayersMax: settings.nbPlayersMax || 20,
       isPrivate: settings.isPrivate || false,
       invitationCode: settings.invitationCode || null,
       isOfficialGame: settings.isOfficialGame || false,
     };
     this.gameBoard = new Board(this.boardSize);
     this.isJoinable = true;
-    this.gameID = Math.random().toString(36).substring(7);
+    this.gameID = settings.roomId!;
+    this.gameName = settings.roomName!;
     this.interval = setInterval(() => {
       this.movePlayers();
     }, 500);
@@ -50,6 +52,10 @@ export default class Game {
 
   get isPrivate(): boolean {
     return this.gameSettings.isPrivate;
+  }
+
+  get roomName(): string {
+    return this.roomName;
   }
 
   get invitationCode(): string | null {
@@ -309,7 +315,7 @@ export default class Game {
       // Save stats
       player.gameStats.Add(Stats.BLOCK_CAPTURED, 23);
       player.gameStats.Add(Stats.BLOCK_TRAVELLED, 43);
-      saveUserStats(player.token, player.pseudo, player.gameStats, docName);
+      saveUserStats(player.token, player.gameStats, docName);
     });
   }
 

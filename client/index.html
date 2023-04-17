@@ -12,14 +12,22 @@
     <title>ColorBurst</title>
 
     <style>
-      html,
+      @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+      html {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Electrolize", sans-serif;
+      }
       body {
         height: 100%;
         margin: 0;
         padding: 0;
+        width: 100%;
+        min-height: 100vh;
         background-color: rgb(37, 34, 34);
-        overscroll-behavior: none; /* disable PULL-TO-REFRESH on chrome for android */
-        overflow: hidden;
+        /*overscroll-behavior: none; /* disable PULL-TO-REFRESH on chrome for android */
+        /*overflow: hidden;*/
       }
     </style>
   </head>

@@ -1,12 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useEffect } from "react";
+import React, { useEffect, FC, useRef } from "react";
 import {
   getAuth,
   onAuthStateChanged,
   User as FirebaseUser,
   updateProfile,
 } from "firebase/auth";
-import { FC, useRef } from "react";
 import "./InputField.css";
 import SkinSelection from "./SkinSelection";
 
@@ -28,7 +27,7 @@ const InputField: FC<InputFieldProps> = (props): JSX.Element => {
     if (isSync) return;
 
     const auth = getAuth();
-    onAuthStateChanged(auth, (_user) => {
+    onAuthStateChanged(auth, (_user: FirebaseUser | null) => {
       if (_user) {
         setUser(_user);
         return;
@@ -70,7 +69,7 @@ const InputField: FC<InputFieldProps> = (props): JSX.Element => {
   };
 
   return (
-    <div>
+    <div className="player-panel">
       <SkinSelection />
       <div className="inputField-container">
         <form
@@ -86,18 +85,6 @@ const InputField: FC<InputFieldProps> = (props): JSX.Element => {
           onChange={(e) => setUsername(e.target.value)}
           className="input-field-box"
         />
-        <select id="gameMode" className="input-select">
-          <option key="normal" value="normal" className="input-select-option">
-            Normal
-          </option>
-          <option
-            key="hardcore"
-            value="hardcore"
-            className="input-select-option"
-          >
-            Hardcore
-          </option>
-        </select>
         <button
           className="input-field-submit"
           type="submit"

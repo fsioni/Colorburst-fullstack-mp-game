@@ -48,13 +48,22 @@ class GameManager {
   // Récupérer la partie officielle / démarer une partie officielle
   get defaultGame() {
     const game = this.games.find((game) => game.isOfficialGame);
-    if (game) return game;
-    return this.createGame({ isOfficialGame: true });
+    if (game) {
+      console.log("Official game found");
+      return game;
+    }
+    console.log("No official game found, creating one");
+    return this.createGame({
+      isOfficialGame: true,
+      roomId: Math.random().toString(36).substring(7),
+      roomName: "Default game",
+    });
   }
 
   get gamesList() {
     return this.games.map((game) => ({
       gameID: game.gameID,
+      gameName: game.gameName,
       boardSize: game.boardSize,
       nbPlayersMax: game.nbPlayersMax,
       isPrivate: game.isPrivate,

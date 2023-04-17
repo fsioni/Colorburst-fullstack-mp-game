@@ -1,0 +1,74 @@
+.modal {
+  width: 100%;
+  background-color: transparent;
+  min-width: 325px;
+}
+
+.create-container {
+  display: flex;
+  padding: 1% 0 5% 0;
+  margin-bottom: 5%;
+  width: 100%;
+  background-color: #e8476a;
+  color: whitesmoke;
+  outline: none;
+  flex-direction: column;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.close-icon-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.close-icon {
+  display: flex;
+  font-size: 23px;
+  padding: 1%;
+  color: rgb(224, 205, 205);
+  cursor: pointer;
+}
+
+.close-icon:hover {
+  color: rgb(207, 14, 14);
+  scale: 1.2;
+  transition: ease 0.4s;
+  z-index: 1;
+  -webkit-transition: ease 0.4s;
+  -moz-transition: ease 0.4s;
+  -ms-transition: ease 0.4s;
+  -o-transition: ease 0.4s;
+}
+
+.title {
+  margin: 0 0 1% 0;
+  padding-bottom: 5%;
+  text-align: center;
+  z-index: 2;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.imputs-form {
+  display: flex;
+  align-items: center;
+  width: 85%;
+}
+
+.form-field-container {
+  display: flex;
+  width: 70%;
+  height: auto;
+  flex-direction: column;
+  border-left: 3px solid;
+  border-color: #ffa01b;
+  padding: 0 0 0 2%;
+}

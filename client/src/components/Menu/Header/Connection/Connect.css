@@ -1,10 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
 .connexion-area-container {
-  margin-top: 4px;
-  width: 125px;
+  width: 25%;
+  max-width: 150px;
   display: flex;
   justify-content: space-between;
+  margin-top: 1%;
 }
 
 .connexion-button {
@@ -12,7 +13,8 @@
   font-size: 13px;
   color: white;
   text-transform: uppercase;
-  padding: 10px 20px;
+  padding: 10%;
+  font-size: 13px;
   border-radius: 10px;
   background-color: #ffa01b;
   border: 2px solid #e8476a;
@@ -52,10 +54,11 @@
 
 .icon-account-container,
 .icon-logout-container {
+  display: flex;
+  padding: 11%;
   font-size: 22px;
   color: #fff2ec;
   cursor: pointer;
-  padding: 13px 15px 11px 14px;
   box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
     rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
   border-radius: 5px;
@@ -97,19 +100,25 @@
   -o-transform: scale(0.95);
 }
 
-@media only screen and (max-width: 550px) {
+/* 481px - 768px tablet */
+@media (min-width: 481px) and (max-width: 768px) {
   .connexion-area-container {
     justify-content: space-evenly;
   }
   .connexion-button {
-    font-size: 8px;
-  }
-  .icon-logout-container {
-    font-size: 16px;
-    padding: 10px 12px 8px 11px;
+    font-size: 13px;
+    padding: 8%;
   }
   .icon-account-container {
     font-size: 16px;
-    padding: 10px 12px 8px 11px;
+    padding: 10%;
   }
+}
+
+/* small computers */
+@media (min-width: 769px) and (max-width: 1024px) {
+}
+
+/* large screen like TV */
+@media (max-width: 1201px) {
 }
