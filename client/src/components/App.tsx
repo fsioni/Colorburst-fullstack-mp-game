@@ -5,6 +5,7 @@ import InputField from "./Menu/InputField";
 import Rooms from "./Menu/Rooms/Rooms";
 import Statistics from "./Menu/Stats/Statistics";
 import Game from "./Game";
+import Rules from "./Menu/Rules";
 
 const App: FC = () => {
   const [isGameStarted, setIsGameStarted] = React.useState(false);
@@ -32,6 +33,7 @@ const App: FC = () => {
             />
             <Statistics />
           </div>
+          <Rules />
         </div>
       )}
     </>
