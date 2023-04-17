@@ -5,8 +5,9 @@ import Cell from "./cell";
 import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
 import { getUserPseudo, saveUserStats } from "../database";
 import { Stats } from "../enums/Stats";
+import { kill } from "process";
 
-const skinsCount = 5;
+const skinsCount = 33;
 
 export default class Game {
   socketServer: Server;
@@ -18,6 +19,7 @@ export default class Game {
   gameID: string;
   nextSkin = 0;
   interval: NodeJS.Timeout;
+  isOfficalGame = false;
   constructor(socketServer: Server, settings: CreateGameSettings) {
     this.socketServer = socketServer;
     this.gameSettings = {
@@ -25,11 +27,12 @@ export default class Game {
       nbPlayersMax: settings.nbPlayersMax || 20,
       isPrivate: settings.isPrivate || false,
       invitationCode: settings.invitationCode || null,
+      isOfficialGame: settings.isOfficialGame || false,
     };
     this.gameBoard = new Board(this.boardSize);
     this.isJoinable = true;
-    this.gameID = settings.roomId;
-    this.gameName = settings.roomName;
+    this.gameID = settings.roomId!;
+    this.gameName = settings.roomName!;
     this.interval = setInterval(() => {
       this.movePlayers();
     }, 500);
@@ -67,15 +70,18 @@ export default class Game {
     return this.players.length;
   }
 
+  get isOfficialGame(): boolean {
+    return this.gameSettings.isOfficialGame;
+  }
+
   get leaderBoard(): { id: string; pseudo: string; score: number }[] {
     // Return total of territories for each player
     return this.players
       .map((player) => {
-        const territories = this.gameBoard.getTerritoriesCount(player);
         return {
           id: player.id,
           pseudo: player.pseudo,
-          score: territories,
+          score: player.scoreTotal,
         };
       })
       .sort((a, b) => b.score - a.score);
@@ -91,7 +97,12 @@ export default class Game {
 
     // Création du joueur
     const player = new Player(playerSocket);
-    player.color = this.nextSkin;
+    if (playerSocket.handshake.query.playerSkin) {
+      player.color = Number(playerSocket.handshake.query.playerSkin);
+    } else {
+      player.color = this.nextSkin;
+      this.nextSkin = (this.nextSkin + 1) % skinsCount;
+    }
     player.token = playerSocket.handshake.auth.token;
     getUserPseudo(playerSocket.handshake.auth.token)
       .then((pseudo) => {
@@ -108,10 +119,10 @@ export default class Game {
 
     // On met le detecteur d'évènement sur le joueur
     this.handlePlayersEvent(playerSocket);
+    this.onConnectEvent();
   }
 
   get playersList(): { id: string; pseudo: string; color: number }[] {
-    console.log(this.players);
     return this.players.map((player) => ({
       id: player.id,
       pseudo: player.pseudo,
@@ -120,7 +131,7 @@ export default class Game {
   }
 
   private sendPlayersList(): void {
-    this.alivePlayers.forEach((player) => {
+    this.alivePlayers.forEach(() => {
       this.socketServer.emit("playersList", this.playersList);
     });
   }
@@ -171,7 +182,8 @@ export default class Game {
         (p) => p.id === playerSocket.id
       ) as Player;
       this.players = this.players.filter((p) => p.id !== playerSocket.id);
-      this.killPlayer(playerToKill);
+      this.killPlayer(playerToKill, null, true);
+      this.onDisconnectEvent();
     });
 
     // Quand le joueur change de direction
@@ -213,8 +225,10 @@ export default class Game {
     this.alivePlayers.forEach((player) => {
       player.socket.emit("map", map);
     });
+    this.sendLeaderboard();
+  }
 
-    // Send leaderBoard
+  private sendLeaderboard(): void {
     this.alivePlayers.forEach((player) => {
       player.socket.emit("leaderBoard", this.leaderBoard);
     });
@@ -225,15 +239,23 @@ export default class Game {
     this.sendMapToPlayers();
   }
 
-  private killPlayer(player: Player, killer: Player | null = null): void {
+  private killPlayer(
+    player: Player,
+    killer: Player | null = null,
+    disconnected = false
+  ): void {
+    player.gameStats.Add(Stats.KILLED, 1);
     player.socket.emit("gameOver");
     player.isAlive = false;
     player.outOfHisTerritory = false;
     this.gameBoard.freeCells(player.id);
-    this.spawnPlayer(player);
 
-    if (killer) {
-      // add score to killer
+    if (!disconnected) this.spawnPlayer(player);
+
+    if (killer && killer.id !== player.id) {
+      const getKilledScoreRatio = 0.1;
+      killer.score += player.scoreTotal * getKilledScoreRatio;
+      killer.gameStats.Add(Stats.KILL, 1);
       killer.socket.emit("kill");
     }
     this.saveStats();
@@ -295,5 +317,15 @@ export default class Game {
       player.gameStats.Add(Stats.BLOCK_TRAVELLED, 43);
       saveUserStats(player.token, player.pseudo, player.gameStats, docName);
     });
+  }
+
+  private onDisconnectEvent = (): void => {};
+  set onDisconnect(callback: () => void) {
+    this.onDisconnectEvent = callback;
+  }
+
+  private onConnectEvent = (): void => {};
+  set onConnect(callback: () => void) {
+    this.onConnectEvent = callback;
   }
 }

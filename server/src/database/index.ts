@@ -32,17 +32,23 @@ const checkIfUserExists = async (playerId: string) => {
   return doc.exists;
 };
 
-const saveUser = async (playerId: string) => {
-  console.log("player uid: " + playerId);
-
+const saveUser = async (playerId: string, pseudo: string) => {
   const userExists = await checkIfUserExists(playerId);
+  const user = await admin.auth().getUser(playerId);
   if (!userExists) {
-    const user = await admin.auth().getUser(playerId);
     await usersRef.doc(playerId).set({});
-    usersRef.doc(playerId).update({
+    await usersRef.doc(playerId).update({
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       displayName: user.displayName,
       uid: playerId,
+    });
+  } else {
+    console.log(
+      "user exists, dipslayName : " + user.displayName + " pseudo :" + pseudo
+    );
+    await usersRef.doc(playerId).update({
+      displayName: pseudo || user.displayName,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
   }
 };
@@ -53,16 +59,15 @@ const saveUserStats = async (
   user: PlayerGameStats,
   docName: string
 ) => {
-  if (!playerToken) return; //si le joueur a un compte
+  if (!playerToken) return;
   if (!(await statRef.doc(docName).get()).exists) {
     statRef.doc(docName).set({});
   }
-  //verify the token
   await admin
     .auth()
     .verifyIdToken(playerToken)
     .then((decodedToken) => {
-      saveUser(decodedToken.uid);
+      saveUser(decodedToken.uid, pseudo);
 
       statRef.doc(docName).update({
         [decodedToken.uid]: {
@@ -83,7 +88,7 @@ const saveUserStats = async (
 };
 
 const getUserPseudo = async (playerToken: string) => {
-  if (!playerToken) return; //si le joueur a un compte
+  if (!playerToken) return;
   //verify the token
   const decodedToken = await admin.auth().verifyIdToken(playerToken);
   const user = await admin.auth().getUser(decodedToken.uid);

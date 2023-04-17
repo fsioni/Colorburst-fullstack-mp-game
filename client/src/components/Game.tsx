@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { config } from "../phaser/config";
+import { config } from "../phaser/utils/config";
 import "./Game.css";
 
 interface GameProps {
@@ -15,6 +15,7 @@ const Game: FC<GameProps> = ({ setGameStarted }): JSX.Element => {
 
   return (
     <>
+      <div className="transitionScreen" />
       <button
         className="quitButton"
         onClick={() => {
@@ -39,6 +40,8 @@ const Game: FC<GameProps> = ({ setGameStarted }): JSX.Element => {
       </table>
 
       <canvas id="miniMap" className="miniMap"></canvas>
+
+      <img id="soundBtn" src="./ress/mute.png" alt="" />
     </>
   );
 };

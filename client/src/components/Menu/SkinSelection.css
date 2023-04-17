@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+
+.skin_selector {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffa01b;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 7px;
+  box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,
+    rgba(232, 71, 106, 0.3) 0px -3px 0px inset;
+}
+
+.skin_selection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 1em;
+}
+
+.select_skin_title {
+  font-family: "Electrolize", sans-serif;
+  font-size: 24px;
+  margin-bottom: 1em;
+}
+
+.arrow_button {
+  background-color: #b7600a;
+  margin: 0 0.5em;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  outline: none;
+}
+
+.arrow_button:hover {
+  background-color: #e8476a;
+}
+
+.arrow_button:active {
+  background-color: #e8476a;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+  -webkit-transform: translateY(4px);
+  -moz-transform: translateY(4px);
+  -ms-transform: translateY(4px);
+  -o-transform: translateY(4px);
+}
+
+.revert_arrow {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
+.revert_arrow:active {
+  transform: rotate(180deg) translateY(4px);
+  -webkit-transform: rotate(180deg) translateY(4px);
+  -moz-transform: rotate(180deg) translateY(4px);
+  -ms-transform: rotate(180deg) translateY(4px);
+  -o-transform: rotate(180deg) translateY(4px);
+}

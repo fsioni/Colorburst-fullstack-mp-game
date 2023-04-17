@@ -6,12 +6,13 @@ export interface playerPosition {
 }
 
 export interface CreateGameSettings {
-  roomId: string;
-  roomName: string;
+  roomId?: string;
+  roomName?: string;
   boardSize?: number;
-  nbPlayersMax: number;
+  nbPlayersMax?: number;
   isPrivate?: boolean;
   invitationCode?: string | null;
+  isOfficialGame?: boolean;
 }
 
 export interface Settings {
@@ -19,4 +20,5 @@ export interface Settings {
   nbPlayersMax: number;
   isPrivate: boolean;
   invitationCode: string | null;
+  isOfficialGame: boolean;
 }

@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import { FC, useRef } from "react";
 import "./InputField.css";
+import SkinSelection from "./SkinSelection";
 
 interface InputFieldProps {
   setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
@@ -69,35 +70,42 @@ const InputField: FC<InputFieldProps> = (props): JSX.Element => {
   };
 
   return (
-    <div className="inputField-container">
-      <form
-        className="input-form"
-        onSubmit={() => {
-          inputRef.current?.blur();
-        }}
-      />
-      <input
-        ref={inputRef}
-        type="text"
-        placeholder="Username 🤔"
-        onChange={(e) => setUsername(e.target.value)}
-        className="input-field-box"
-      />
-      <select id="gameMode" className="input-select">
-        <option key="normal" value="normal" className="input-select-option">
-          Normal
-        </option>
-        <option key="hardcore" value="hardcore" className="input-select-option">
-          Hardcore
-        </option>
-      </select>
-      <button
-        className="input-field-submit"
-        type="submit"
-        onClick={() => onGoClick()}
-      >
-        GO
-      </button>
+    <div>
+      <SkinSelection />
+      <div className="inputField-container">
+        <form
+          className="input-form"
+          onSubmit={() => {
+            inputRef.current?.blur();
+          }}
+        />
+        <input
+          ref={inputRef}
+          type="text"
+          placeholder="Username 🤔"
+          onChange={(e) => setUsername(e.target.value)}
+          className="input-field-box"
+        />
+        <select id="gameMode" className="input-select">
+          <option key="normal" value="normal" className="input-select-option">
+            Normal
+          </option>
+          <option
+            key="hardcore"
+            value="hardcore"
+            className="input-select-option"
+          >
+            Hardcore
+          </option>
+        </select>
+        <button
+          className="input-field-submit"
+          type="submit"
+          onClick={() => onGoClick()}
+        >
+          GO
+        </button>
+      </div>
     </div>
   );
 };

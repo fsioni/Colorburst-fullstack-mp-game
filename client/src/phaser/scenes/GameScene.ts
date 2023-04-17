@@ -12,17 +12,18 @@ const Socketorigin =
   window.location.origin.split(":")[1] +
   ":3040";
 
-export class FirstGameScene extends Phaser.Scene {
-  socket;
+export default class GameScene extends Phaser.Scene {
+  socket: any;
   player: Player | null = null;
   players: Player[];
   board?: Board;
-  volumeSprite?: Phaser.GameObjects.Image;
-  volumeMutedSprite?: Phaser.GameObjects.Image;
-
   constructor() {
     super("FirstGameScene");
     this.players = [];
+    //get  value from localStorage selectedSkin as number
+    const selectedSkin = Number(localStorage.getItem("selectedSkin")) || 0;
+
+    console.log("Plyaer skin number " + selectedSkin);
     getAuth(app)
       .currentUser?.getIdToken()
       .then((_token) => {
@@ -30,6 +31,9 @@ export class FirstGameScene extends Phaser.Scene {
         this.socket = io(Socketorigin, {
           auth: {
             token: _token,
+          },
+          query: {
+            playerSkin: selectedSkin,
           },
         });
       });
@@ -44,8 +48,6 @@ export class FirstGameScene extends Phaser.Scene {
       frameWidth: 10,
       frameHeight: 10,
     });
-    this.load.image("volumeOn", "../../../ress/volume.png");
-    this.load.image("volumeOff", "../../../ress/mute.png");
   }
 
   create() {
@@ -59,14 +61,8 @@ export class FirstGameScene extends Phaser.Scene {
 
     this.handleSocketEvents();
 
-    this.cameras.main.setZoom(0.4);
-    this.volumeSprite = this.add.image(0, 0, "volumeOn");
-    this.volumeMutedSprite = this.add.image(0, 0, "volumeOff");
-    this.initVolumeSprites();
-  }
-
-  update(): void {
-    this.updateButtonsPosition();
+    this.cameras.main.setZoom(0.2);
+    this.initVolumeControl();
   }
 
   // Met a jour la position des joueurs
@@ -119,24 +115,30 @@ export class FirstGameScene extends Phaser.Scene {
     console.log(`[playersList] Packet size: ${packetSize} bytes`);
 
     data.forEach((p) => {
-      if (!this.players.find((player: Player) => player.id === p.id)) {
+      const playerFound = this.players.find(
+        (player: Player) => player.id === p.id
+      );
+
+      if (!playerFound) {
         if (!this.board) return;
 
         if (p.id === this.socket?.id && this.player === null) {
           this.player = this.add.existing(
             new Player(this, p.id, this.board, p.color, true, this.socket)
           );
-          if (p.pseudo) this.player.pseudo = p.pseudo;
+          if (p.pseudo) this.player.changePseudo(p.pseudo);
           this.player.setFrame(p.color);
           this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
         } else {
           //check if it is the player
           if (this.player?.id === p.id) return;
           const newPlayer = new Player(this, p.id, this.board, p.color);
-          if (p.pseudo) newPlayer.pseudo = p.pseudo;
+          if (p.pseudo) newPlayer.changePseudo(p.pseudo);
           newPlayer.setFrame(p.color);
           this.players.push(this.add.existing(newPlayer));
         }
+      } else {
+        playerFound.changePseudo(p.pseudo);
       }
     });
   }
@@ -173,7 +175,6 @@ export class FirstGameScene extends Phaser.Scene {
   handleSocketEvents() {
     // On utilsie le bind pour que this soit dans le contexte de la fonction
     this.game?.events.on("destroy", () => {
-      console.log("destroy");
       this.socket?.disconnect();
     });
     this.socket?.on("playersList", this.updatePlayerList.bind(this));
@@ -182,67 +183,43 @@ export class FirstGameScene extends Phaser.Scene {
     this.socket?.on("leaderBoard", this.updateLeaderBoard.bind(this));
   }
 
-  initVolumeSprites() {
-    if (!this.volumeSprite || !this.volumeMutedSprite) return;
+  initVolumeControl() {
+    const soundBtn = document.getElementById("soundBtn");
+    if (!soundBtn) return;
 
-    this.volumeSprite.setInteractive({ cursor: "pointer" });
-    this.volumeMutedSprite.setInteractive({ cursor: "pointer" });
+    soundBtn.onclick = () => {
+      const state = this.toggleVolume();
+      // On change l'image du bouton via le src
+      soundBtn.setAttribute(
+        "src",
+        state ? "./ress/volume.png" : "./ress/mute.png"
+      );
+    };
 
-    const onHoverColor = 0x00ff00;
-
-    this.volumeSprite.on("pointerover", () => {
-      this.volumeMutedSprite?.clearTint();
-      this.volumeSprite?.setTintFill(onHoverColor);
-    });
-
-    this.volumeMutedSprite.on("pointerover", () => {
-      this.volumeSprite?.clearTint();
-      this.volumeMutedSprite?.setTintFill(onHoverColor);
-    });
-
-    this.volumeSprite.on("pointerout", () => {
-      this.volumeSprite?.clearTint();
-    });
-
-    this.volumeMutedSprite.on("pointerout", () => {
-      this.volumeMutedSprite?.clearTint();
-    });
-
-    this.volumeMutedSprite.on("pointerdown", () => {
-      this.setIsAudioMuted(false);
-    });
-
-    this.volumeSprite.on("pointerdown", () => {
-      this.setIsAudioMuted(true);
-    });
-
-    this.volumeSprite.depth = 100;
-    this.volumeMutedSprite.depth = 100;
-
-    if (!this.player) console.log("player is null");
-
-    this.setIsAudioMuted(false);
+    const state = this.setIsAudioMuted();
+    soundBtn.setAttribute(
+      "src",
+      state ? "./ress/volume.png" : "./ress/mute.png"
+    );
   }
 
-  setIsAudioMuted(isMuted: boolean) {
-    if (!this.volumeSprite || !this.volumeMutedSprite) return;
-
-    this.player?.setIsAudioMuted(isMuted);
-    this.volumeSprite.setVisible(!this.player?.isAudioMuted);
-    this.volumeMutedSprite.setVisible(this.player?.isAudioMuted ? true : false);
+  toggleVolume() {
+    const isMuted = localStorage.getItem("isMuted") === "true";
+    const newIsMuted = !isMuted;
+    localStorage.setItem("isMuted", newIsMuted.toString());
+    this.setIsAudioMuted(newIsMuted);
+    return newIsMuted;
   }
 
-  updateButtonsPosition() {
-    const xOffset = 500;
-    const yOffset = 300;
-    const xButtonPos =
-      this.cameras.main.worldView.x + this.cameras.main.width * 2 + xOffset;
-    const yButtonPos =
-      this.cameras.main.worldView.y + this.cameras.main.height * 2 + yOffset;
-
-    if (this.volumeSprite)
-      this.volumeSprite?.setPosition(xButtonPos, yButtonPos);
-    if (this.volumeMutedSprite)
-      this.volumeMutedSprite?.setPosition(xButtonPos, yButtonPos);
+  setIsAudioMuted(isMuted?: boolean) {
+    if (isMuted === undefined)
+      isMuted = localStorage.getItem("isMuted") === "true";
+    localStorage.setItem("isMuted", isMuted.toString());
+    const soundState = isMuted ? false : true;
+    //wait for the player to be created
+    if (!this.player)
+      setTimeout(() => this.player?.setIsAudioMuted(soundState), 100);
+    else this.player?.setIsAudioMuted(soundState);
+    return isMuted;
   }
 }

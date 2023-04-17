@@ -29,7 +29,8 @@ export const gameManager = new GameManager(io);
 io.on("connection", (socket) => {
   // Join the game
   console.log("New player connected");
-  gameManager.getGame(gameManager.gamesList[0].gameID)?.join(socket);
+
+  gameManager.defaultGame.join(socket);
 });
 
 server.listen(port, () => {

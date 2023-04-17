@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+
 .dark_bg {
   background-color: #000000;
   opacity: 0.5;
@@ -22,6 +24,7 @@
   width: 250px;
   min-height: 230px;
   display: flex;
+  font-family: "Wendy One";
   flex-direction: column;
   background: white;
   color: white;
@@ -41,20 +44,21 @@
   margin: 0;
   padding: 10px;
   color: #2c3e50;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 24px;
   text-align: center;
 }
 
 .closeBtn {
   cursor: pointer;
-  font-weight: 500;
-  padding: 4px 8px;
+  font-family: "Wendy One";
+  font-weight: 800;
+  padding: 8px;
   border-radius: 8px;
   border: none;
   font-size: 18px;
-  color: #2c3e50;
-  background: white;
+  color: #e8e3e3;
+  background: rgb(225, 92, 92);
   transition: all 0.25s ease;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.6);
   position: absolute;
@@ -72,8 +76,8 @@
 
 .modalContent {
   padding: 10px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 400;
   color: #2c3e50;
   text-align: center;
 }
