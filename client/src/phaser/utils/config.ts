@@ -1,4 +1,4 @@
-import PreloadScene from "../scenes/Preload";
+import PreloadScene from "../scenes/preload";
 import FirstGameScene from "../scenes/GameScene";
 
 // 1080p
