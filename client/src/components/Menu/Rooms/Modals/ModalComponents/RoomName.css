@@ -3,6 +3,7 @@
   display: flex;
   width: 80%;
   margin-bottom: 6%;
+  min-width: 200px;
 }
 
 .name-title {

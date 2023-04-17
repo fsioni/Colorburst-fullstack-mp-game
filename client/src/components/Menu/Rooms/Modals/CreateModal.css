@@ -1,15 +1,23 @@
+.modal {
+  width: 100%;
+  background-color: transparent;
+  min-width: 325px;
+}
+
 .create-container {
   display: flex;
   padding: 1% 0 5% 0;
   margin-bottom: 5%;
-  max-width: 500px;
   width: 100%;
   background-color: #e8476a;
   color: whitesmoke;
-  box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.6);
   outline: none;
   flex-direction: column;
   border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 .close-icon-container {
