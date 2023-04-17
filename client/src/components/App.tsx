@@ -21,14 +21,12 @@ const App: FC = () => {
             isConnectionModalOpen={isConnectionModalOpen}
             setIsConnectionModalOpen={setIsConnectionModalOpen}
           />
-          <div className="inputF-container">
-            <InputField
+          <div className="panels-container">
+            <Rooms
               setIsGameStarted={setIsGameStarted}
               setIsConnectionModalOpen={setIsConnectionModalOpen}
             />
-          </div>
-          <div className="statsAndRooms-container">
-            <Rooms
+            <InputField
               setIsGameStarted={setIsGameStarted}
               setIsConnectionModalOpen={setIsConnectionModalOpen}
             />

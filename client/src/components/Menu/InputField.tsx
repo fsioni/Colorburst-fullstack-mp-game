@@ -69,7 +69,7 @@ const InputField: FC<InputFieldProps> = (props): JSX.Element => {
   };
 
   return (
-    <div>
+    <div className="player-panel">
       <SkinSelection />
       <div className="inputField-container">
         <form

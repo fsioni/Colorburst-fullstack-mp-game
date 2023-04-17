@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
+.player-panel {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
 .inputField-main {
   display: flex;
   align-items: center;
