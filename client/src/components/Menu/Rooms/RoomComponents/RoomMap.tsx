@@ -8,12 +8,14 @@ interface Props {
   rooms: Room[];
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsConnectionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Rooms: FC<Props> = ({
   rooms,
   setModalIsOpen,
   setIsConnectionModalOpen,
+  setIsGameStarted,
 }) => {
   return rooms.length == 0 ? (
     <div className="rooms-empty">
@@ -34,6 +36,8 @@ const Rooms: FC<Props> = ({
               connectedPlayersCount={room.connectedPlayersCount}
               nbPlayersMax={room.nbPlayersMax}
               isPrivate={room.isPrivate}
+              setIsConnectionModalOpen={setIsConnectionModalOpen}
+              setIsGameStarted={setIsGameStarted}
             />
           </div>
         ))}
