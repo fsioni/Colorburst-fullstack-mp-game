@@ -42,6 +42,9 @@ class GameManager {
   }
 
   deleteGame(gameID: string): void {
+    const game = this.getGame(gameID);
+    if (!game) return;
+    game.stop();
     this.games = this.games.filter((game) => game.gameID !== gameID);
   }
 
