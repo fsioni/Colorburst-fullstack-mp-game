@@ -11,14 +11,14 @@ export interface CreateGameSettings {
   boardSize?: number;
   nbPlayersMax?: number;
   isPrivate?: boolean;
-  invitationCode?: string | null;
   isOfficialGame?: boolean;
+  password?: string;
 }
 
 export interface Settings {
   boardSize: number;
   nbPlayersMax: number;
   isPrivate: boolean;
-  invitationCode: string | null;
   isOfficialGame: boolean;
+  password?: string;
 }

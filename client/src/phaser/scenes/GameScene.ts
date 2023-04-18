@@ -183,6 +183,11 @@ export default class GameScene extends Phaser.Scene {
     this.socket.on("playersPositions", this.updatePlayerPos.bind(this));
     this.socket?.on("gameUpdated", this.tickGame.bind(this));
     this.socket?.on("leaderBoard", this.updateLeaderBoard.bind(this));
+    this.socket?.on("wrongPassword", () => {
+      alert("Wrong password");
+      //   Reload
+      window.location.reload();
+    });
   }
 
   initVolumeControl() {

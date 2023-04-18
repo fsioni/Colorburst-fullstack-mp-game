@@ -14,7 +14,6 @@ export default class Game {
   gameBoard: Board;
   players: Player[] = [];
   gameName: string;
-  isJoinable: boolean;
   gameID: string;
   nextSkin = 0;
   interval: NodeJS.Timeout;
@@ -25,11 +24,10 @@ export default class Game {
       boardSize: settings.boardSize || 80,
       nbPlayersMax: settings.nbPlayersMax || 20,
       isPrivate: settings.isPrivate || false,
-      invitationCode: settings.invitationCode || null,
       isOfficialGame: settings.isOfficialGame || false,
+      password: settings.password || undefined,
     };
     this.gameBoard = new Board(this.boardSize);
-    this.isJoinable = true;
     this.gameID = settings.roomId!;
     this.gameName = settings.roomName!;
     this.interval = setInterval(() => {
@@ -57,8 +55,8 @@ export default class Game {
     return this.roomName;
   }
 
-  get invitationCode(): string | null {
-    return this.gameSettings.invitationCode;
+  get password(): string | undefined {
+    return this.gameSettings.password;
   }
 
   get alivePlayersCount(): number {
@@ -90,9 +88,12 @@ export default class Game {
     clearInterval(this.interval);
   }
 
-  async join(playerSocket: Socket): Promise<void> {
-    if (!this.isJoinable)
-      return this.log(`Player tried to join the game: ${playerSocket.id}`);
+  async join(playerSocket: Socket, password?: string): Promise<void> {
+    if (this.isPrivate && this.password !== password) {
+      playerSocket.emit("wrongPassword");
+      return;
+    }
+
     this.log(`New player joined the game: ${playerSocket.id}}`);
 
     // on fait rejoindre la room socket io

@@ -32,9 +32,10 @@ io.on("connection", (socket) => {
 
   // check if the player is already in a game
   const gameID = (socket.handshake.query.gameID as string) || "default";
+  const password = (socket.handshake.query.password as string) || undefined;
 
   if (!gameID || gameID == "default") {
-    gameManager.defaultGame.join(socket);
+    gameManager.defaultGame.join(socket, password);
   } else {
     const game = gameManager.getGame(gameID);
     if (game) {
