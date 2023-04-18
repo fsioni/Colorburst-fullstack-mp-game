@@ -234,7 +234,8 @@ export default class Game {
     });
   }
 
-  private sendGameData(): void {
+  private sendGameData(oui = true): void {
+    if (oui) return;
     this.sendPlayersPositions();
     this.sendMapToPlayers();
   }
@@ -296,12 +297,12 @@ export default class Game {
         this.gameBoard.occupeCells(player);
         // clearInterval(this.interval);
         player.outOfHisTerritory = false;
-        this.sendGameData();
       }
     });
 
     // Emit message to informe client game was updated
     this.socketServer.to(this.gameID).emit("gameUpdated");
+    this.sendGameData(false);
   }
 
   private getDocumentName(): string {
