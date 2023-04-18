@@ -24,7 +24,8 @@ gameRouteur
         invitationCode: "AAAA", // à generer
       };
       gameManager.createGame(settings);
-      res.json(settings.roomId);
+      res.json({ roomId: settings.roomId });
+      console.log(settings.roomId);
     }
   );
 
