@@ -5,7 +5,6 @@ import Cell from "./cell";
 import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
 import { getUserPseudo, saveUserStats } from "../database";
 import { Stats } from "../enums/Stats";
-import { kill } from "process";
 
 const skinsCount = 33;
 
@@ -87,6 +86,10 @@ export default class Game {
       .sort((a, b) => b.score - a.score);
   }
 
+  stop() {
+    clearInterval(this.interval);
+  }
+
   async join(playerSocket: Socket): Promise<void> {
     if (!this.isJoinable)
       return this.log(`Player tried to join the game: ${playerSocket.id}`);
@@ -155,7 +158,7 @@ export default class Game {
     this.gameBoard.occupeCellsSpawn(player.position, player.id);
 
     this.sendPlayersList();
-    this.sendGameData();
+    // this.sendGameData();
   }
 
   private get playersPositions(): playerPosition[] {
@@ -192,7 +195,7 @@ export default class Game {
 
       if (!playerObject) return;
       playerObject.ChangeDirection(direction);
-      this.sendGameData();
+      //   this.sendGameData();
     });
 
     playerSocket.on("playerReady", () => {
@@ -234,8 +237,7 @@ export default class Game {
     });
   }
 
-  private sendGameData(oui = true): void {
-    if (oui) return;
+  private sendGameData(): void {
     this.sendPlayersPositions();
     this.sendMapToPlayers();
   }
@@ -302,7 +304,7 @@ export default class Game {
 
     // Emit message to informe client game was updated
     this.socketServer.to(this.gameID).emit("gameUpdated");
-    this.sendGameData(false);
+    this.sendGameData();
   }
 
   private getDocumentName(): string {
