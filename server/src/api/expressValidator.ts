@@ -5,7 +5,7 @@ export const roomValidationRules = () => {
   return [
     // Room Name must be string between 3 and 10 caracters
     body("roomName").exists().isString().isLength({ min: 2, max: 10 }),
-    body("nbPlayersMax").exists().isInt({ min: 10, max: 100 }),
+    body("nbPlayersMax").exists().isInt({ min: 2, max: 100 }),
     body("boardSize").exists().exists().isInt({ min: 10, max: 100 }),
     body("isPrivate").exists().isBoolean(),
   ];
