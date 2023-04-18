@@ -42,8 +42,6 @@ export default class Player {
   }
 
   Move(): void {
-    //Todo: vérifications
-
     switch (this.direction) {
       case Direction.Up:
         this.position.y -= 1;

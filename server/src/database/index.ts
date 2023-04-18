@@ -27,8 +27,35 @@ const getStats = async () => {
   return stats;
 };
 
+const checkIfUserExists = async (playerId: string) => {
+  const doc = await usersRef.doc(playerId).get();
+  return doc.exists;
+};
+
+const saveUser = async (playerId: string, pseudo: string) => {
+  const userExists = await checkIfUserExists(playerId);
+  const user = await admin.auth().getUser(playerId);
+  if (!userExists) {
+    await usersRef.doc(playerId).set({});
+    await usersRef.doc(playerId).update({
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      displayName: user.displayName,
+      uid: playerId,
+    });
+  } else {
+    console.log(
+      "user exists, dipslayName : " + user.displayName + " pseudo :" + pseudo
+    );
+    await usersRef.doc(playerId).update({
+      displayName: pseudo || user.displayName,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  }
+};
+
 const saveUserStats = async (
   playerToken: string,
+  pseudo: string,
   user: PlayerGameStats,
   docName: string
 ) => {
@@ -40,6 +67,7 @@ const saveUserStats = async (
     .auth()
     .verifyIdToken(playerToken)
     .then((decodedToken) => {
+      saveUser(decodedToken.uid, pseudo);
       statRef.doc(docName).update({
         [decodedToken.uid]: {
           kills: admin.firestore.FieldValue.increment(user._kills),
@@ -50,6 +78,7 @@ const saveUserStats = async (
           blocksCaptured: admin.firestore.FieldValue.increment(
             user._blocksCaptured
           ),
+          highestScore: user._highestScore,
         },
       });
     })
