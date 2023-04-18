@@ -11,9 +11,14 @@ import MapSize from "./ModalComponents/MapSize";
 interface Props {
   modalIsOpen: boolean;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
+const CreateModal: FC<Props> = ({
+  modalIsOpen,
+  setModalIsOpen,
+  setIsGameStarted,
+}) => {
   const [_roomName, setRoomName] = useState<string>("");
   const [_nbPlayersMax, setNbPlayersMax] = useState<number>(20);
   const [_boardSize, setBoardSize] = useState<number>(50);
@@ -44,13 +49,16 @@ const CreateModal: FC<Props> = ({ modalIsOpen, setModalIsOpen }) => {
       });
       console.log(res.status);
       if (res.status === 200) {
-        // on succes
+        const data = await res.json();
+        const roomId = data.roomId;
+        localStorage.setItem("gameId", roomId);
         setRoomName("");
         setNbPlayersMax(20);
         setBoardSize(50);
         setIsPrivate(false);
         setMessage("Room created successfully ✅");
         setModalIsOpen(false);
+        setIsGameStarted(true);
       } else {
         setMessage("Error occured ❌");
       }

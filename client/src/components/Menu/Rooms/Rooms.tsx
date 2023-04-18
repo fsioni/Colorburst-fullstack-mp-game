@@ -46,6 +46,7 @@ const Rooms: FC<Props> = ({ setIsGameStarted, setIsConnectionModalOpen }) => {
         <CreateModal
           modalIsOpen={modalIsOpen}
           setModalIsOpen={setModalIsOpen}
+          setIsGameStarted={setIsGameStarted}
         />
       ) : (
         <div className="game-container">
