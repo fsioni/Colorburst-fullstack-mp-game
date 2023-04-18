@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
 .connexion-area-container {
-  width: 25%;
+  width: 20%;
   max-width: 150px;
   display: flex;
   justify-content: space-between;
@@ -14,7 +14,7 @@
   color: white;
   text-transform: uppercase;
   padding: 10%;
-  font-size: 13px;
+  font-size: 12px;
   border-radius: 10px;
   background-color: #ffa01b;
   border: 2px solid #e8476a;
@@ -55,8 +55,8 @@
 .icon-account-container,
 .icon-logout-container {
   display: flex;
-  padding: 11%;
-  font-size: 22px;
+  padding: 10%;
+  font-size: 20px;
   color: #fff2ec;
   cursor: pointer;
   box-shadow: #e8476a 0px 2px 4px, rgba(232, 71, 106, 0.3) 0px 7px 13px -3px,

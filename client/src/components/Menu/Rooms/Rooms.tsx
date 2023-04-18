@@ -56,6 +56,7 @@ const Rooms: FC<Props> = ({ setIsGameStarted, setIsConnectionModalOpen }) => {
             rooms={rooms}
             setModalIsOpen={setModalIsOpen}
             setIsConnectionModalOpen={setIsConnectionModalOpen}
+            setIsGameStarted={setIsGameStarted}
           />
         </div>
       )}
