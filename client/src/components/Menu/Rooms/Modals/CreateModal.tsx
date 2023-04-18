@@ -68,26 +68,28 @@ const CreateModal: FC<Props> = ({
   };
 
   return (
-    <div className="create-container">
-      <div className="close-icon-container">
-        <span className="close-icon" onClick={() => setModalIsOpen(false)}>
-          <CgClose />
-        </span>
-      </div>
-      <h2 className="title">⚒️ Game Creation ⚒️</h2>
-      <div className="form-container">
-        <form className="imputs-form" onSubmit={handleSubmit}>
-          <div className="form-field-container">
-            <RoomName _roomName={_roomName} setRoomName={setRoomName} />
-            <NbPlayersMax
-              _nbPlayers={_nbPlayersMax}
-              setNbPlayers={setNbPlayersMax}
-            />
-            <MapSize _boardSize={_boardSize} setBoardSize={setBoardSize} />
-            <IsPrivate _isPrivate={_isPrivate} setIsPrivate={setIsPrivate} />
-          </div>
-          <SubmitAndReset />
-        </form>
+    <div className="modal">
+      <div className="create-container">
+        <div className="close-icon-container">
+          <span className="close-icon" onClick={() => setModalIsOpen(false)}>
+            <CgClose />
+          </span>
+        </div>
+        <h2 className="title">⚒️ Game Creation ⚒️</h2>
+        <div className="form-container">
+          <form className="imputs-form" onSubmit={handleSubmit}>
+            <div className="form-field-container">
+              <RoomName _roomName={_roomName} setRoomName={setRoomName} />
+              <NbPlayersMax
+                _nbPlayers={_nbPlayersMax}
+                setNbPlayers={setNbPlayersMax}
+              />
+              <MapSize _boardSize={_boardSize} setBoardSize={setBoardSize} />
+              <IsPrivate _isPrivate={_isPrivate} setIsPrivate={setIsPrivate} />
+            </div>
+            <SubmitAndReset />
+          </form>
+        </div>
       </div>
     </div>
   );

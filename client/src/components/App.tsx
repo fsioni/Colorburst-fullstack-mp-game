@@ -5,6 +5,7 @@ import InputField from "./Menu/InputField";
 import Rooms from "./Menu/Rooms/Rooms";
 import Statistics from "./Menu/Stats/Statistics";
 import Game from "./Game";
+import Rules from "./Menu/Rules";
 
 const App: FC = () => {
   const [isGameStarted, setIsGameStarted] = React.useState(false);
@@ -21,19 +22,18 @@ const App: FC = () => {
             isConnectionModalOpen={isConnectionModalOpen}
             setIsConnectionModalOpen={setIsConnectionModalOpen}
           />
-          <div className="inputF-container">
-            <InputField
+          <div className="panels-container">
+            <Rooms
               setIsGameStarted={setIsGameStarted}
               setIsConnectionModalOpen={setIsConnectionModalOpen}
             />
-          </div>
-          <div className="statsAndRooms-container">
-            <Rooms
+            <InputField
               setIsGameStarted={setIsGameStarted}
               setIsConnectionModalOpen={setIsConnectionModalOpen}
             />
             <Statistics />
           </div>
+          <Rules />
         </div>
       )}
     </>

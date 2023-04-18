@@ -1,0 +1,31 @@
+.rules-panel {
+  margin-top: 5vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.rules-container {
+  box-shadow: #800080 0px 2px 4px, rgba(255, 160, 27, 0.3) 0px 7px 13px -3px,
+    rgba(255, 160, 27, 0.3) 0px -3px 0px inset;
+  background-color: #f2a441;
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.rules-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.rules-container li {
+  list-style-type: none;
+  margin-bottom: 10px;
+}

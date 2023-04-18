@@ -69,7 +69,7 @@ const InputField: FC<InputFieldProps> = (props): JSX.Element => {
   };
 
   return (
-    <div>
+    <div className="player-panel">
       <SkinSelection />
       <div className="inputField-container">
         <form
@@ -85,18 +85,6 @@ const InputField: FC<InputFieldProps> = (props): JSX.Element => {
           onChange={(e) => setUsername(e.target.value)}
           className="input-field-box"
         />
-        <select id="gameMode" className="input-select">
-          <option key="normal" value="normal" className="input-select-option">
-            Normal
-          </option>
-          <option
-            key="hardcore"
-            value="hardcore"
-            className="input-select-option"
-          >
-            Hardcore
-          </option>
-        </select>
         <button
           className="input-field-submit"
           type="submit"
