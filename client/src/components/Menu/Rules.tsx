@@ -5,7 +5,7 @@ function Rules() {
   return (
     <div className="rules-panel">
       <div className="rules-container">
-        <h1>📏 Rules</h1>
+        <h1>📏 Rules 📏</h1>
         <ul>
           <li>
             <b>Objective:</b> The objective of the game is to paint as much of
