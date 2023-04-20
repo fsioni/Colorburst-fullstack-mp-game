@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 .transitionScreen {
   position: absolute;
   top: 0;
@@ -75,10 +76,13 @@
   position: absolute;
   bottom: 10px;
   left: 10px;
+  font-weight: 800;
+  font-size: 16px;
   background-color: rgba(0, 0, 0, 0.505);
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  font-family: "Electrolize", sans-serif;
 }
 
 .quitButton:hover {
@@ -96,6 +100,18 @@
   width: 200px;
   /* Désactiver le flou entre les pixels*/
   image-rendering: pixelated;
+}
+
+.gamePassword {
+  position: absolute;
+  font-family: "Electrolize", sans-serif;
+  font-weight: 600;
+  top: 210px;
+  left: 10px;
+  border-radius: 10px;
+  padding: 1.5%;
+  background-color: rgb(175, 82, 141);
+  color: white;
 }
 
 body {
