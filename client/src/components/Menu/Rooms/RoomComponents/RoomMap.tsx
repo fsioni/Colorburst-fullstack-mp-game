@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import "./RoomMap.css";
 import SingleRoom from "./SingleRoom/SingleRoom";
 import Room from "../RoomModel";

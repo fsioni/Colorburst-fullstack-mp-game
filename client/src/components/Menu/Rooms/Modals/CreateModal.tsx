@@ -74,7 +74,7 @@ const CreateModal: FC<Props> = ({
           <CgClose />
         </span>
       </div>
-      <h2 className="title">⚒️ Game Creation ⚒️</h2>
+      <h2 className="title-modal-creation">⚒️ Game Creation ⚒️</h2>
       <div className="form-container">
         <form className="imputs-form" onSubmit={handleSubmit}>
           <div className="form-field-container">

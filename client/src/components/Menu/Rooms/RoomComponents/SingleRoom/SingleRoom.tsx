@@ -1,8 +1,9 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import "./SingleRoom.css";
 import { TfiLock } from "react-icons/tfi";
 import Private from "./SingleRoomComponents/Private";
 import NbPlayers from "./SingleRoomComponents/NbPlayers";
+import JoinModal from "./SingleRoomComponents/JoinModal";
 import {
   getAuth,
   onAuthStateChanged,
@@ -33,6 +34,8 @@ const singleRoom: FC<Props> = ({
   const [username, setUsername] = React.useState("");
   const [isSync, setIsSync] = React.useState(false);
   const [user, setUser] = React.useState<FirebaseUser | null>(null);
+  const [joinModalOpen, setJoinModalOpen] = useState<boolean>(false);
+  const [gamePassword, setGamePassword] = useState<string>("");
 
   useEffect(() => {
     if (isSync) return;
@@ -63,7 +66,8 @@ const singleRoom: FC<Props> = ({
     }
   }, [username]);
 
-  const onClick = () => {
+  const onJoinClick = () => {
+    console.log("OK");
     if (!user) {
       setIsConnectionModalOpen(true);
       return;
@@ -72,10 +76,9 @@ const singleRoom: FC<Props> = ({
       localStorage.setItem("gameId", gameID);
       setIsGameStarted(true);
     }
-
+    setJoinModalOpen(true);
     if (!username) return;
     if (username == user.displayName) return;
-
     updateProfile(user, {
       displayName: username,
     }).then(() => {
@@ -84,18 +87,29 @@ const singleRoom: FC<Props> = ({
   };
 
   return (
-    <div className="single-room-container" onClick={onClick}>
-      <div className="room-name">
-        <Private isPrivate={isPrivate} />
-        {gameName}
-      </div>
-      <div className="room-nbPlayers">
-        <NbPlayers
-          connectedPlayersCount={connectedPlayersCount}
-          nbPlayersMax={nbPlayersMax}
-        />
-      </div>
-    </div>
+    <>
+      {joinModalOpen ? (
+        <div className="single-room-container-modal">
+          <JoinModal
+            setJoinModalOpen={setJoinModalOpen}
+            setGamePassword={setGamePassword}
+          />
+        </div>
+      ) : (
+        <div className="single-room-container" onClick={onJoinClick}>
+          <div className="room-name">
+            <Private isPrivate={isPrivate} />
+            {gameName}
+          </div>
+          <div className="room-nbPlayers">
+            <NbPlayers
+              connectedPlayersCount={connectedPlayersCount}
+              nbPlayersMax={nbPlayersMax}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

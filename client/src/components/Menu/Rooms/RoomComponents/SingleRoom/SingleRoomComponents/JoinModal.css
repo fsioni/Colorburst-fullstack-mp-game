@@ -1,0 +1,76 @@
+.join-modal-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-icon {
+  color: gray;
+  font-size: 20px;
+  padding: 3% 0 0 0;
+  cursor: pointer;
+}
+
+.back-icon:hover {
+  color: rgb(207, 14, 14);
+  scale: 1.1;
+  transition: ease 0.4s;
+  z-index: 1;
+  -webkit-transition: ease 0.4s;
+  -moz-transition: ease 0.4s;
+  -ms-transition: ease 0.4s;
+  -o-transition: ease 0.4s;
+}
+
+.password-input {
+  text-align: center;
+  width: 60%;
+  padding: 3.5% 1% 3.5% 0;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.submit-password {
+  color: antiquewhite;
+  border: none;
+  background-color: transparent;
+  background-color: rgb(119, 146, 220);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  cursor: pointer;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  font-size: 12.5px;
+  padding: 4%;
+}
+
+.submit-password:hover {
+  background-color: rgb(154, 174, 207);
+  color: rgb(247, 240, 231);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px,
+    rgba(0, 0, 0, 0.5) 0px 7px 13px -3px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
+  transition: 0.2s;
+  scale: 1.02;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+
+.submit-password:active {
+  scale: 0.9;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
