@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FC } from "react";
 import "./CreateModal.css";
 import { CgClose } from "react-icons/cg";
-import RoomName from "./ModalComponents/RoomName";
-import NbPlayersMax from "./ModalComponents/NbPlayersMax";
-import IsPrivate from "./ModalComponents/IsPrivate";
-import SubmitAndReset from "./ModalComponents/SubmitAndReset";
-import MapSize from "./ModalComponents/MapSize";
+import RoomName from "./CreateComponents/RoomName";
+import NbPlayersMax from "./CreateComponents/NbPlayersMax";
+import IsPrivate from "./CreateComponents/IsPrivate";
+import SubmitAndReset from "./CreateComponents/SubmitAndReset";
+import MapSize from "./CreateComponents/MapSize";
 
 interface Props {
   modalIsOpen: boolean;

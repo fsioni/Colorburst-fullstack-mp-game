@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useRef } from "react";
 import "./SingleRoom.css";
 import { TfiLock } from "react-icons/tfi";
+import Private from "./SingleRoomComponents/Private";
+import NbPlayers from "./SingleRoomComponents/NbPlayers";
 import {
   getAuth,
   onAuthStateChanged,
@@ -17,13 +19,6 @@ interface Props {
   setIsConnectionModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-const isFull = (
-  connectedPlayersCount: number,
-  nbPlayersMax: number
-): boolean => {
-  return connectedPlayersCount - nbPlayersMax === 0;
-};
 
 const singleRoom: FC<Props> = ({
   gameID,
@@ -73,8 +68,11 @@ const singleRoom: FC<Props> = ({
       setIsConnectionModalOpen(true);
       return;
     }
-    localStorage.setItem("gameId", gameID);
-    setIsGameStarted(true);
+    if (!isPrivate) {
+      localStorage.setItem("gameId", gameID);
+      setIsGameStarted(true);
+    }
+
     if (!username) return;
     if (username == user.displayName) return;
 
@@ -86,25 +84,16 @@ const singleRoom: FC<Props> = ({
   };
 
   return (
-    <div className="single-room-container" onClick={() => onClick()}>
+    <div className="single-room-container" onClick={onClick}>
       <div className="room-name">
-        {isPrivate ? (
-          <span className="lock-icon">
-            <TfiLock />
-          </span>
-        ) : (
-          ""
-        )}
+        <Private isPrivate={isPrivate} />
         {gameName}
       </div>
-      <div className="players-number">
-        {isFull(connectedPlayersCount, nbPlayersMax) ? (
-          <div className="nbPlayers-Full">FULL</div>
-        ) : (
-          <div className="nbPlayers">
-            {connectedPlayersCount + "/" + nbPlayersMax}
-          </div>
-        )}
+      <div className="room-nbPlayers">
+        <NbPlayers
+          connectedPlayersCount={connectedPlayersCount}
+          nbPlayersMax={nbPlayersMax}
+        />
       </div>
     </div>
   );

@@ -31,35 +31,12 @@
   -o-transition: 0.2s;
 }
 
-.lock-icon {
-  padding-right: 6%;
-}
-
 .room-name {
   display: flex;
-}
-
-.players-number {
-  display: flex;
-  margin-right: 3%;
-}
-
-.room-nbPlayers-Full {
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  right: 10px;
-  width: 220px;
-  color: rgb(255, 35, 35);
-}
-
-.single-room-container:hover > .room-nbPlayers-Full {
-  color: rgb(255, 217, 217);
-  text-shadow: red 0px 0px 5px;
 }
 
 .room-nbPlayers {
   display: flex;
   justify-content: flex-end;
-  position: absolute;
+  padding-right: 2%;
 }
