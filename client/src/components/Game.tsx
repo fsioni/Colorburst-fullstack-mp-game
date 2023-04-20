@@ -41,7 +41,7 @@ const Game: FC<GameProps> = ({ setGameStarted }): JSX.Element => {
 
       <canvas id="miniMap" className="miniMap"></canvas>
 
-      <p className="gamePassword">#ID696969</p>
+      <p id="gamePassword" className="gamePassword"></p>
 
       <img id="soundBtn" src="./ress/mute.png" alt="" />
     </>
