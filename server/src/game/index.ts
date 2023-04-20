@@ -5,7 +5,6 @@ import Cell from "./cell";
 import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
 import { getUserPseudo, saveUserStats } from "../database";
 import { Stats } from "../enums/Stats";
-import { kill } from "process";
 
 const skinsCount = 33;
 
@@ -15,7 +14,6 @@ export default class Game {
   gameBoard: Board;
   players: Player[] = [];
   gameName: string;
-  isJoinable: boolean;
   gameID: string;
   nextSkin = 0;
   interval: NodeJS.Timeout;
@@ -26,11 +24,10 @@ export default class Game {
       boardSize: settings.boardSize || 80,
       nbPlayersMax: settings.nbPlayersMax || 20,
       isPrivate: settings.isPrivate || false,
-      invitationCode: settings.invitationCode || null,
       isOfficialGame: settings.isOfficialGame || false,
+      password: settings.password || undefined,
     };
     this.gameBoard = new Board(this.boardSize);
-    this.isJoinable = true;
     this.gameID = settings.roomId!;
     this.gameName = settings.roomName!;
     this.interval = setInterval(() => {
@@ -58,8 +55,8 @@ export default class Game {
     return this.roomName;
   }
 
-  get invitationCode(): string | null {
-    return this.gameSettings.invitationCode;
+  get password(): string | undefined {
+    return this.gameSettings.password;
   }
 
   get alivePlayersCount(): number {
@@ -87,9 +84,16 @@ export default class Game {
       .sort((a, b) => b.score - a.score);
   }
 
-  async join(playerSocket: Socket): Promise<void> {
-    if (!this.isJoinable)
-      return this.log(`Player tried to join the game: ${playerSocket.id}`);
+  stop() {
+    clearInterval(this.interval);
+  }
+
+  async join(playerSocket: Socket, password?: string): Promise<void> {
+    if (this.isPrivate && this.password !== password) {
+      playerSocket.emit("wrongPassword");
+      return;
+    }
+
     this.log(`New player joined the game: ${playerSocket.id}}`);
 
     // on fait rejoindre la room socket io
@@ -155,7 +159,7 @@ export default class Game {
     this.gameBoard.occupeCellsSpawn(player.position, player.id);
 
     this.sendPlayersList();
-    this.sendGameData();
+    // this.sendGameData();
   }
 
   private get playersPositions(): playerPosition[] {
@@ -192,7 +196,7 @@ export default class Game {
 
       if (!playerObject) return;
       playerObject.ChangeDirection(direction);
-      this.sendGameData();
+      //   this.sendGameData();
     });
 
     playerSocket.on("playerReady", () => {
@@ -234,8 +238,7 @@ export default class Game {
     });
   }
 
-  private sendGameData(oui = true): void {
-    if (oui) return;
+  private sendGameData(): void {
     this.sendPlayersPositions();
     this.sendMapToPlayers();
   }
@@ -302,7 +305,7 @@ export default class Game {
 
     // Emit message to informe client game was updated
     this.socketServer.to(this.gameID).emit("gameUpdated");
-    this.sendGameData(false);
+    this.sendGameData();
   }
 
   private getDocumentName(): string {
