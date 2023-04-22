@@ -51,7 +51,9 @@ const CreateModal: FC<Props> = ({
       if (res.status === 200) {
         const data = await res.json();
         const roomId = data.roomId;
+        const pass = data.roomPass;
         localStorage.setItem("gameId", roomId);
+        localStorage.setItem("gamePassword", pass);
         setRoomName("");
         setNbPlayersMax(20);
         setBoardSize(50);

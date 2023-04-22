@@ -12,6 +12,9 @@ class GameManager {
   createGame(settings: CreateGameSettings): Game {
     if (settings.isPrivate && !settings.password) {
       settings.password = Math.random().toString(36).substring(8);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("gamePassword", settings.password);
+      }
     }
 
     const game = new Game(this.socketServeur, settings);
@@ -41,7 +44,7 @@ class GameManager {
     return game;
   }
 
-  getGame(gameID: string): Game | undefined {
+  getGame(gameID?: string): Game | undefined {
     return this.games.find((game) => game.gameID === gameID);
   }
 

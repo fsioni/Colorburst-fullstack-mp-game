@@ -1,16 +1,34 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import "./JoinModal.css";
+import {
+  getAuth,
+  onAuthStateChanged,
+  User as FirebaseUser,
+  updateProfile,
+} from "firebase/auth";
 
 interface Props {
+  gamePassword: string;
   setJoinModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setGamePassword: React.Dispatch<React.SetStateAction<string>>;
+  setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const JoinModal: FC<Props> = ({ setJoinModalOpen, setGamePassword }) => {
+const JoinModal: FC<Props> = ({
+  gamePassword,
+  setJoinModalOpen,
+  setGamePassword,
+  setIsGameStarted,
+}) => {
   const handleChange = (event: any): any => {
     event.preventDefault();
     setGamePassword(event.target.value);
+  };
+
+  const onJoinCLick = () => {
+    localStorage.setItem("gamePassword", gamePassword);
+    setIsGameStarted(true);
   };
 
   return (
@@ -28,7 +46,9 @@ const JoinModal: FC<Props> = ({ setJoinModalOpen, setGamePassword }) => {
         maxLength={10}
         onChange={(e) => handleChange(e)}
       />
-      <button className="submit-password">GO</button>
+      <button className="submit-password" onClick={() => onJoinCLick()}>
+        GO
+      </button>
     </div>
   );
 };

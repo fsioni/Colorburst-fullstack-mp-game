@@ -91,8 +91,10 @@ const singleRoom: FC<Props> = ({
       {joinModalOpen ? (
         <div className="single-room-container-modal">
           <JoinModal
+            gamePassword={gamePassword}
             setJoinModalOpen={setJoinModalOpen}
             setGamePassword={setGamePassword}
+            setIsGameStarted={setIsGameStarted}
           />
         </div>
       ) : (
