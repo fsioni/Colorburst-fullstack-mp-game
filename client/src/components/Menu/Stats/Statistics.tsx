@@ -180,19 +180,23 @@ const getTopPlayers = (data: DocumentData, amount: number) => {
 const getStatsThisMonth = async () => {
   const db = getFirestore(app);
   let data = {};
+  const promises = [];
+
   for (let i = 0; i < 31; i++) {
     const date = getDateOffsetFromToday(i);
     if (!isDateInCurrentMonth(date)) {
       break;
     }
     const dateRef = doc(db, "stats", formatDate(date));
-    const dateDoc = await getDoc(dateRef);
+    promises.push(getDoc(dateRef));
+  }
+
+  const docs = await Promise.all(promises);
+  docs.forEach((dateDoc) => {
     if (dateDoc.exists()) {
       data = addStatsToData(dateDoc.data(), data);
-    } else {
-      console.log("No stats for", date);
     }
-  }
+  });
 
   const finalData = getTopPlayers(data, 5);
   formatStatsFromTopPlayers(db, finalData);

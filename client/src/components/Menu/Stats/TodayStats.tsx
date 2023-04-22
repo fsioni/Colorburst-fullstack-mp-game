@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { getStatsToday } from "./Statistics";
+import "./Statistics.css";
 
 interface Props {
   setIsLoading: (isLoading: boolean) => void;
