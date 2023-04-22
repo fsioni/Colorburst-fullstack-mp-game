@@ -13,7 +13,7 @@ function TodayStats({ setIsLoading }: Props) {
 
   return (
     <div id="statsContainer">
-      <h3>Today`&#39;`s Stats :</h3>
+      <h3>Today&#39;s Stats :</h3>
     </div>
   );
 }
