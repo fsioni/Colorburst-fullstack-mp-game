@@ -23,6 +23,13 @@
   user-select: none;
 }
 
+.panels {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 2%;
+}
+
 @media screen and (max-width: 820px) {
   .main-stat-container {
     margin-top: 1vh;
