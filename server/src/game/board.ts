@@ -2,6 +2,7 @@ import ZoneCalculator from "./zoneCalculator";
 import Cell from "./cell";
 import Player from "./player";
 import { playerPosition } from "./interfaces";
+import { Stats } from "../enums/Stats";
 
 export default class Board {
   boardCells: Cell[][];
@@ -40,6 +41,7 @@ export default class Board {
     zoneOccupator.fillZone();
     player.socket.emit("gainedTerritory");
     player.territoryScore = this.getTerritoriesCount(player);
+    player.gameStats.Add(Stats.BLOCK_CAPTURED, player.territoryScore);
   }
 
   freeCells(playerId: string): void {

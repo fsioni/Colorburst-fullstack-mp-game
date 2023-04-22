@@ -68,22 +68,33 @@ const saveUserStats = async (
     .verifyIdToken(playerToken)
     .then((decodedToken) => {
       saveUser(decodedToken.uid, pseudo);
-      statRef.doc(docName).update({
-        [decodedToken.uid]: {
-          kills: admin.firestore.FieldValue.increment(user._kills),
-          deaths: admin.firestore.FieldValue.increment(user._killed),
-          blockTravelled: admin.firestore.FieldValue.increment(
-            user._blocksTravelled
-          ),
-          blocksCaptured: admin.firestore.FieldValue.increment(
-            user._blocksCaptured
-          ),
-          highestScore: user._highestScore,
-        },
-      });
-    })
-    .catch((error) => {
-      console.log(error);
+
+      // get the current highest score in the database
+      statRef
+        .doc(docName)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const data = doc.data();
+            if (data) {
+              const userStats = data[decodedToken.uid];
+              if (userStats !== undefined) {
+                console.log("user exists in stats");
+                const highestScore = getHighScore(userStats, user);
+
+                saveExistingUserStats(
+                  docName,
+                  decodedToken,
+                  user,
+                  userStats,
+                  highestScore
+                );
+              } else {
+                saveNewUserStats(docName, decodedToken, user);
+              }
+            }
+          }
+        });
     });
 };
 
@@ -96,3 +107,49 @@ const getUserPseudo = async (playerToken: string) => {
 };
 
 export { db, getUsers, getStats, saveUserStats, getUserPseudo };
+
+function saveExistingUserStats(
+  docName: string,
+  decodedToken: any,
+  user: PlayerGameStats,
+  userStats: any,
+  highestScore: number
+) {
+  const kills = user._kills + (userStats.kills || 0);
+  const death = user._killed + (userStats.deaths || 0);
+  const blockTravelled =
+    user._blocksTravelled + (userStats.blockTravelled || 0);
+  const blocksCaptured = user._blocksCaptured + (userStats.blocksCaptured || 0);
+  statRef.doc(docName).update({
+    [decodedToken.uid]: {
+      kills: kills,
+      deaths: death,
+      blockTravelled: blockTravelled,
+      blocksCaptured: blocksCaptured,
+      highestScore: highestScore,
+    },
+  });
+}
+
+function saveNewUserStats(
+  docName: string,
+  decodedToken: any,
+  user: PlayerGameStats
+) {
+  console.log("user does not exist in stats");
+  statRef.doc(docName).update({
+    [decodedToken.uid]: {
+      kills: user._kills,
+      deaths: user._killed,
+      blockTravelled: user._blocksTravelled,
+      blocksCaptured: user._blocksCaptured,
+      highestScore: user._highestScore,
+    },
+  });
+}
+
+function getHighScore(userStats: any, user: PlayerGameStats) {
+  return (userStats.highestScore || 0) > (user._highestScore || 0)
+    ? userStats.highestScore || 0
+    : user._highestScore || 0;
+}

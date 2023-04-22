@@ -45,7 +45,7 @@ export default class PlayerGameStats {
         this.killed += amount;
         break;
       case Stats.BLOCK_CAPTURED:
-        this.blocksCaptured += amount;
+        this.blocksCaptured = amount;
         break;
       case Stats.BLOCK_TRAVELLED:
         this.blocksTravelled += amount;
@@ -53,6 +53,7 @@ export default class PlayerGameStats {
       case Stats.HIGHEST_SCORE:
         console.log("Highest score: " + amount + " > " + this.highestScore);
         if (amount > this.highestScore) {
+          console.log("New highest score: " + amount);
           this.highestScore = amount;
         }
         break;
