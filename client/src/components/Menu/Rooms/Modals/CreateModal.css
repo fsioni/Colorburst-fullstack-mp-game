@@ -1,6 +1,5 @@
 .modal {
   width: 100%;
-  background-color: transparent;
   min-width: 325px;
 }
 
@@ -45,9 +44,10 @@
   -o-transition: ease 0.4s;
 }
 
-.title {
+.title-modal-creation {
   margin: 0 0 1% 0;
   padding-bottom: 5%;
+  font-weight: bolder;
   text-align: center;
   z-index: 2;
 }
@@ -71,4 +71,10 @@
   border-left: 3px solid;
   border-color: #ffa01b;
   padding: 0 0 0 2%;
+}
+
+@media screen and (max-width: 1060px) {
+  .imputs-form {
+    flex-direction: column;
+  }
 }

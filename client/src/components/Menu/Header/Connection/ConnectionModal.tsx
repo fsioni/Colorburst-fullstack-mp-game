@@ -12,7 +12,7 @@ interface ConnectionModalProps {
 const ConnectionModal: FC<ConnectionModalProps> = (props): JSX.Element => {
   const { setIsOpen, setIsConnectionModalOpen } = props;
   return (
-    <>
+    <div className="loginModalContainer">
       <div className="dark_bg" onClick={() => setIsOpen(false)} />
       <div className="centered">
         <div className="modal">
@@ -35,7 +35,7 @@ const ConnectionModal: FC<ConnectionModalProps> = (props): JSX.Element => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

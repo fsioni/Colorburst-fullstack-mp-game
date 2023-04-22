@@ -10,6 +10,10 @@ class GameManager {
   }
 
   createGame(settings: CreateGameSettings): Game {
+    if (settings.isPrivate && !settings.password) {
+      settings.password = Math.random().toString(36).substring(8);
+    }
+
     const game = new Game(this.socketServeur, settings);
     this.games.push(game);
 
@@ -42,6 +46,9 @@ class GameManager {
   }
 
   deleteGame(gameID: string): void {
+    const game = this.getGame(gameID);
+    if (!game) return;
+    game.stop();
     this.games = this.games.filter((game) => game.gameID !== gameID);
   }
 
@@ -67,7 +74,6 @@ class GameManager {
       boardSize: game.boardSize,
       nbPlayersMax: game.nbPlayersMax,
       isPrivate: game.isPrivate,
-      invitationCode: game.invitationCode,
       alivePlayersCount: game.alivePlayersCount,
       connectedPlayersCount: game.connectedPlayersCount,
     }));

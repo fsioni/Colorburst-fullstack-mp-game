@@ -1,7 +1,7 @@
 .name-container {
   padding: 1% 1% 1% 1%;
   display: flex;
-  width: 80%;
+  width: 60%;
   margin-bottom: 6%;
   min-width: 200px;
 }
@@ -14,7 +14,7 @@
 }
 
 .name-input {
-  width: 50%;
+  width: 40%;
   padding: 3.6%;
   font-size: 14px;
   border-radius: 5px;

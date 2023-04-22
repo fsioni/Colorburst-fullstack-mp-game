@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import { getAuth } from "firebase/auth";
 import app from "../../Firebase";
 import { Buffer } from "buffer";
+import { get } from "http";
 
 const Socketorigin =
   window.location.origin.split(":")[0] +
@@ -65,6 +66,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.cameras.main.setZoom(0.2);
     this.initVolumeControl();
+    this.initGamePassword();
   }
 
   // Met a jour la position des joueurs
@@ -183,6 +185,12 @@ export default class GameScene extends Phaser.Scene {
     this.socket.on("playersPositions", this.updatePlayerPos.bind(this));
     this.socket?.on("gameUpdated", this.tickGame.bind(this));
     this.socket?.on("leaderBoard", this.updateLeaderBoard.bind(this));
+    this.socket?.on("wrongPassword", () => {
+      localStorage.removeItem("gameId");
+      alert("Wrong password");
+      //   Reload
+      window.location.reload();
+    });
   }
 
   initVolumeControl() {
@@ -223,5 +231,12 @@ export default class GameScene extends Phaser.Scene {
       setTimeout(() => this.player?.setIsAudioMuted(soundState), 100);
     else this.player?.setIsAudioMuted(soundState);
     return isMuted;
+  }
+
+  initGamePassword() {
+    const gameID = localStorage.getItem("gameId") || "default";
+    const gamePassword = document.getElementById("gamePassword");
+    if (!gamePassword) return;
+    gamePassword.textContent = "Password : " + gameID;
   }
 }

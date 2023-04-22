@@ -66,3 +66,12 @@
   text-shadow: 1px 1px 1px rgba(255, 0, 0, 0.5);
   font-size: 17px;
 }
+
+@media screen and (max-width: 1060px) {
+  .submit-container {
+    flex-direction: row;
+    width: 50%;
+    padding: 4.5%;
+    margin-top: 5%;
+  }
+}
