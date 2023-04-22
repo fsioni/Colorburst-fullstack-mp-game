@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import Phaser, { Game } from "phaser";
 import Player from "../gameObjects/Player";
 import Board from "../gameObjects/Board";
 import io from "socket.io-client";
@@ -24,6 +24,8 @@ export default class GameScene extends Phaser.Scene {
     //get  value from localStorage selectedSkin as number
     const selectedSkin = Number(localStorage.getItem("selectedSkin")) || 0;
     const gameID = localStorage.getItem("gameId") || "default";
+    const password = localStorage.getItem("gamePassword") || "default";
+    console.log("PASSWORD : " + password);
 
     console.log("Player skin number " + selectedSkin);
     getAuth(app)
@@ -37,6 +39,7 @@ export default class GameScene extends Phaser.Scene {
           query: {
             playerSkin: selectedSkin,
             gameID: gameID,
+            password: password,
           },
         });
       });
@@ -234,9 +237,11 @@ export default class GameScene extends Phaser.Scene {
   }
 
   initGamePassword() {
-    const gameID = localStorage.getItem("gameId") || "default";
+    const gamePass = localStorage.getItem("gamePassword");
     const gamePassword = document.getElementById("gamePassword");
     if (!gamePassword) return;
-    gamePassword.textContent = "Password : " + gameID;
+    gamePassword.textContent = !gamePass
+      ? "No Password"
+      : "Password : " + gamePass;
   }
 }

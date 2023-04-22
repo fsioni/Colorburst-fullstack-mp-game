@@ -23,8 +23,9 @@ gameRouteur
         isPrivate: req.body.isPrivate,
       };
       gameManager.createGame(settings);
-      res.json({ roomId: settings.roomId });
-      console.log(settings.roomId);
+      const password = gameManager.getGame(settings.roomId)?.password;
+      console.log("Mot de pass du back :" + password);
+      res.json({ roomId: settings.roomId, roomPass: password });
     }
   );
 

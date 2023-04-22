@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
     const game = gameManager.getGame(gameID);
     if (game) {
       console.log("Game found, joining game");
-      game.join(socket);
+      game.join(socket, password);
     } else {
       console.log("Game not found, joining default game");
       gameManager.defaultGame.join(socket);
