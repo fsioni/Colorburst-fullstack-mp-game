@@ -249,6 +249,7 @@ export default class Game {
     disconnected = false
   ): void {
     player.gameStats.Add(Stats.KILLED, 1);
+    player.gameStats.Add(Stats.HIGHEST_SCORE, player.scoreTotal);
     player.socket.emit("gameOver");
     player.isAlive = false;
     player.outOfHisTerritory = false;
@@ -259,6 +260,7 @@ export default class Game {
     if (killer && killer.id !== player.id) {
       const getKilledScoreRatio = 0.1;
       killer.score += player.scoreTotal * getKilledScoreRatio;
+      killer.gameStats.Add(Stats.HIGHEST_SCORE, killer.scoreTotal);
       killer.gameStats.Add(Stats.KILL, 1);
       killer.socket.emit("kill");
     }
@@ -319,7 +321,7 @@ export default class Game {
       // Save stats
       player.gameStats.Add(Stats.BLOCK_CAPTURED, 23);
       player.gameStats.Add(Stats.BLOCK_TRAVELLED, 43);
-      saveUserStats(player.token, player.gameStats, docName);
+      saveUserStats(player.token, player.pseudo, player.gameStats, docName);
     });
   }
 
