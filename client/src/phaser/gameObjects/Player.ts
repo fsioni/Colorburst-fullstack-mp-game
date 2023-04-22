@@ -90,6 +90,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.handleRotation(delta);
   }
 
+  removeText() {
+    this.playerText.destroy();
+  }
+
   handleSocketEvents() {
     if (this.socket) {
       this.socket?.on("kill", () => {

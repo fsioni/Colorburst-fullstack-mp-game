@@ -99,6 +99,7 @@ export default class GameScene extends Phaser.Scene {
       );
 
       if (!dataPlayer) {
+        player.removeText();
         player.destroy();
         this.players = this.players.filter((p: Player) => p.id !== player.id);
         return;
