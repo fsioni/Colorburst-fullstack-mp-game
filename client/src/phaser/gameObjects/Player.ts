@@ -49,7 +49,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     _socket: Socket | null = null
   ) {
     super(scene, 0, 0, "playerHeads");
-
+    // On mute tout les sons
+    this.setIsAudioMuted(true);
     this.board = board;
 
     this.color = color;
