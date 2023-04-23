@@ -241,8 +241,14 @@ export default class GameScene extends Phaser.Scene {
     const gamePass = localStorage.getItem("gamePassword");
     const gamePassword = document.getElementById("gamePassword");
     if (!gamePassword) return;
-    gamePassword.textContent = !gamePass
-      ? "No Password"
-      : "Password : " + gamePass;
+
+    console.log("Le mot de passe du jeu public est-il défini ? " + gamePass);
+
+    if (gamePass !== "undefined") {
+      gamePassword.textContent = "Password: " + gamePass;
+      gamePassword.style.display = "block";
+    } else {
+      gamePassword.style.display = "none";
+    }
   }
 }
