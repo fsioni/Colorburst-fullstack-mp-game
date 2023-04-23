@@ -48,7 +48,7 @@ export default class Board {
   handleSocketEvents() {
     this.socket.on("map", (data: [[null | [string, string] | [string]]]) => {
       const packetSize = Buffer.byteLength(JSON.stringify(data));
-      console.log(`[map] Packet size: ${packetSize} bytes`);
+      //   console.log(`[map] Packet size: ${packetSize} bytes`);
       for (let i = 0; i < data.length; i++) {
         for (let j = 0; j < data[i].length; j++) {
           const cell = data[i][j];
