@@ -190,6 +190,8 @@ export default class GameScene extends Phaser.Scene {
     this.socket?.on("gameUpdated", this.tickGame.bind(this));
     this.socket?.on("leaderBoard", this.updateLeaderBoard.bind(this));
     this.socket?.on("wrongPassword", () => {
+      // On clear le local storage
+      localStorage.removeItem("gamePassword");
       localStorage.removeItem("gameId");
       alert("Wrong password");
       //   Reload
