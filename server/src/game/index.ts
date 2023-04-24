@@ -5,6 +5,7 @@ import Cell from "./cell";
 import { playerPosition, Settings, CreateGameSettings } from "./interfaces";
 import { getUserPseudo, saveUserStats } from "../database";
 import { Stats } from "../enums/Stats";
+import { promises } from "dns";
 
 const skinsCount = 33;
 
@@ -90,6 +91,8 @@ export default class Game {
 
   async join(playerSocket: Socket, password?: string): Promise<void> {
     if (this.isPrivate && this.password !== password) {
+      // On attend une seconde pour éviter le message parte dans le néant
+      await new Promise((r) => setTimeout(r, 1000));
       playerSocket.emit("wrongPassword");
       return;
     }

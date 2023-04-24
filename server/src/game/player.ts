@@ -12,7 +12,7 @@ export default class Player {
   position = { x: 0, y: 0 } as playerPosition;
   gameStats: PlayerGameStats;
   color = 0;
-  score = 0;
+  score = 25;
   territoryScore = 0;
   isAlive = false;
   socket: Socket;

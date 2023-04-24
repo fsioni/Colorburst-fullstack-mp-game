@@ -77,7 +77,7 @@ export default class GameScene extends Phaser.Scene {
     data: { playerID: string; x: number; y: number; direction: number }[]
   ) {
     const packetSize = Buffer.byteLength(JSON.stringify(data));
-    console.log(`[playersPositions] Packet size: ${packetSize} bytes`);
+    // console.log(`[playersPositions] Packet size: ${packetSize} bytes`);
     if (this.player?.id) {
       const dataThisPlayer = data.find(
         (p: { playerID: string }) => p.playerID === this.player?.id
@@ -120,7 +120,7 @@ export default class GameScene extends Phaser.Scene {
   // Met a jour la liste des joueurs
   updatePlayerList(data: { id: string; pseudo: string; color: number }[]) {
     const packetSize = Buffer.byteLength(JSON.stringify(data));
-    console.log(`[playersList] Packet size: ${packetSize} bytes`);
+    // console.log(`[playersList] Packet size: ${packetSize} bytes`);
 
     data.forEach((p) => {
       const playerFound = this.players.find(
@@ -190,6 +190,8 @@ export default class GameScene extends Phaser.Scene {
     this.socket?.on("gameUpdated", this.tickGame.bind(this));
     this.socket?.on("leaderBoard", this.updateLeaderBoard.bind(this));
     this.socket?.on("wrongPassword", () => {
+      // On clear le local storage
+      localStorage.removeItem("gamePassword");
       localStorage.removeItem("gameId");
       alert("Wrong password");
       //   Reload
@@ -232,7 +234,7 @@ export default class GameScene extends Phaser.Scene {
     const soundState = isMuted ? false : true;
     //wait for the player to be created
     if (!this.player)
-      setTimeout(() => this.player?.setIsAudioMuted(soundState), 100);
+      setTimeout(() => this.player?.setIsAudioMuted(soundState), 1000);
     else this.player?.setIsAudioMuted(soundState);
     return isMuted;
   }
@@ -241,8 +243,14 @@ export default class GameScene extends Phaser.Scene {
     const gamePass = localStorage.getItem("gamePassword");
     const gamePassword = document.getElementById("gamePassword");
     if (!gamePassword) return;
-    gamePassword.textContent = !gamePass
-      ? "No Password"
-      : "Password : " + gamePass;
+
+    console.log("Le mot de passe du jeu public est-il défini ? " + gamePass);
+
+    if (gamePass !== "undefined") {
+      gamePassword.textContent = "Password: " + gamePass;
+      gamePassword.style.display = "block";
+    } else {
+      gamePassword.style.display = "none";
+    }
   }
 }
