@@ -109,3 +109,8 @@ You can find our [Trello Board](https://trello.com/b/XCikFmZT/elcrawlavers).
 - [Julien Ballouard](https://forge.univ-lyon1.fr/p2006861) : p2006861
 - [Farès SIONI](https://forge.univ-lyon1.fr/p1907037) : p1907037
 - [Edouard THINOT](https://forge.univ-lyon1.fr/p1909945) : p1909945
+
+## Screenshots
+
+![UI Screen](screenshot1.png)
+![Game Screen](screenshot2.png)
