@@ -24,7 +24,6 @@ gameRouteur
       };
       gameManager.createGame(settings);
       const password = gameManager.getGame(settings.roomId)?.password;
-      console.log("Mot de pass du back :" + password);
       res.json({ roomId: settings.roomId, roomPass: password });
     }
   );

@@ -39,7 +39,7 @@ const saveUser = async (playerId: string, pseudo: string) => {
     await usersRef.doc(playerId).set({});
     await usersRef.doc(playerId).update({
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      displayName: user.displayName,
+      displayName: user.displayName || "Anonymous",
       uid: playerId,
     });
   } else {

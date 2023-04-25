@@ -67,13 +67,13 @@ const singleRoom: FC<Props> = ({
   }, [username]);
 
   const onJoinClick = () => {
-    console.log("OK");
     if (!user) {
       setIsConnectionModalOpen(true);
       return;
     }
     if (!isPrivate) {
       localStorage.setItem("gameId", gameID);
+      localStorage.setItem("gamePassword", "undefined");
       setIsGameStarted(true);
     }
     setJoinModalOpen(true);
