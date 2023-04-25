@@ -26,7 +26,7 @@ const io: socketio.Server = new socketio.Server(server, {
 // Creation of the instance GameManager
 export const gameManager = new GameManager(io);
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   // Join the game
   console.log("New player connected");
 
@@ -36,6 +36,8 @@ io.on("connection", (socket) => {
 
   if (!gameID || gameID == "default") {
     gameManager.defaultGame.join(socket, password);
+    await new Promise((r) => setTimeout(r, 1000));
+    socket.emit("noGamePass");
   } else {
     const game = gameManager.getGame(gameID);
     if (game) {
@@ -44,6 +46,9 @@ io.on("connection", (socket) => {
     } else {
       console.log("Game not found, joining default game");
       gameManager.defaultGame.join(socket);
+      // On attend une seconde pour éviter le message parte dans le néant
+      await new Promise((r) => setTimeout(r, 1000));
+      socket.emit("noGamePass");
     }
   }
 });

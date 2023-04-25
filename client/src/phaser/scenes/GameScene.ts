@@ -197,6 +197,16 @@ export default class GameScene extends Phaser.Scene {
       //   Reload
       window.location.reload();
     });
+
+    this.socket?.on("noGamePass", () => {
+      console.log("game not found");
+      localStorage.removeItem("gamePassword");
+      localStorage.removeItem("gameId");
+      // this.initGamePassword();
+      const gamePassword = document.getElementById("gamePassword");
+      if (!gamePassword) return;
+      gamePassword.style.display = "none";
+    });
   }
 
   initVolumeControl() {
@@ -243,7 +253,7 @@ export default class GameScene extends Phaser.Scene {
     const gamePass = localStorage.getItem("gamePassword");
     const gamePassword = document.getElementById("gamePassword");
     if (!gamePassword) return;
-
+    console.log(gamePass);
     console.log("Le mot de passe du jeu public est-il défini ? " + gamePass);
 
     if (gamePass !== "undefined") {
