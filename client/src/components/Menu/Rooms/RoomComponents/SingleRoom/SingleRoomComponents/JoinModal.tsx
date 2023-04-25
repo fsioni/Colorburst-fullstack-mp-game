@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 
 interface Props {
+  gameID: string;
   gamePassword: string;
   setJoinModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setGamePassword: React.Dispatch<React.SetStateAction<string>>;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const JoinModal: FC<Props> = ({
+  gameID,
   gamePassword,
   setJoinModalOpen,
   setGamePassword,
@@ -28,6 +30,8 @@ const JoinModal: FC<Props> = ({
 
   const onJoinCLick = () => {
     localStorage.setItem("gamePassword", gamePassword);
+    localStorage.setItem("gameId", gameID);
+
     setIsGameStarted(true);
   };
 
