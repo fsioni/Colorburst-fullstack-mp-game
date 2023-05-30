@@ -9,6 +9,10 @@
     <br>
 </p>
 
+## Final Grade
+
+📝 18/20 : top of promotion 🙌
+
 ## 🧐 About
 
 In this io game, the world is your canvas. Explore the 2D environment and cover it with your color to expand your territory. Be on the lookout for opponents trying to do the same! Eliminate your enemies and become the ultimate paint champion in this fast-paced game.
