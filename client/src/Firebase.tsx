@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 
 import "firebase/compat/auth";
 const firebaseConfig = {
-  apiKey: "AIzaSyDBWQ3dMJYZ_lvox0igPKUVTMRPlhB4NiI",
+  apiKey: "AIzaSyDBWQ3dMJYZ_lvox0igPKUVTMRPlhB4NiI", // the key was deleted ;)
   authDomain: "colorburst-5f1ed.firebaseapp.com",
   projectId: "colorburst-5f1ed",
   storageBucket: "colorburst-5f1ed.appspot.com",
